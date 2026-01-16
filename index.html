@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WEBCOMICONLINE.COM - WELCOME!!!</title>
+  <style>
+    /* =========================================
+       CSS VARIABLES
+       ========================================= */
+    :root {
+      --color-bg-black: #000000;
+      --color-bg-gray: #c0c0c0;
+      --color-bg-white: #ffffff;
+      --color-border-black: #000000;
+      --color-text-red: #ff0000;
+      --color-text-yellow: #ffff00;
+      --color-text-blue: #0000FF;
+      --color-text-lime: #00ff00;
+      --color-link-visited: #551A8B;
+      --font-serif: 'Times New Roman', serif;
+      --font-mono: 'Courier New', monospace;
+      --font-comic: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+      --border-win95: 2px outset white;
+      --border-inset: 2px inset #eee;
+    }
+
+    /* =========================================
+       GLOBAL STYLES & ASSETS
+       ========================================= */
+    body {
+      background-color: var(--color-bg-black);
+      font-family: var(--font-serif);
+      background-image: url('https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/em+bash.bmp');
+      background-repeat: repeat;
+      margin: 0;
+      padding: 0;
+      color: black;
+      overflow-x: hidden;
+    }
+
+    /* CURSOR OVERRIDE CLASS */
+    body.rat-mode,
+    body.rat-mode * {
+      cursor: url('https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/deadrat.gif'), auto !important;
+    }
+
+    a {
+      color: var(--color-text-blue);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    a:visited { color: var(--color-link-visited); }
+    a:hover { background-color: yellow; }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      background: var(--color-bg-gray);
+      border-bottom: 3px solid black;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 5px;
+      font-size: 2em;
+      color: var(--color-text-red);
+      text-shadow: 2px 2px var(--color-text-yellow);
+    }
+
+    .marquee {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      background: black;
+      color: var(--color-text-lime);
+      font-family: monospace;
+    }
+
+    .header button,
+    .header .menu-link-btn {
+      background: var(--color-bg-gray);
+      border: var(--border-win95);
+      font-family: var(--font-mono);
+      font-weight: bold;
+      padding: 5px 10px;
+      margin: 0 10px;
+      cursor: pointer;
+      text-decoration: none;
+      color: black;
+      font-size: 13px;
+      display: inline-block;
+    }
+    .header button:active,
+    .header .menu-link-btn:active {
+      border-style: inset;
+    }
+
+    .container {
+      width: 900px;
+      margin: 0 auto;
+      border: 2px solid black;
+      padding: 10px;
+      background: white;
+      position: relative;
+      min-height: 600px;
+      transition: width 0.5s;
+    }
+
+    #main-display {
+      width: 100%;
+      height: 100%;
+    }
+
+    .columns {
+      display: flex;
+      gap: 20px;
+    }
+
+    /* Left Col: Comics */
+    .col-left {
+      flex: 1;
+      border: 1px dashed gray;
+      padding: 10px;
+      background: #f0f0f0;
+    }
+
+    /* Right Col: Construction / Dating Sim */
+    .col-right {
+      flex: 1;
+      border: 4px ridge #ff00ff;
+      padding: 0;
+      background: var(--color-bg-black);
+      overflow: hidden;
+      position: relative;
+      min-height: 500px;
+    }
+
+    .comic-entry {
+      margin-bottom: 25px;
+      border-bottom: 1px solid #999;
+      padding-bottom: 10px;
+    }
+    .comic-date-link {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: blue;
+    }
+    .comic-desc {
+      font-size: 0.9em;
+      margin-top: 5px;
+      color: black;
+      line-height: 1.4;
+    }
+
+    /* TRUMPO BOX STYLES */
+    .trumpo-box {
+      width: 100%;
+      height: 150px;
+      border: 2px solid black;
+      margin-top: 10px;
+      background: var(--color-bg-black);
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .trumpo-box img,
+    .trumpo-box video {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
+
+    .ad-banner {
+      width: 100%;
+      height: 60px;
+      background: red;
+      color: yellow;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      border: 3px double white;
+      margin-bottom: 10px;
+      animation: blink 1s infinite;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      z-index: 10;
+    }
+    @keyframes blink {
+      50% {
+        opacity: 0.5;
+        background: blue;
+      }
+    }
+
+    .sidebar-junk {
+      position: absolute;
+      right: -140px;
+      top: 50px;
+      width: 120px;
+      text-align: center;
+    }
+
+    /* WINAMP PLAYER STYLES */
+    .media-player {
+      width: 200px;
+      height: 100px;
+      background: var(--color-bg-black);
+      border: var(--border-inset);
+      margin: 20px auto;
+      color: var(--color-text-lime);
+      font-family: monospace;
+      padding: 5px;
+      text-align: left;
+      font-size: 10px;
+      user-select: none;
+    }
+    .winamp-btn {
+      cursor: pointer;
+      display: inline-block;
+      padding: 0 2px;
+    }
+    .winamp-btn:hover { background: #222; }
+    .winamp-btn:active { background: #555; }
+    .loading-bar {
+      width: 10%;
+      height: 5px;
+      background: var(--color-text-lime);
+      animation: load 5s infinite;
+    }
+    @keyframes load {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    /* =========================================
+       DATING SIM STYLES (EMBEDDED)
+       ========================================= */
+    #dating-container {
+      width: 100%;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      background-image: url('https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/dating_bg.jpg');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      image-rendering: pixelated;
+      font-family: var(--font-comic);
+      position: relative;
+    }
+
+    #dating-header {
+      background: #ff1493;
+      color: yellow;
+      padding: 5px;
+      font-weight: bold;
+      border-bottom: 3px solid var(--color-bg-black);
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    #dating-scene {
+      flex: 1;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* RADAR VIDEO OVERLAY */
+    #radar-overlay {
+      position: absolute;
+      bottom: 25px;
+      right: 18px;
+      width: 180px;
+      height: 150px;
+      z-index: 5;
+      mix-blend-mode: screen;
+      opacity: 0.9;
+    }
+
+    /* SELECTION SCREEN (Competition) */
+    #selection-screen {
+      display: none;
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .contestant-row {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    .contestant-card {
+      width: 100px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid var(--color-bg-black);
+      transition: transform 0.2s;
+      position: static;
+    }
+    .contestant-card:hover {
+      transform: scale(1.1);
+      background: #fff;
+      z-index: 50;
+      border-color: red;
+    }
+
+    /* GLOBAL TOOLTIP (The Fix) */
+    #global-tooltip {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 450px;
+      max-width: 90vw;
+      border: 4px ridge gold;
+      background: var(--color-bg-black);
+      box-shadow: 0 0 50px rgba(0,0,0,0.8);
+      z-index: 99999;
+      pointer-events: none;
+    }
+    #global-tooltip img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .contestant-img {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      image-rendering: pixelated;
+      margin: 5px;
+    }
+    .contestant-name {
+      font-size: 10px;
+      font-weight: bold;
+      background: black;
+      color: white;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ACTIVE DATE SCREEN */
+    #date-screen {
+      display: none;
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .portrait-frame {
+      width: 200px;
+      height: 200px;
+      border: 4px ridge gold;
+      background: #fff;
+      margin-bottom: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #active-portrait {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      image-rendering: pixelated;
+    }
+
+    .dialogue-box {
+      width: 90%;
+      background: white;
+      border: 3px solid black;
+      padding: 8px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: blue;
+      min-height: 50px;
+    }
+
+    .choice-btn {
+      width: 95%;
+      background: #00ff00;
+      border: 2px outset #00cc00;
+      padding: 5px;
+      margin-bottom: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: bold;
+      text-align: left;
+      font-size: 12px;
+    }
+    .choice-btn:hover {
+      background: #adff2f;
+      color: red;
+    }
+
+    /* CONSTRUCTION PLACEHOLDER */
+    #construction-sign {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    /* POPUP WINDOWS */
+    #about-window {
+      position: fixed;
+      top: 20%;
+      left: 20%;
+      width: 600px;
+      height: 400px;
+      background: var(--color-bg-gray);
+      border: 3px outset var(--color-bg-white);
+      box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+      display: none;
+      z-index: 9999;
+      font-family: Arial, sans-serif;
+    }
+    .win-header {
+      background: navy;
+      color: white;
+      padding: 2px 5px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+    }
+    .win-close {
+      background: var(--color-bg-gray);
+      color: black;
+      border: 1px outset #fff;
+      cursor: pointer;
+      padding: 0 5px;
+    }
+    .win-body {
+      display: flex;
+      padding: 10px;
+      gap: 10px;
+      height: 340px;
+    }
+    .about-text {
+      flex: 1;
+      text-align: left;
+      font-size: 0.9rem;
+      overflow-y: auto;
+    }
+
+    .about-video-crop {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      border: 2px inset black;
+      background: black;
+    }
+    .about-video-crop video {
+      position: absolute;
+      top: 10px;
+      left: -50%;
+      width: 200%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .crawler-wrap {
+      position: relative;
+      float: left;
+      width: 110px;
+      margin-right: 5px;
+      border: 1px solid red;
+    }
+    .crawler-wrap video {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .ants-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      opacity: 0.95;
+      mix-blend-mode: multiply;
+    }
+
+    /* BOSS OVERLAY */
+    #boss-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 9999;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .boss-text {
+      position: absolute;
+      font-family: "Arial Black", "Impact", sans-serif;
+      color: transparent;
+      -webkit-text-stroke: 2px #ff00ff;
+      text-transform: uppercase;
+      white-space: nowrap;
+      opacity: 0.8;
+      animation: neon-pulse 0.2s infinite alternate;
+      will-change: text-shadow, opacity;
+    }
+    @keyframes neon-pulse {
+      from {
+        text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+      }
+      to {
+        text-shadow: 0 0 2px #00ffff, 0 0 5px #00ffff, 0 0 10px #00ffff;
+        -webkit-text-stroke: 2px #00ffff;
+      }
+    }
+
+    /* TONY COLLAGE */
+    #tony-collage {
+      display: none;
+      position: fixed;
+      top: 5%;
+      left: 5%;
+      width: 900px;
+      height: 750px;
+      background-color: #110011;
+      border: 6px ridge #800080;
+      z-index: 10001;
+      overflow: hidden;
+      box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.8);
+      font-family: "Impact", sans-serif;
+    }
+    #tony-collage .win-header {
+      background: #800080;
+      color: #00ff00;
+      border-bottom: 2px solid white;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+    .collage-body {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(45deg, #222, #222 10px, #333 10px, #333 20px);
+    }
+
+    .collage-layer {
+      position: absolute;
+      transition: transform 0.2s, z-index 0s;
+      cursor: grab;
+    }
+    .collage-layer:hover {
+      transform: scale(1.1) rotate(0deg) !important;
+      z-index: 100;
+      border: 2px dashed #00ff00;
+    }
+
+    .c-overlay-gif {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60%;
+      height: 100%;
+      border: none;
+      z-index: 55;
+      opacity: 0.8;
+      object-fit: cover;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+    .c-gif-frame {
+      top: 20px;
+      left: 50px;
+      width: 500px;
+      height: 400px;
+      border: 4px solid white;
+      z-index: 5;
+      background: white;
+      transform: rotate(5deg);
+    }
+    .c-jpg-plaque {
+      top: 180px;
+      left: 80px;
+      width: 450px;
+      height: auto;
+      z-index: 10;
+      border: 3px dashed magenta;
+      transform: rotate(-5deg);
+    }
+    .c-jpg-shower {
+      top: 30px;
+      right: 80px;
+      width: 350px;
+      height: auto;
+      z-index: 15;
+      border: 4px dotted lime;
+      transform: rotate(8deg);
+      box-shadow: 0 0 15px lime;
+    }
+    .c-video-mov {
+      top: 100px;
+      left: 300px;
+      width: 400px;
+      height: auto;
+      border: 5px solid cyan;
+      z-index: 30;
+      transform: rotate(-10deg);
+      box-shadow: 0 0 20px cyan;
+      mix-blend-mode: normal;
+    }
+    .c-text-overlay {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      color: white;
+      font-size: 60px;
+      text-shadow: 4px 4px #ff00ff;
+      z-index: 60;
+      pointer-events: none;
+      animation: flash 0.1s infinite alternate;
+    }
+    @keyframes flash {
+      from { opacity:1; }
+      to { opacity:0.2; }
+    }
+
+    /* VICTORY POPUP */
+    #victory-popup {
+      display: none;
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      background: black;
+      z-index: 10000;
+      border: none;
+      box-shadow: none;
+    }
+    #victory-popup .win-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10002;
+      background: rgba(0,0,128,0.8);
+    }
+    #victory-popup video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    #victory-marquee-container {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+    }
+
+    #victory-marquee-text {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      font-family: "Courier New", monospace;
+      font-size: 32px;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 0 #000, -1px -1px 0 #000;
+      line-height: 1.5;
+      transform: translateY(100vh);
+      animation: victory-scroll-up 25s linear infinite;
+      will-change: transform;
+    }
+
+    @keyframes victory-scroll-up {
+      from { transform: translateY(100vh); }
+      to { transform: translateY(-150%); }
+    }
+
+    .emoji-link {
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1.5em;
+      margin: 0 2px;
+    }
+    .emoji-link:hover { text-shadow: 0 0 5px red; }
+
+    .hidden-kiss {
+      color: magenta;
+      text-decoration: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      cursor: default;
+      font-size: 1.2em;
+    }
+    .hidden-kiss:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="marquee">WELCOME TO THE DARK SOULS OF THE INTERNET *** UPDATED DAILY *** SIGN GUESTBOOK</div>
+    <br>
+    <h1><a href="index.html">Congratulations! YOuve found webcomiconline.com!!!</a></h1>
+    <p>You are now on the old internet, which is sort of the dark souls of the internet</p>
+
+    <button onclick="document.getElementById('about-window').style.display='block'">OPEN "ABOUT_ME.EXE"</button>
+    <button onclick="loadGuestbook()">OPEN "GUESTBOOK.EXE"</button>
+    <a href="videos/hospice/thomnicholsadams.html" class="menu-link-btn" style="color:red;">[ PATIENT INTAKE ]</a>
+  </div>
+
+  <div class="container" id="main-container">
+    <div class="ad-banner" id="banner-text" onclick="fakePrizePopup()">
+      CONGRATS YOU ARE THE 999,999th VISITOR!!! CLICK TO CLAIM PRIZE
+    </div>
+
+    <div id="main-display">
+      <div class="columns">
+
+        <div class="col-left">
+
+          <div class="comic-entry">
+             <a href="videos/hospice/thomnicholsadams.html" class="comic-date-link" style="color:red; text-decoration:none;">
+               web comic 01/14/2026: at wit's hospice
+             </a>
+             <div style="margin-top:10px; border:4px outset #ccc;">
+               <img src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/scottcoverphoto.png" style="width:100%; display:block;" alt="Scott Adams Tribute">
+             </div>
+             <p class="comic-desc" style="font-weight:bold; font-family:Courier New, monospace;">
+               in hindsight Scott Adams was cutting edge
+             </p>
+          </div>
+
+          <div class="comic-entry" style="background: #fff0f5; border: 2px inset #ff00ff; padding: 10px;">
+             <a href="videos/elevator/elevator out of hell.html" class="comic-date-link" style="color:#cc00cc;">
+               web comic 01/07/2026: Elevator Out of Hell
+             </a>
+             <p class="comic-desc">
+               and my gums begin to bleed and the plaque gets in the blood and the blood goes to my brain i swear
+
+               <span style="white-space: nowrap; display: inline-block; vertical-align: middle;">
+                 <span class="emoji-link" onclick="openTonyPopup(false)">❓</span><span class="emoji-link" onclick="openTonyPopup(true)">❓</span><span class="emoji-link" onclick="openTonyPopup(false)">❓</span>
+               </span>
+             </p>
+          </div>
+
+          <div class="comic-entry">
+            <a href="videos/pixel/pixelsickness010322026.html" class="comic-date-link">
+              web comic 01/03/2026: pixel sickness
+            </a>
+            <p class="comic-desc">
+              you awake in outside a confused room. the walls are like curtains, you clip right thru.
+              an ominous pillar in one corner of the room slows your vision as your gaze passes over it.
+              you press to the left and move rightward. there are aunties everywhere. r u drunk?
+              <span class="emoji-link" onclick="openVictoryPopup()">🐜😵‍💫</span>
+              <a href="videos/pixel/pixelsickness010322026-thinclient.html" class="hidden-kiss" title="Thin Client Access">💋</a>
+            </p>
+          </div>
+
+          <div class="comic-entry">
+            <div class="trumpo-box">
+                <img id="trumpo-img" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/trumpo.gif" alt="prophecy" onclick="playTrumpoVideo()">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right" id="right-column">
+
+          <div id="construction-sign">
+            <img src="https://web.archive.org/web/20090830202604/http://geocities.com/Heartland/Plains/8636/under_construction_animated.gif" alt="Construction">
+            <p>MORE CONTENT LOADING...</p>
+          </div>
+
+          <div id="dating-container">
+            <div id="dating-header">
+                ❤️ LOVE_CONNEXION.EXE ❤️ <span style="float:right; cursor:pointer" onclick="closeDatingSim()">[X]</span>
+            </div>
+
+            <div id="dating-scene">
+                <div id="global-tooltip">
+                    <img id="tooltip-img" src="" alt="">
+                </div>
+
+                <video id="radar-overlay" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/radar.mp4" autoplay loop muted playsinline></video>
+
+                <div id="selection-screen">
+                    <div style="background:white; padding:5px; border:2px solid black; margin-bottom:15px; text-align:center;">
+                        SCANNING MINNEAPOLIS...<br>3 MATCHES FOUND. CHOOSE FATE:
+                    </div>
+                    <div class="contestant-row">
+                        <div class="contestant-card"
+                             onclick="handleCardClick('gary')"
+                             onmouseover="handleCardHover('gary')"
+                             onmouseout="hideTooltip()">
+                            <img src="data:image/svg+xml;utf8,<svg width='250' height='250' viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'><rect width='250' height='250' fill='white'/><rect x='10' y='10' width='230' height='230' fill='yellow' stroke='black' stroke-width='5'/><text x='125' y='180' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='180' fill='black'>?</text></svg>" class="contestant-img" alt="Bachelor 1">
+                            <div class="contestant-name">BACHELOR #1</div>
+                        </div>
+
+                        <div class="contestant-card"
+                             onclick="handleCardClick('harpy')"
+                             onmouseover="handleCardHover('harpy')"
+                             onmouseout="hideTooltip()">
+                            <img src="data:image/svg+xml;utf8,<svg width='250' height='250' viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'><rect width='250' height='250' fill='white'/><rect x='10' y='10' width='230' height='230' fill='yellow' stroke='black' stroke-width='5'/><text x='125' y='180' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='180' fill='black'>?</text></svg>" class="contestant-img" alt="Bachelorette 2">
+                            <div class="contestant-name">BACHELORETTE #2</div>
+                        </div>
+
+                        <div class="contestant-card"
+                             onclick="handleCardClick('ants')"
+                             onmouseover="handleCardHover('ants')"
+                             onmouseout="hideTooltip()">
+                            <img src="data:image/svg+xml;utf8,<svg width='250' height='250' viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'><rect width='250' height='250' fill='white'/><rect x='10' y='10' width='230' height='230' fill='yellow' stroke='black' stroke-width='5'/><text x='125' y='180' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='180' fill='black'>?</text></svg>" class="contestant-img" alt="The Hive">
+                            <div class="contestant-name">THE HIVE</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="date-screen">
+                    <div class="portrait-frame">
+                        <img id="active-portrait" src="" alt="">
+                    </div>
+                    <div id="dialogue-text" class="dialogue-box">...</div>
+                    <div id="choice-container" style="width:100%"></div>
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-junk">
+      <div style="background:yellow; border:1px solid black; padding:5px; margin-bottom:10px; cursor:pointer;" onclick="initDatingSim()">
+        <img src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/hot_single.png" style="width:100%; display:block; margin-bottom:5px; border:1px solid black;" alt="Hot Single">
+        <p style="font-size:10px; margin:0; font-weight:bold;">HOT SINGLES IN MINNEAPOLIS</p>
+      </div>
+
+      <div class="media-player" id="winamp">
+        WINAMP v2.0<br>
+        <span class="winamp-btn" onclick="winampPlay()">[PLAY]</span>
+        <span class="winamp-btn" onclick="winampStop()">[STOP]</span>
+        <span class="winamp-btn" onclick="winampEject()">[EJECT]</span>
+        <br><br>
+        Track: <span id="winamp-track">Linkin_Park_Numb.exe</span><br>
+        <span id="winamp-status">Buffering...</span><br>
+        <div class="loading-bar"></div>
+        <div id="winamp-error">ERROR: CODEC MISSING</div>
+      </div>
+      <audio id="site-audio" preload="auto" playsinline></audio>
+      <audio id="secret-audio" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/VideoLibrary/elevator+out+of+hell/911_ems_citywide01.mp3" preload="none" loop></audio>
+    </div>
+
+    <img src="https://web.archive.org/web/20090829094723/http://geocities.com/Area51/Cavern/5294/images/skull_spin.gif" style="position:absolute; bottom:10px; left:10px; width:40px;" loading="lazy" alt="Skull">
+    <img src="https://web.archive.org/web/20091026214041/http://geocities.com/Area51/Corridor/6308/ufo.gif" style="position:absolute; top:-40px; right:-20px;" loading="lazy" alt="UFO">
+  </div>
+
+  <div id="about-window">
+    <div class="win-header">
+      <span>About webcomiconline.exe</span>
+      <span class="win-close" onclick="document.getElementById('about-window').style.display='none'">X</span>
+    </div>
+    <div class="win-body">
+      <div class="about-text">
+        <h3>Stolen art for a stolen land.</h3>
+        <p>
+          <b>email:</b> <a href="mailto:gricopiipuscles@gmail.com">gricopiipuscles@gmail.com</a><br>
+          <b>venmo:</b> @DadInside<br>
+          <b>OFs:</b>
+          <a href="https://www.irs.gov/filing/free-file-do-your-federal-taxes-for-free" target="_blank" style="text-decoration:none;">https://onlyfans.com/web</a><a href="https://www.youtube.com/watch?v=ZZ5LpwO-An4" target="_blank">coming</a><a href="https://www.irs.gov/filing/free-file-do-your-federal-taxes-for-free" target="_blank" style="text-decoration:none;">online</a>
+        </p>
+        <hr>
+        <p>
+          <div class="crawler-wrap">
+            <video src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/Old+man+wit+2.mp4" autoplay loop muted playsinline preload="none"></video>
+            <img class="ants-overlay" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/ants!.gif" alt="" loading="lazy">
+          </div>
+          dustin cahill is still crawling around down there.
+          <br clear="all">
+        </p>
+        <p style="font-size:0.8em; color:red;">
+          WARNING: This computer is infected with "FUN".
+        </p>
+      </div>
+      <div class="about-video-crop">
+        <video src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/Venmo+tube+3.mp4" autoplay loop muted playsinline preload="none"></video>
+      </div>
+    </div>
+  </div>
+
+  <div id="victory-popup">
+      <div class="win-header">
+          <span>Found All The Secrets</span>
+          <span class="win-close" onclick="closeVictoryPopup()">X</span>
+      </div>
+      <video id="victory-vid" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/accusablurry.mp4" loop playsinline preload="none"></video>
+      <div id="victory-marquee-container">
+          <div id="victory-marquee-text">LOADING WINNERS...</div>
+      </div>
+  </div>
+
+  <div id="boss-overlay"></div>
+
+  <div id="tony-collage">
+    <div class="win-header">
+      <span>BRAIN_PLAQUE_INSTALLER.MSI</span>
+      <span class="win-close" onclick="closeTonyPopup()" style="cursor:pointer; background:red; color:white; font-weight:bold; padding:0 5px;">X [CLOSE]</span>
+    </div>
+    <div class="collage-body">
+
+        <div class="c-text-overlay">WHO'S THE BOSS?</div>
+        <img class="c-overlay-gif" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/VideoLibrary/elevator+out+of+hell/badbreather.gif" loading="lazy" alt="">
+
+        <iframe class="collage-layer c-gif-frame" id="tony-iframe" data-src="https://f005.backblazeb2.com/file/webcomiconline-gallery/VideoLibrary/elevator+out+of+hell/Tony+Danza+80S+GIF+-+Find+%26+Share+on+GIPHY.html" src="about:blank" frameborder="0" scrolling="yes"></iframe>
+
+        <img class="collage-layer c-jpg-plaque" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/VideoLibrary/elevator+out+of+hell/tony+plaque+graphix.JPG" loading="lazy" alt="">
+        <img class="collage-layer c-jpg-shower" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/VideoLibrary/elevator+out+of+hell/tonyshower.jpg" loading="lazy" alt="">
+        <video class="collage-layer c-video-mov" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/VideoLibrary/elevator+out+of+hell/bad+breathe+grphic.MOV" autoplay loop muted playsinline preload="none"></video>
+
+    </div>
+  </div>
+
+  <script>
+    /* =========================================
+       CONSTANTS & CONFIGURATION
+       ========================================= */
+    const SVG_GENERIC_Q = "data:image/svg+xml;utf8,<svg width='250' height='250' viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'><rect width='250' height='250' fill='white'/><rect x='10' y='10' width='230' height='230' fill='yellow' stroke='black' stroke-width='5'/><text x='125' y='180' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='180' fill='black'>?</text></svg>";
+
+    const VICTORY_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTdyDdQ0AaC-XcP8s0wcm5HRr3BKCwHmvYOsHC_dJBhmkaGqoL8iRXxf49YeRDg3Y-SPv6mg1EQk-So/pub?gid=428160570&single=true&output=csv";
+    const PROXY_URL = "https://corsproxy.io/?";
+    const DEFAULT_TRACK_LABEL = "Linkin_Park_Numb.exe";
+
+    const ASSETS = {
+      gary: {
+        who: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/gary_who.png",
+        neutral: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/gary_neutral.jpg",
+        mad1: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/gary_mad1.jpg",
+        mad2: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/gary_mad2.jpg",
+        glitch: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/gary_glitch.png"
+      },
+      harpy: {
+        who: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/harpy_who.png",
+        neutral: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/harpy_neutral.png",
+        blush: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/harpy_blush.png",
+        glitch: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/harpy_neutral_glitch.png"
+      },
+      ants: {
+        who: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/ant_who.png",
+        neutral: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/ant_circle.gif",
+        happy: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/ant_semicircle.gif",
+        buff: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/ant_buff.gif",
+        heart: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/ants_heart.png"
+      }
+    };
+
+    /* =========================================
+       CACHED DOM ELEMENTS
+       ========================================= */
+    const DOM = {
+      bannerText: document.getElementById('banner-text'),
+      mainContainer: document.getElementById('main-container'),
+      mainDisplay: document.getElementById('main-display'),
+      constructionSign: document.getElementById('construction-sign'),
+      datingContainer: document.getElementById('dating-container'),
+      selectionScreen: document.getElementById('selection-screen'),
+      dateScreen: document.getElementById('date-screen'),
+      globalTooltip: document.getElementById('global-tooltip'),
+      tooltipImg: document.getElementById('tooltip-img'),
+      activePortrait: document.getElementById('active-portrait'),
+      dialogueText: document.getElementById('dialogue-text'),
+      choiceContainer: document.getElementById('choice-container'),
+      trumpoBox: document.querySelector('.trumpo-box'),
+      bossOverlay: document.getElementById('boss-overlay'),
+      tonyCollage: document.getElementById('tony-collage'),
+      tonyIframe: document.getElementById('tony-iframe'),
+      victoryPopup: document.getElementById('victory-popup'),
+      victoryVid: document.getElementById('victory-vid'),
+      victoryMarqueeText: document.getElementById('victory-marquee-text'),
+      siteAudio: document.getElementById('site-audio'),
+      secretAudio: document.getElementById('secret-audio'),
+      winampTrack: document.getElementById('winamp-track'),
+      winampStatus: document.getElementById('winamp-status'),
+      winampError: document.getElementById('winamp-error')
+    };
+
+    /* =========================================
+       DATING SIM STATE & LOGIC
+       ========================================= */
+    const GAME_STATE = {
+      has_candy: false,
+      has_dead_rat: false,
+      knows_gary_is_cherry: false
+    };
+
+    const ROUTES = {
+      gary: {
+        start: {
+          img: ASSETS.gary.neutral,
+          text: "A low-res man appears. He smells like ozone and disappointment.",
+          choices: [
+            { txt: "Hi Gary.", next: "gary_mad1" },
+            { txt: "Steal his lunch.", next: "gary_lunch", req: "!has_candy" },
+            { txt: "Are you single?", next: "gary_mad1" }
+          ]
+        },
+        gary_lunch: {
+          img: ASSETS.gary.mad1,
+          text: "You snatch a bag of stale candy from his desk. He vibrates with rage.",
+          onEnter: () => { GAME_STATE.has_candy = true; },
+          choices: [{ txt: "Run away.", next: "reset" }]
+        },
+        gary_mad1: {
+          img: ASSETS.gary.mad1,
+          text: "His eyes twitch. 'It is pronounced CHERRY. With a G.'",
+          onEnter: () => { GAME_STATE.knows_gary_is_cherry = true; },
+          choices: [
+            { txt: "Sorry, Cherry.", next: "gary_mad2" },
+            { txt: "Offer Dead Rat.", next: "gary_rat", req: "has_dead_rat" },
+            { txt: "Okay Gary.", next: "gary_mad2" }
+          ]
+        },
+        gary_rat: {
+          img: ASSETS.gary.neutral,
+          text: "He stares at the dead rat. 'This is... adequate compensation.' He calms down.",
+          onEnter: () => { GAME_STATE.has_dead_rat = false; },
+          choices: [{ txt: "Leave while he eats.", next: "reset" }]
+        },
+        gary_mad2: {
+          img: ASSETS.gary.mad2,
+          text: "The JPEG artifacts intensify. 'I SAID CHERRY. WITH. A. G.'",
+          choices: [
+            { txt: "Calm down Gary.", next: "gary_glitch" },
+            { txt: "Nice tie, Cherry.", next: "gary_glitch" }
+          ]
+        },
+        gary_glitch: {
+          img: ASSETS.gary.glitch,
+          text: "CRITICAL ERROR. ENTITY 'GARY' HAS STOPPED RESPONDING.",
+          choices: [{ txt: "[REBOOT]", next: "reset" }]
+        }
+      },
+
+      harpy: {
+        start: {
+          img: ASSETS.harpy.neutral,
+          text: "SCREEEEEEEEECH! (She adjusts her name tag)",
+          choices: [
+            { txt: "You have a lovely voice.", next: "harpy_blush" },
+            { txt: "Cover ears.", next: "harpy_mad" }
+          ]
+        },
+        harpy_blush: {
+          img: ASSETS.harpy.blush,
+          text: "She blushes and offers you a dead rat. It is warm.",
+          choices: [
+            { txt: "Accept gift.", next: "get_rat" },
+            { txt: "Politely decline.", next: "reset" }
+          ]
+        },
+        get_rat: {
+          img: ASSETS.harpy.neutral,
+          text: "You obtained: 1x DEAD RAT. It is heavy with implications.",
+          onEnter: () => {
+            GAME_STATE.has_dead_rat = true;
+            document.body.classList.add('rat-mode');
+          },
+          choices: [{ txt: "Thanks.", next: "reset" }]
+        },
+        harpy_mad: {
+          img: ASSETS.harpy.glitch,
+          text: "SHE DOES NOT LIKE BEING IGNORED.",
+          choices: [{ txt: "RUN", next: "reset" }]
+        }
+      },
+
+      ants: {
+        start: {
+          img: ASSETS.ants.neutral,
+          text: "The Hive mind vibrates. 'DO YOU HAVE SUGAR?'",
+          choices: [
+            { txt: "Give Candy.", next: "ants_love", req: "has_candy" },
+            { txt: "Give Dead Rat.", next: "ants_rat", req: "has_dead_rat" },
+            { txt: "No.", next: "ants_buff" }
+          ]
+        },
+        ants_love: {
+          img: ASSETS.ants.heart,
+          text: "The ants form a heart shape. YOU HAVE FOUND TRUE LOVE. The swarm consumes you with affection.",
+          choices: [{ txt: "I accept my fate.", next: "reset" }]
+        },
+        ants_rat: {
+          img: ASSETS.ants.happy,
+          text: "The ants swarm the rat. 'PROTEIN ACCEPTABLE. BUT WE CRAVE SUGAR.'",
+          onEnter: () => { GAME_STATE.has_dead_rat = false; },
+          choices: [{ txt: "Back away.", next: "reset" }]
+        },
+        ants_buff: {
+          img: ASSETS.ants.buff,
+          text: "The ants combine into a SWOL SOLDIER. 'THEN YOU ARE THE SUGAR.'",
+          choices: [{ txt: "Oh no.", next: "reset" }]
+        }
+      }
+    };
+
+    let currentRoute = null;
+    let selectedCharacter = null;
+
+    function initDatingSim() {
+      DOM.constructionSign.style.display = 'none';
+      DOM.datingContainer.style.display = 'flex';
+      showSelectionScreen();
+    }
+
+    function closeDatingSim() {
+      DOM.datingContainer.style.display = 'none';
+      DOM.constructionSign.style.display = 'flex';
+    }
+
+    function showSelectionScreen() {
+      DOM.selectionScreen.style.display = 'flex';
+      DOM.dateScreen.style.display = 'none';
+      selectedCharacter = null;
+      hideTooltip();
+    }
+
+    function showTooltip(imgSrc) {
+      DOM.tooltipImg.src = imgSrc;
+      DOM.globalTooltip.style.display = 'block';
+    }
+
+    function hideTooltip() {
+      DOM.globalTooltip.style.display = 'none';
+    }
+
+    function handleCardClick(charKey) {
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+      if (isTouch) {
+        if (selectedCharacter === charKey) {
+          startRoute(charKey);
+        } else {
+          selectedCharacter = charKey;
+          showTooltip(ASSETS[charKey].who);
+        }
+      } else {
+        startRoute(charKey);
+      }
+    }
+
+    function handleCardHover(charKey) {
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      if (!isTouch) {
+        showTooltip(ASSETS[charKey].who);
+      }
+    }
+
+    DOM.selectionScreen.addEventListener('click', function(e) {
+      if (e.target.id === 'selection-screen') {
+        selectedCharacter = null;
+        hideTooltip();
+      }
+    });
+
+    function startRoute(charKey) {
+      hideTooltip();
+      currentRoute = ROUTES[charKey];
+      DOM.selectionScreen.style.display = 'none';
+      DOM.dateScreen.style.display = 'flex';
+      renderNode(currentRoute.start);
+    }
+
+    function renderNode(node) {
+      if (!node) return showSelectionScreen();
+
+      if (node.onEnter) node.onEnter();
+
+      DOM.activePortrait.src = node.img;
+      DOM.dialogueText.innerText = node.text;
+      DOM.choiceContainer.innerHTML = '';
+
+      let validChoices = 0;
+
+      node.choices.forEach(c => {
+        if (c.req) {
+          const isNot = c.req.startsWith('!');
+          const key = isNot ? c.req.substring(1) : c.req;
+          const val = GAME_STATE[key];
+          if ((isNot && val) || (!isNot && !val)) return;
+        }
+
+        validChoices++;
+        const btn = document.createElement('div');
+        btn.className = 'choice-btn';
+        btn.innerText = `> ${c.txt}`;
+        btn.onclick = c.next === 'reset'
+          ? () => showSelectionScreen()
+          : () => renderNode(currentRoute[c.next]);
+        DOM.choiceContainer.appendChild(btn);
+      });
+
+      if (validChoices === 0) {
+        const btn = document.createElement('div');
+        btn.className = 'choice-btn';
+        btn.innerText = "> [Leave awkwardly]";
+        btn.onclick = () => showSelectionScreen();
+        DOM.choiceContainer.appendChild(btn);
+      }
+    }
+
+    /* =========================================
+       TRUMPO VIDEO LOGIC
+       ========================================= */
+    function fakePrizePopup() {
+      if (DOM.bannerText.innerText.startsWith("VIDEO ENDS IN")) {
+        window.location.href = "videos/redblue/redbluerealm.html";
+      } else {
+        alert("ERROR: Prize server is DOWN. Please mail 3 dollars cash to: 404 Not Found Blvd.");
+      }
+    }
+
+    function playTrumpoVideo() {
+      const existingVideo = DOM.trumpoBox.querySelector('video');
+      if (existingVideo) {
+        const timeLeft = existingVideo.duration - existingVideo.currentTime;
+        if (timeLeft <= 10 && timeLeft > 0) {
+          window.location.href = "videos/redblue/redbluerealm.html";
+          return;
+        }
+      }
+
+      const videoUrl = "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/peoplesvigil.mp4";
+      const vid = document.createElement("video");
+      vid.src = videoUrl;
+      vid.autoplay = true;
+      vid.style.cssText = "width:100%; height:100%; object-fit:fill;";
+      vid.onended = restoreTrumpo;
+      vid.onclick = playTrumpoVideo;
+
+      vid.ontimeupdate = function() {
+        const timeLeft = vid.duration - vid.currentTime;
+        if (timeLeft <= 10 && timeLeft > 0) {
+          DOM.bannerText.innerText = "VIDEO ENDS IN " + Math.ceil(timeLeft) + "... " + (Math.ceil(timeLeft)-1) + "...";
+          DOM.bannerText.style.background = "black";
+          DOM.bannerText.style.color = "red";
+        } else if (DOM.bannerText.innerText.startsWith("VIDEO ENDS")) {
+          DOM.bannerText.innerText = "CONGRATS YOU ARE THE 999,999th VISITOR!!! CLICK TO CLAIM PRIZE";
+          DOM.bannerText.style.background = "red";
+          DOM.bannerText.style.color = "yellow";
+        }
+      };
+
+      DOM.trumpoBox.innerHTML = "";
+      DOM.trumpoBox.appendChild(vid);
+    }
+
+    function restoreTrumpo() {
+      DOM.trumpoBox.innerHTML = `<img id="trumpo-img" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/trumpo.gif" alt="prophecy" onclick="playTrumpoVideo()">`;
+      DOM.bannerText.innerText = "CONGRATS YOU ARE THE 999,999th VISITOR!!! CLICK TO CLAIM PRIZE";
+      DOM.bannerText.style.background = "red";
+      DOM.bannerText.style.color = "yellow";
+    }
+
+    /* =========================================
+       GUESTBOOK & PAGE LOADING
+       ========================================= */
+    function loadGuestbook() {
+      DOM.mainContainer.style.width = '1000px';
+      DOM.mainDisplay.innerHTML = `<iframe id="guestbook-iframe" src="guestbook.html" style="width: 1000px; height: 1200px; border: none; overflow: hidden;" scrolling="no"></iframe>`;
+    }
+
+    /* =========================================
+       TONY COLLAGE & BOSS OVERLAY
+       ========================================= */
+    function openTonyPopup(isSecret) {
+      DOM.tonyCollage.style.display = 'block';
+      if (DOM.tonyIframe.src === "about:blank") {
+        DOM.tonyIframe.src = DOM.tonyIframe.dataset.src;
+      }
+      startBossOverlay();
+
+      const audioUrl = "https://f005.backblazeb2.com/file/webcomiconline-gallery/VideoLibrary/elevator+out+of+hell/Tony+Danza+(Plaque+Brain)+Brian+loop+Voice+798_sd.m4a";
+      guestbookMode = true;
+      stopNumb();
+      setAudioSource(audioUrl, 0.3);
+      setWinampDisplay("Tony_Danza_Brain.exe", "Streaming...", false);
+      DOM.siteAudio.play().catch(() => {
+        setWinampDisplay("Tony_Danza_Brain.exe", "Click Play", false);
+      });
+
+      if (isSecret) {
+        DOM.secretAudio.volume = 1.0;
+        DOM.secretAudio.currentTime = 0;
+        DOM.secretAudio.play().catch(() => {});
+      }
+    }
+
+    function closeTonyPopup() {
+      DOM.tonyCollage.style.display = 'none';
+      DOM.tonyIframe.src = "about:blank";
+      stopBossOverlay();
+      winampEject();
+      DOM.secretAudio.pause();
+      DOM.secretAudio.currentTime = 0;
+    }
+
+    function startBossOverlay() {
+      DOM.bossOverlay.style.display = 'block';
+      DOM.bossOverlay.innerHTML = '';
+      const frag = document.createDocumentFragment();
+
+      for (let i = 0; i < 50; i++) {
+        const span = document.createElement('span');
+        span.className = 'boss-text';
+        span.textContent = "WHO'S THE BOSS?";
+        span.style.cssText = `
+          top: ${Math.random() * 100}%;
+          left: ${Math.random() * 100}%;
+          font-size: ${20 + Math.random() * 60}px;
+          transform: rotate(${Math.random() * 60 - 30}deg);
+          animation-delay: ${Math.random() * 0.5}s;
+        `;
+        frag.appendChild(span);
+      }
+      DOM.bossOverlay.appendChild(frag);
+    }
+
+    function stopBossOverlay() {
+      DOM.bossOverlay.style.display = 'none';
+      DOM.bossOverlay.innerHTML = '';
+    }
+
+    /* =========================================
+       VICTORY POPUP & GOOGLE SHEETS
+       ========================================= */
+    let audioPreVictoryState = { winamp: false, secret: false };
+
+    function openVictoryPopup() {
+      audioPreVictoryState.winamp = !DOM.siteAudio.paused;
+      audioPreVictoryState.secret = !DOM.secretAudio.paused;
+
+      if (numbInterval) stopNumb();
+      DOM.siteAudio.pause();
+      DOM.secretAudio.pause();
+
+      DOM.victoryPopup.style.display = 'block';
+      DOM.victoryVid.currentTime = 0;
+      DOM.victoryVid.play();
+      fetchVictoryNames();
+    }
+
+    function closeVictoryPopup() {
+      DOM.victoryPopup.style.display = 'none';
+      DOM.victoryVid.pause();
+
+      if (audioPreVictoryState.winamp && guestbookMode) DOM.siteAudio.play();
+      if (audioPreVictoryState.secret) DOM.secretAudio.play();
+      if (hasAutoPlayed && !guestbookMode && !currentSrc) playNumbMelody();
+    }
+
+    function getRandomColor() {
+      const colors = ['#00ff00', '#ff00ff', '#00ffff', '#ffff00', '#ff0000', '#ffffff'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    async function fetchVictoryNames() {
+      DOM.victoryMarqueeText.innerHTML = "FETCHING WINNERS...";
+      try {
+        const cacheBuster = Date.now();
+        const sheetUrl = `${VICTORY_SHEET_URL}&t=${cacheBuster}`;
+        const res = await fetch(PROXY_URL + encodeURIComponent(sheetUrl));
+        const txt = await res.text();
+        const rows = parseCSV(txt);
+        const winners = [];
+
+        for (let i = 1; i < rows.length; i++) {
+          const row = rows[i];
+          if (row.length < 2) continue;
+
+          let candidate = "";
+          for (let c = 1; c < row.length; c++) {
+            const cell = row[c].trim();
+            if (cell && !cell.includes('@') && cell.length < 30 && isNaN(cell)) {
+              candidate = cell;
+              break;
+            }
+          }
+          if (candidate) winners.push(candidate);
+        }
+
+        if (winners.length > 0) {
+          const coloredWinners = winners.map(name => {
+            const color = getRandomColor();
+            return `<span style="color:${color}">${name}</span>`;
+          });
+          const list = coloredWinners.join("<br><br>") + "<br><br>***<br><br>" + coloredWinners.join("<br><br>");
+          DOM.victoryMarqueeText.innerHTML = "VICTORY ROLL<br>***<br>" + list;
+        } else {
+          DOM.victoryMarqueeText.textContent = "NO WINNERS YET. BE THE FIRST.";
+        }
+      } catch(e) {
+        console.error(e);
+        DOM.victoryMarqueeText.textContent = "CONNECTION ERROR: UNABLE TO LOAD WINNERS.";
+      }
+    }
+
+    function parseCSV(str) {
+      const arr = [];
+      let quote = false;
+      let col = 0, c = 0;
+
+      for (let row = 0; row < str.length; row++) {
+        const cc = str[row], nc = str[row + 1];
+        arr[c] = arr[c] || [];
+        arr[c][col] = arr[c][col] || '';
+
+        if (cc === '"' && quote && nc === '"') {
+          arr[c][col] += cc;
+          ++row;
+        } else if (cc === '"') {
+          quote = !quote;
+        } else if (cc === ',' && !quote) {
+          ++col;
+        } else if (cc === '\r' && nc === '\n' && !quote) {
+          ++c;
+          col = 0;
+          ++row;
+        } else if (cc === '\n' && !quote) {
+          ++c;
+          col = 0;
+        } else {
+          arr[c][col] += cc;
+        }
+      }
+      return arr;
+    }
+
+    /* =========================================
+       WINAMP AUDIO PLAYER
+       ========================================= */
+    let guestbookMode = false;
+    let currentSrc = "";
+    let audioCtx = null;
+    let numbInterval = null;
+    let hasAutoPlayed = false;
+    let ejectCount = 0;
+
+    function initAudioCtx() {
+      if (!audioCtx) {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AC();
+      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playNumbMelody() {
+      initAudioCtx();
+      if (numbInterval) clearInterval(numbInterval);
+
+      const beat = 0.55;
+      const sequence = [
+        { lead: 554.37, bass: 92.50, dur: beat * 2 },
+        { lead: 440.00, bass: 92.50, dur: beat },
+        { lead: 554.37, bass: 92.50, dur: beat },
+        { lead: 493.88, bass: 73.42, dur: beat * 4 },
+      ];
+
+      let step = 0;
+      const playStep = () => {
+        const note = sequence[step % sequence.length];
+        const t = audioCtx.currentTime;
+
+        // Lead oscillator
+        const o1 = audioCtx.createOscillator();
+        const g1 = audioCtx.createGain();
+        o1.type = 'sawtooth';
+        o1.frequency.value = note.lead;
+        const f1 = audioCtx.createBiquadFilter();
+        f1.type = "lowpass";
+        f1.frequency.value = 1500;
+        o1.connect(f1).connect(g1).connect(audioCtx.destination);
+        g1.gain.setValueAtTime(0.15, t);
+        g1.gain.exponentialRampToValueAtTime(0.01, t + note.dur - 0.05);
+        o1.start(t);
+        o1.stop(t + note.dur);
+
+        // Bass oscillator
+        const o2 = audioCtx.createOscillator();
+        const g2 = audioCtx.createGain();
+        o2.type = 'square';
+        o2.frequency.value = note.bass;
+        const f2 = audioCtx.createBiquadFilter();
+        f2.type = "lowpass";
+        f2.frequency.value = 400;
+        o2.connect(f2).connect(g2).connect(audioCtx.destination);
+        g2.gain.setValueAtTime(0.2, t);
+        g2.gain.exponentialRampToValueAtTime(0.01, t + note.dur);
+        o2.start(t);
+        o2.stop(t + note.dur);
+
+        step++;
+        numbInterval = setTimeout(playStep, note.dur * 1000);
+      };
+      playStep();
+    }
+
+    function stopNumb() {
+      if (numbInterval) {
+        clearTimeout(numbInterval);
+        numbInterval = null;
+      }
+    }
+
+    function setWinampDisplay(label, statusText, showError) {
+      DOM.winampTrack.textContent = label || DEFAULT_TRACK_LABEL;
+      DOM.winampStatus.textContent = statusText || "Buffering...";
+
+      if (showError) {
+        DOM.winampError.style.display = "block";
+        DOM.winampError.innerText = statusText || "ERROR: CODEC MISSING";
+      } else {
+        DOM.winampError.style.display = "none";
+      }
+    }
+
+    function setAudioSource(src, volume) {
+      currentSrc = src || "";
+      if (!currentSrc) {
+        try { DOM.siteAudio.pause(); } catch (e) {}
+        DOM.siteAudio.removeAttribute("src");
+        DOM.siteAudio.load();
+        return;
+      }
+      DOM.siteAudio.src = currentSrc;
+      DOM.siteAudio.volume = (typeof volume === "number") ? Math.max(0, Math.min(1, volume)) : 0.15;
+    }
+
+    async function winampPlay() {
+      if (!guestbookMode && !currentSrc) {
+        playNumbMelody();
+        setWinampDisplay(DEFAULT_TRACK_LABEL, "Synthesizing...", false);
+        return;
+      }
+      if (!guestbookMode || !currentSrc) {
+        alert("ERROR: CODEC MISSING");
+        return;
+      }
+      stopNumb();
+      try {
+        await DOM.siteAudio.play();
+        setWinampDisplay(DOM.winampTrack.textContent, "Playing...", false);
+      } catch (e) {
+        setWinampDisplay(DOM.winampTrack.textContent, "Buffering...", false);
+      }
+    }
+
+    function winampStop() {
+      stopNumb();
+      try {
+        DOM.siteAudio.pause();
+        DOM.siteAudio.currentTime = 0;
+      } catch (e) {}
+
+      if (guestbookMode) {
+        setWinampDisplay(DOM.winampTrack.textContent, "Stopped.", false);
+      } else {
+        setWinampDisplay(DEFAULT_TRACK_LABEL, "Ready.", true);
+      }
+    }
+
+    function winampEject() {
+      stopNumb();
+      guestbookMode = false;
+      setAudioSource("");
+      ejectCount++;
+
+      if (ejectCount > 1) {
+        setWinampDisplay(DEFAULT_TRACK_LABEL, "ERROR: CODEC MISSING", true);
+        ejectCount = 0;
+      } else {
+        setWinampDisplay(DEFAULT_TRACK_LABEL, "Buffering...", false);
+      }
+    }
+
+    /* =========================================
+       AUTO-PLAY INITIALIZATION
+       ========================================= */
+    document.addEventListener('click', () => {
+      if (!hasAutoPlayed && !guestbookMode && !currentSrc) {
+        hasAutoPlayed = true;
+        playNumbMelody();
+        setWinampDisplay(DEFAULT_TRACK_LABEL, "Synthesizing...", false);
+      }
+    }, { once: true });
+
+    /* =========================================
+       POSTMESSAGE HANDLER FOR GUESTBOOK
+       ========================================= */
+    window.addEventListener("message", async (event) => {
+      const msg = event.data;
+      if (!msg || msg.type !== "WCO_WINAMP") return;
+
+      switch (msg.action) {
+        case "guestbook_open":
+          stopNumb();
+          guestbookMode = true;
+          setAudioSource(msg.src, msg.volume);
+          setWinampDisplay(msg.label || "26batsrunaway.MP3", "Playing...", false);
+          try {
+            await DOM.siteAudio.play();
+          } catch (e) {
+            setWinampDisplay(msg.label || "26batsrunaway.MP3", "Buffering...", false);
+          }
+          break;
+
+        case "guestbook_close":
+          winampEject();
+          break;
+
+        case "pause":
+          try { DOM.siteAudio.pause(); } catch (e) {}
+          if (guestbookMode) {
+            setWinampDisplay(DOM.winampTrack.textContent, "Paused.", false);
+          }
+          break;
+
+        case "resume":
+          if (!guestbookMode || !currentSrc) return;
+          try {
+            await DOM.siteAudio.play();
+            setWinampDisplay(DOM.winampTrack.textContent, "Playing...", false);
+          } catch (e) {
+            setWinampDisplay(DOM.winampTrack.textContent, "Buffering...", false);
+          }
+          break;
+      }
+    });
+  </script>
+
+  </body>
+</html>
