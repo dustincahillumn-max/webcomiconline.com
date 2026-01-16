@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>WEBCOMICONLINE.COM - WELCOME!!!</title>
+  <!-- View source secret: HELLO LURKER! The konami code unlocks something special... -->
+  <link rel="preconnect" href="https://f005.backblazeb2.com" crossorigin>
+  <link rel="dns-prefetch" href="//f005.backblazeb2.com">
   <style>
     /* =========================================
        CSS VARIABLES
@@ -10,22 +13,16 @@
     :root {
       --color-bg-black: #000000;
       --color-bg-gray: #c0c0c0;
-      --color-bg-white: #ffffff;
-      --color-border-black: #000000;
       --color-text-red: #ff0000;
       --color-text-yellow: #ffff00;
-      --color-text-blue: #0000FF;
       --color-text-lime: #00ff00;
-      --color-link-visited: #551A8B;
       --font-serif: 'Times New Roman', serif;
       --font-mono: 'Courier New', monospace;
       --font-comic: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
-      --border-win95: 2px outset white;
-      --border-inset: 2px inset #eee;
     }
 
     /* =========================================
-       GLOBAL STYLES & ASSETS
+       GLOBAL STYLES
        ========================================= */
     body {
       background-color: var(--color-bg-black);
@@ -38,18 +35,36 @@
       overflow-x: hidden;
     }
 
-    /* CURSOR OVERRIDE CLASS */
-    body.rat-mode,
-    body.rat-mode * {
+    /* CURSOR MODES */
+    body.rat-mode, body.rat-mode * {
       cursor: url('https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/deadrat.gif'), auto !important;
     }
 
-    a {
-      color: var(--color-text-blue);
-      text-decoration: underline;
-      cursor: pointer;
+    /* Cursor trail */
+    .cursor-trail {
+      position: fixed;
+      pointer-events: none;
+      font-size: 20px;
+      z-index: 99999;
+      animation: trail-fade 1s forwards;
     }
-    a:visited { color: var(--color-link-visited); }
+    @keyframes trail-fade {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.3); }
+    }
+
+    /* Browser warning */
+    .browser-warning {
+      background: #ffff00;
+      border: 2px solid #000;
+      padding: 5px;
+      text-align: center;
+      font-size: 11px;
+      font-family: Arial, sans-serif;
+    }
+
+    a { color: #0000FF; text-decoration: underline; cursor: pointer; }
+    a:visited { color: #551A8B; }
     a:hover { background-color: yellow; }
 
     /* HEADER */
@@ -60,12 +75,7 @@
       padding: 10px;
       margin-bottom: 20px;
     }
-    h1 {
-      margin: 5px;
-      font-size: 2em;
-      color: var(--color-text-red);
-      text-shadow: 2px 2px var(--color-text-yellow);
-    }
+    h1 { margin: 5px; font-size: 2em; color: var(--color-text-red); text-shadow: 2px 2px var(--color-text-yellow); }
 
     .marquee {
       width: 100%;
@@ -76,10 +86,9 @@
       font-family: monospace;
     }
 
-    .header button,
-    .header .menu-link-btn {
+    .header button, .header .menu-link-btn {
       background: var(--color-bg-gray);
-      border: var(--border-win95);
+      border: 2px outset white;
       font-family: var(--font-mono);
       font-weight: bold;
       padding: 5px 10px;
@@ -90,10 +99,7 @@
       font-size: 13px;
       display: inline-block;
     }
-    .header button:active,
-    .header .menu-link-btn:active {
-      border-style: inset;
-    }
+    .header button:active, .header .menu-link-btn:active { border-style: inset; }
 
     .container {
       width: 900px;
@@ -106,15 +112,9 @@
       transition: width 0.5s;
     }
 
-    #main-display {
-      width: 100%;
-      height: 100%;
-    }
+    #main-display { width: 100%; height: 100%; }
 
-    .columns {
-      display: flex;
-      gap: 20px;
-    }
+    .columns { display: flex; gap: 20px; }
 
     /* Left Col: Comics */
     .col-left {
@@ -152,6 +152,23 @@
       line-height: 1.4;
     }
 
+    /* Comic navigation */
+    .comic-nav {
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      margin: 10px 0;
+      padding: 5px;
+      background: #e0e0e0;
+      border: 1px solid #999;
+    }
+    .comic-nav a {
+      margin: 0 5px;
+      text-decoration: none;
+      color: blue;
+      font-weight: bold;
+    }
+
     /* TRUMPO BOX STYLES */
     .trumpo-box {
       width: 100%;
@@ -162,8 +179,7 @@
       overflow: hidden;
       cursor: pointer;
     }
-    .trumpo-box img,
-    .trumpo-box video {
+    .trumpo-box img, .trumpo-box video {
       width: 100%;
       height: 100%;
       object-fit: fill;
@@ -188,10 +204,7 @@
       z-index: 10;
     }
     @keyframes blink {
-      50% {
-        opacity: 0.5;
-        background: blue;
-      }
+      50% { opacity: 0.5; background: blue; }
     }
 
     .sidebar-junk {
@@ -202,12 +215,70 @@
       text-align: center;
     }
 
+    /* HIT COUNTER */
+    .hit-counter {
+      background: #000;
+      color: #0f0;
+      padding: 5px;
+      border: 2px inset #666;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      margin: 10px auto;
+      text-align: center;
+    }
+    .hit-digits {
+      background: #000;
+      color: #0f0;
+      padding: 2px 5px;
+      border: 1px solid #0f0;
+      font-size: 18px;
+      letter-spacing: 3px;
+      font-weight: bold;
+    }
+
+    /* POLL WIDGET */
+    .poll-widget {
+      background: #f0f0f0;
+      border: 2px solid #000;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 11px;
+    }
+    .poll-widget h4 {
+      margin: 0 0 5px 0;
+      font-size: 12px;
+    }
+
+    /* PROGRESS BAR */
+    .construction-progress {
+      margin: 10px 0;
+      background: #ddd;
+      border: 1px solid #000;
+      height: 20px;
+      position: relative;
+    }
+    .progress-fill {
+      background: linear-gradient(90deg, #00f, #0ff);
+      height: 100%;
+      transition: width 0.3s;
+    }
+    .progress-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      line-height: 20px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
     /* WINAMP PLAYER STYLES */
     .media-player {
       width: 200px;
       height: 100px;
       background: var(--color-bg-black);
-      border: var(--border-inset);
+      border: 2px inset #eee;
       margin: 20px auto;
       color: var(--color-text-lime);
       font-family: monospace;
@@ -223,6 +294,17 @@
     }
     .winamp-btn:hover { background: #222; }
     .winamp-btn:active { background: #555; }
+    .shuffle-led{
+      display:inline-block;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      margin-right:4px;
+      border:1px solid #0f0;
+      vertical-align:middle;
+    }
+    .shuffle-led.off{background:#020;box-shadow:none;}
+    .shuffle-led.on{background:#0f0;box-shadow:0 0 6px rgba(0,255,0,0.9);}
     .loading-bar {
       width: 10%;
       height: 5px;
@@ -235,7 +317,7 @@
     }
 
     /* =========================================
-       DATING SIM STYLES (EMBEDDED)
+       DATING SIM STYLES
        ========================================= */
     #dating-container {
       width: 100%;
@@ -270,7 +352,35 @@
       justify-content: space-between;
     }
 
-    /* RADAR VIDEO OVERLAY */
+    /* INVENTORY UI */
+    #inventory-ui {
+      position: absolute;
+      top: 50px;
+      left: 10px;
+      background: rgba(0,0,0,0.8);
+      border: 2px solid #ffff00;
+      padding: 5px;
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 100;
+    }
+    .inventory-item {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #666;
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      position: relative;
+    }
+    .inventory-item.has-item {
+      border-color: #ffff00;
+      background: #444;
+    }
+
     #radar-overlay {
       position: absolute;
       bottom: 25px;
@@ -282,7 +392,6 @@
       opacity: 0.9;
     }
 
-    /* SELECTION SCREEN (Competition) */
     #selection-screen {
       display: none;
       width: 100%;
@@ -317,7 +426,6 @@
       border-color: red;
     }
 
-    /* GLOBAL TOOLTIP (The Fix) */
     #global-tooltip {
       display: none;
       position: fixed;
@@ -354,7 +462,6 @@
       text-align: center;
     }
 
-    /* ACTIVE DATE SCREEN */
     #date-screen {
       display: none;
       width: 100%;
@@ -408,7 +515,34 @@
       color: red;
     }
 
-    /* CONSTRUCTION PLACEHOLDER */
+    /* ACHIEVEMENT NOTIFICATION */
+    .achievement-popup {
+      position: fixed;
+      top: 20px;
+      right: -400px;
+      width: 300px;
+      background: linear-gradient(180deg, #fff, #e0e0e0);
+      border: 2px solid #000;
+      box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+      padding: 10px;
+      font-family: Arial, sans-serif;
+      z-index: 100000;
+      transition: right 0.5s;
+    }
+    .achievement-popup.show {
+      right: 20px;
+    }
+    .achievement-header {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #000;
+    }
+    .achievement-body {
+      font-size: 12px;
+      color: #333;
+    }
+
     #construction-sign {
       width: 100%;
       height: 100%;
@@ -428,7 +562,7 @@
       width: 600px;
       height: 400px;
       background: var(--color-bg-gray);
-      border: 3px outset var(--color-bg-white);
+      border: 3px outset #ffffff;
       box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
       display: none;
       z-index: 9999;
@@ -477,19 +611,19 @@
       height: 100%;
       object-fit: cover;
     }
-    .crawler-wrap {
+    .crawler-wrap{
       position: relative;
       float: left;
       width: 110px;
       margin-right: 5px;
       border: 1px solid red;
     }
-    .crawler-wrap video {
+    .crawler-wrap video{
       display: block;
       width: 100%;
       height: auto;
     }
-    .ants-overlay {
+    .ants-overlay{
       position: absolute;
       inset: 0;
       width: 100%;
@@ -500,7 +634,53 @@
       mix-blend-mode: multiply;
     }
 
-    /* BOSS OVERLAY */
+    /* ERROR DIALOG */
+    .error-dialog {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      background: var(--color-bg-gray);
+      border: 3px outset #fff;
+      box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+      z-index: 100001;
+      display: none;
+      font-family: Arial, sans-serif;
+    }
+    .error-header {
+      background: navy;
+      color: white;
+      padding: 2px 5px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+    }
+    .error-body {
+      padding: 20px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    .error-icon {
+      font-size: 32px;
+    }
+    .error-buttons {
+      text-align: center;
+      padding: 10px;
+    }
+    .error-btn {
+      background: var(--color-bg-gray);
+      border: 2px outset white;
+      padding: 5px 20px;
+      cursor: pointer;
+      font-family: Arial;
+      margin: 0 5px;
+    }
+    .error-btn:active {
+      border-style: inset;
+    }
+
     #boss-overlay {
       display: none;
       position: fixed;
@@ -525,16 +705,10 @@
       will-change: text-shadow, opacity;
     }
     @keyframes neon-pulse {
-      from {
-        text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
-      }
-      to {
-        text-shadow: 0 0 2px #00ffff, 0 0 5px #00ffff, 0 0 10px #00ffff;
-        -webkit-text-stroke: 2px #00ffff;
-      }
+      from { text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
+      to { text-shadow: 0 0 2px #00ffff, 0 0 5px #00ffff, 0 0 10px #00ffff; -webkit-text-stroke: 2px #00ffff; }
     }
 
-    /* TONY COLLAGE */
     #tony-collage {
       display: none;
       position: fixed;
@@ -643,7 +817,6 @@
       to { opacity:0.2; }
     }
 
-    /* VICTORY POPUP */
     #victory-popup {
       display: none;
       position: fixed;
@@ -703,7 +876,9 @@
       font-size: 1.5em;
       margin: 0 2px;
     }
-    .emoji-link:hover { text-shadow: 0 0 5px red; }
+    .emoji-link:hover {
+      text-shadow: 0 0 5px red;
+    }
 
     .hidden-kiss {
       color: magenta;
@@ -717,13 +892,58 @@
       opacity: 1;
       cursor: pointer;
     }
+
+    /* WEBRING */
+    .webring {
+      margin: 20px 0;
+      padding: 10px;
+      border: 2px solid #000;
+      background: #e0e0e0;
+      text-align: center;
+      font-size: 11px;
+    }
+    .webring a {
+      margin: 0 5px;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background: #ccc;
+      border-top: 2px solid #000;
+      font-size: 11px;
+    }
+    .button-wall {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 5px;
+      margin: 10px 0;
+    }
+    .button-88x31 {
+      width: 88px;
+      height: 31px;
+      border: 1px solid #000;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: bold;
+    }
+
   </style>
 </head>
 
 <body>
+  <!-- Browser warning -->
+  <div class="browser-warning">
+    ⚠️ Best viewed in Netscape Navigator 4.0 at 800x600 resolution ⚠️
+  </div>
 
   <div class="header">
-    <div class="marquee">WELCOME TO THE DARK SOULS OF THE INTERNET *** UPDATED DAILY *** SIGN GUESTBOOK</div>
+    <div class="marquee">WELCOME TO THE DARK SOULS OF THE INTERNET *** UPDATED DAILY *** SIGN GUESTBOOK *** YOU ARE VISITOR #999,999</div>
     <br>
     <h1><a href="index.html">Congratulations! YOuve found webcomiconline.com!!!</a></h1>
     <p>You are now on the old internet, which is sort of the dark souls of the internet</p>
@@ -742,6 +962,41 @@
       <div class="columns">
 
         <div class="col-left">
+          <!-- Hit counter -->
+          <div class="hit-counter">
+            <div>YOU ARE VISITOR:</div>
+            <div class="hit-digits" id="hit-counter">999999</div>
+          </div>
+
+          <!-- Poll widget -->
+          <div class="poll-widget">
+            <h4>🗳️ POLL OF THE DAY</h4>
+            <p><b>What's your favorite browser?</b></p>
+            <label><input type="radio" name="browser" value="netscape"> Netscape Navigator</label><br>
+            <label><input type="radio" name="browser" value="ie"> Internet Explorer</label><br>
+            <label><input type="radio" name="browser" value="opera"> Opera</label><br>
+            <button onclick="votePoll()" style="margin-top:5px;">VOTE</button>
+          </div>
+
+          <!-- Construction progress -->
+          <div class="construction-progress">
+            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            <div class="progress-text" id="progress-text">Loading... 0%</div>
+          </div>
+
+          <!-- RSS Feed button -->
+          <div style="text-align:center; margin: 10px 0;">
+            <a href="#" onclick="alert('Subscribe via MySpace or LiveJournal!'); return false;" style="text-decoration:none;">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='15'%3E%3Crect fill='%23ff6600' width='80' height='15'/%3E%3Ctext x='5' y='11' font-family='Arial' font-size='10' fill='white' font-weight='bold'%3ERSS FEED%3C/text%3E%3C/svg%3E" alt="RSS">
+            </a>
+          </div>
+
+          <!-- Comic navigation -->
+          <div class="comic-nav">
+            <a href="#" onclick="alert('ERROR 404: Previous comic not found'); return false;">&lt;&lt;&lt; PREVIOUS</a> |
+            <a href="#" onclick="randomComic(); return false;">RANDOM</a> |
+            <a href="#" onclick="alert('ERROR 404: Next comic not found'); return false;">NEXT &gt;&gt;&gt;</a>
+          </div>
 
           <div class="comic-entry">
              <a href="videos/hospice/thomnicholsadams.html" class="comic-date-link" style="color:red; text-decoration:none;">
@@ -798,6 +1053,12 @@
           <div id="dating-container">
             <div id="dating-header">
                 ❤️ LOVE_CONNEXION.EXE ❤️ <span style="float:right; cursor:pointer" onclick="closeDatingSim()">[X]</span>
+            </div>
+
+            <!-- Inventory UI -->
+            <div id="inventory-ui">
+              <div class="inventory-item" id="inv-candy" title="Stolen Candy"></div>
+              <div class="inventory-item" id="inv-rat" title="Dead Rat"></div>
             </div>
 
             <div id="dating-scene">
@@ -863,6 +1124,9 @@
         <span class="winamp-btn" onclick="winampPlay()">[PLAY]</span>
         <span class="winamp-btn" onclick="winampStop()">[STOP]</span>
         <span class="winamp-btn" onclick="winampEject()">[EJECT]</span>
+        <span id="winamp-shuffle-led" class="shuffle-led off"></span>
+        <span class="winamp-btn" id="winamp-shuffle-btn" onclick="winampShuffle()">[SHUFFLE]</span>
+        <span class="winamp-btn" id="winamp-next-btn" onclick="winampNext()">[NEXT]</span>
         <br><br>
         Track: <span id="winamp-track">Linkin_Park_Numb.exe</span><br>
         <span id="winamp-status">Buffering...</span><br>
@@ -874,7 +1138,50 @@
     </div>
 
     <img src="https://web.archive.org/web/20090829094723/http://geocities.com/Area51/Cavern/5294/images/skull_spin.gif" style="position:absolute; bottom:10px; left:10px; width:40px;" loading="lazy" alt="Skull">
-    <img src="https://web.archive.org/web/20091026214041/http://geocities.com/Area51/Corridor/6308/ufo.gif" style="position:absolute; top:-40px; right:-20px;" loading="lazy" alt="UFO">
+    <img src="https://web.archive.org/web/20091026214041/http://geocities.com/Area51/Corridor/6308/ufo.gif" style="position:absolute; top:-40px; right:-20px;" loading="lazy" alt="UFO" oncontextmenu="secretMenu(event)">
+
+    <!-- WebRing -->
+    <div class="webring">
+      <b>[ WEBRING NAVIGATOR ]</b><br>
+      <a href="#" onclick="alert('ERROR: Site no longer exists'); return false;">&lt;&lt; Prev</a> |
+      <a href="#" onclick="alert('ERROR: Ring disbanded in 2003'); return false;">Random</a> |
+      <a href="#" onclick="alert('ERROR: Site no longer exists'); return false;">Next &gt;&gt;</a>
+    </div>
+  </div>
+
+  <!-- Footer with 88x31 buttons -->
+  <div class="footer">
+    <div class="button-wall">
+      <div class="button-88x31" style="background: #000; color: #0f0;">NETSCAPE NOW!</div>
+      <div class="button-88x31" style="background: #00f; color: #fff;">IE 4.0</div>
+      <div class="button-88x31" style="background: #f00; color: #fff;">GET FLASH</div>
+      <div class="button-88x31" style="background: #ff0; color: #000;">JAVA PWR</div>
+      <div class="button-88x31" style="background: #0ff; color: #000;">MIDI!</div>
+      <div class="button-88x31" style="background: #f0f; color: #fff;">ANGELFIRE</div>
+    </div>
+    <p>© 1999-2003 WebComicOnline.com | Best viewed at 800x600 | <a href="mailto:webmaster@webcomiconline.com">Email Webmaster</a></p>
+  </div>
+
+  <!-- Achievement notification -->
+  <div id="achievement-notification" class="achievement-popup">
+    <div class="achievement-header">🏆 Achievement Unlocked!</div>
+    <div class="achievement-body" id="achievement-text"></div>
+  </div>
+
+  <!-- Error dialog -->
+  <div id="error-dialog" class="error-dialog">
+    <div class="error-header">
+      <span id="error-title">Error</span>
+      <span class="win-close" onclick="closeErrorDialog()">X</span>
+    </div>
+    <div class="error-body">
+      <div class="error-icon">❌</div>
+      <div id="error-message">An error has occurred.</div>
+    </div>
+    <div class="error-buttons">
+      <button class="error-btn" onclick="closeErrorDialog()">OK</button>
+      <button class="error-btn" onclick="closeErrorDialog()">Cancel</button>
+    </div>
   </div>
 
   <div id="about-window">
@@ -942,14 +1249,60 @@
     </div>
   </div>
 
+  <script src="liminaltools/songlist.js"></script>
+
   <script>
     /* =========================================
-       CONSTANTS & CONFIGURATION
+       CONSOLE EASTER EGGS
+       ========================================= */
+    console.log("%c👀 I SEE YOU LOOKING UNDER THE HOOD", "color: #0f0; font-size: 20px; background: #000; padding: 10px;");
+    console.log("%cTip: Try the Konami Code (↑↑↓↓←→←→BA)", "color: #ff00ff; font-size: 14px;");
+    console.log("%cSecret: Right-click the UFO gif...", "color: #00ffff; font-size: 12px;");
+    console.log("%c<!-- ASCII ART SECRET -->\n  ▄▄▄▄▄▄▄ \n █ ▀   ▀ █\n █  ◉ ◉  █\n █   ▼   █\n  █▄▄▄▄▄█", "font-family: monospace;");
+
+    /* =========================================
+       DOM CACHE
+       ========================================= */
+    const DOM = {
+      mainDisplay: document.getElementById('main-display'),
+      mainContainer: document.getElementById('main-container'),
+      bossOverlay: document.getElementById('boss-overlay'),
+      tonyCollage: document.getElementById('tony-collage'),
+      tonyIframe: document.getElementById('tony-iframe'),
+      siteAudio: document.getElementById('site-audio'),
+      winampTrack: document.getElementById('winamp-track'),
+      winampStatus: document.getElementById('winamp-status'),
+      winampError: document.getElementById('winamp-error'),
+      shuffleLed: document.getElementById('winamp-shuffle-led'),
+      secretAudio: document.getElementById('secret-audio'),
+      victoryPopup: document.getElementById('victory-popup'),
+      victoryVid: document.getElementById('victory-vid'),
+      victoryMarqueeText: document.getElementById('victory-marquee-text'),
+      hitCounter: document.getElementById('hit-counter'),
+      progressFill: document.getElementById('progress-fill'),
+      progressText: document.getElementById('progress-text'),
+      inventoryUI: document.getElementById('inventory-ui'),
+      invCandy: document.getElementById('inv-candy'),
+      invRat: document.getElementById('inv-rat'),
+      achievementNotification: document.getElementById('achievement-notification'),
+      achievementText: document.getElementById('achievement-text'),
+      errorDialog: document.getElementById('error-dialog'),
+      errorTitle: document.getElementById('error-title'),
+      errorMessage: document.getElementById('error-message')
+    };
+
+    const siteAudio = DOM.siteAudio;
+    const winampTrack = DOM.winampTrack;
+    const winampStatus = DOM.winampStatus;
+    const winampError = DOM.winampError;
+
+    /* =========================================
+       CONSTANTS
        ========================================= */
     const SVG_GENERIC_Q = "data:image/svg+xml;utf8,<svg width='250' height='250' viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'><rect width='250' height='250' fill='white'/><rect x='10' y='10' width='230' height='230' fill='yellow' stroke='black' stroke-width='5'/><text x='125' y='180' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='180' fill='black'>?</text></svg>";
-
     const VICTORY_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTdyDdQ0AaC-XcP8s0wcm5HRr3BKCwHmvYOsHC_dJBhmkaGqoL8iRXxf49YeRDg3Y-SPv6mg1EQk-So/pub?gid=428160570&single=true&output=csv";
     const PROXY_URL = "https://corsproxy.io/?";
+    const GUESTBOOK_TRACK_SRC = 'https://f005.backblazeb2.com/file/webcomiconline-gallery/Guestbook/26batsrunaway.MP3';
     const DEFAULT_TRACK_LABEL = "Linkin_Park_Numb.exe";
 
     const ASSETS = {
@@ -976,149 +1329,424 @@
     };
 
     /* =========================================
-       CACHED DOM ELEMENTS
+       HIT COUNTER & ANIMATIONS
        ========================================= */
-    const DOM = {
-      bannerText: document.getElementById('banner-text'),
-      mainContainer: document.getElementById('main-container'),
-      mainDisplay: document.getElementById('main-display'),
-      constructionSign: document.getElementById('construction-sign'),
-      datingContainer: document.getElementById('dating-container'),
-      selectionScreen: document.getElementById('selection-screen'),
-      dateScreen: document.getElementById('date-screen'),
-      globalTooltip: document.getElementById('global-tooltip'),
-      tooltipImg: document.getElementById('tooltip-img'),
-      activePortrait: document.getElementById('active-portrait'),
-      dialogueText: document.getElementById('dialogue-text'),
-      choiceContainer: document.getElementById('choice-container'),
-      trumpoBox: document.querySelector('.trumpo-box'),
-      bossOverlay: document.getElementById('boss-overlay'),
-      tonyCollage: document.getElementById('tony-collage'),
-      tonyIframe: document.getElementById('tony-iframe'),
-      victoryPopup: document.getElementById('victory-popup'),
-      victoryVid: document.getElementById('victory-vid'),
-      victoryMarqueeText: document.getElementById('victory-marquee-text'),
-      siteAudio: document.getElementById('site-audio'),
-      secretAudio: document.getElementById('secret-audio'),
-      winampTrack: document.getElementById('winamp-track'),
-      winampStatus: document.getElementById('winamp-status'),
-      winampError: document.getElementById('winamp-error')
-    };
+    let hitCount = 999999;
+    function updateHitCounter() {
+      if (Math.random() < 0.1) {
+        // 10% chance of glitch
+        const glitches = [4, 83000000000000, 69420, 0, 1337, 666];
+        hitCount = glitches[Math.floor(Math.random() * glitches.length)];
+      } else {
+        hitCount++;
+      }
+      DOM.hitCounter.textContent = hitCount.toLocaleString();
+    }
+    setInterval(updateHitCounter, 3000);
+
+    // Progress bar animation
+    let progress = 0;
+    function animateProgress() {
+      progress += Math.random() * 2;
+      if (progress >= 99) progress = 0; // Never reaches 100%
+      DOM.progressFill.style.width = progress + '%';
+      DOM.progressText.textContent = `Loading... ${Math.floor(progress)}%`;
+    }
+    setInterval(animateProgress, 500);
 
     /* =========================================
-       DATING SIM STATE & LOGIC
+       CURSOR TRAIL
        ========================================= */
-    const GAME_STATE = {
+    let cursorTrailEnabled = false;
+    const trailEmojis = ['⭐', '✨', '💫', '🌟'];
+    let trailTimeout;
+
+    document.addEventListener('mousemove', (e) => {
+      if (!cursorTrailEnabled) return;
+
+      const trail = document.createElement('div');
+      trail.className = 'cursor-trail';
+      trail.textContent = trailEmojis[Math.floor(Math.random() * trailEmojis.length)];
+      trail.style.left = e.pageX + 'px';
+      trail.style.top = e.pageY + 'px';
+      document.body.appendChild(trail);
+
+      setTimeout(() => trail.remove(), 1000);
+    });
+
+    /* =========================================
+       KONAMI CODE
+       ========================================= */
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiIndex = 0;
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+          activateKonamiMode();
+          konamiIndex = 0;
+        }
+      } else {
+        konamiIndex = 0;
+      }
+    });
+
+    function activateKonamiMode() {
+      cursorTrailEnabled = true;
+      showAchievement('Konami Code Master', 'You unlocked cursor trails!');
+      document.body.style.animation = 'rainbow 2s infinite';
+      const style = document.createElement('style');
+      style.textContent = '@keyframes rainbow { 0% {filter: hue-rotate(0deg);} 100% {filter: hue-rotate(360deg);}}';
+      document.head.appendChild(style);
+
+      setTimeout(() => {
+        document.body.style.animation = '';
+      }, 10000);
+    }
+
+    /* =========================================
+       SECRET MENU (Right-click UFO)
+       ========================================= */
+    function secretMenu(e) {
+      e.preventDefault();
+      showAchievement('Context Menu Hacker', 'You found the secret menu!');
+      alert('🛸 SECRET MENU 🛸\n\n' +
+            '1. Cursor Trails: ' + (cursorTrailEnabled ? 'ON' : 'OFF') + '\n' +
+            '2. Try Konami Code: ↑↑↓↓←→←→BA\n' +
+            '3. Dating Sim has achievements!\n' +
+            '4. Check console for more secrets');
+    }
+
+    /* =========================================
+       ACHIEVEMENT SYSTEM
+       ========================================= */
+    const achievements = new Set();
+
+    function showAchievement(title, description) {
+      if (achievements.has(title)) return;
+      achievements.add(title);
+
+      DOM.achievementText.innerHTML = `<b>${title}</b><br>${description}`;
+      DOM.achievementNotification.classList.add('show');
+
+      setTimeout(() => {
+        DOM.achievementNotification.classList.remove('show');
+      }, 5000);
+    }
+
+    /* =========================================
+       RANDOM ERROR POPUPS
+       ========================================= */
+    const errorMessages = [
+      { title: 'Internet Explorer', msg: 'This program has performed an illegal operation and will be shut down.' },
+      { title: 'Macromedia Flash Player', msg: 'Flash Player 4.0 is required to view this content.' },
+      { title: 'RealPlayer', msg: 'Buffering... Buffering... Connection lost.' },
+      { title: 'Windows Update', msg: 'Critical updates available. Restart now?' },
+      { title: 'Java Runtime', msg: 'Java applet failed to load. Missing class: Fun.class' }
+    ];
+
+    function showRandomError() {
+      if (Math.random() < 0.15) { // 15% chance every 30 seconds
+        const error = errorMessages[Math.floor(Math.random() * errorMessages.length)];
+        DOM.errorTitle.textContent = error.title;
+        DOM.errorMessage.textContent = error.msg;
+        DOM.errorDialog.style.display = 'block';
+      }
+    }
+    setInterval(showRandomError, 30000);
+
+    function closeErrorDialog() {
+      DOM.errorDialog.style.display = 'none';
+    }
+
+    /* =========================================
+       POLL WIDGET
+       ========================================= */
+    function votePoll() {
+      const selected = document.querySelector('input[name="browser"]:checked');
+      if (!selected) {
+        alert('Please select an option!');
+        return;
+      }
+      const responses = {
+        netscape: 'Excellent choice! Navigator 4.0 rules! 🌐',
+        ie: 'IE gang! Hope you like ActiveX vulnerabilities! 🪟',
+        opera: 'A true connoisseur! Opera is the future! 🎭'
+      };
+      alert(responses[selected.value] || 'Vote recorded!');
+      showAchievement('Poll Participant', 'Thanks for voting!');
+    }
+
+    /* =========================================
+       RANDOM COMIC
+       ========================================= */
+    function randomComic() {
+      const comics = [
+        'Dilbert strip #42069',
+        'The Far Side: Cow Tools',
+        'Garfield hates Mondays again',
+        'Calvin peeing on things',
+        'ERROR 404: Comic not found'
+      ];
+      alert(comics[Math.floor(Math.random() * comics.length)]);
+    }
+
+    /* =========================================
+       DATING SIM - ENHANCED
+       ========================================= */
+    let GAME_STATE = {
       has_candy: false,
       has_dead_rat: false,
       knows_gary_is_cherry: false
     };
 
+    function updateInventoryUI() {
+      DOM.invCandy.innerHTML = GAME_STATE.has_candy ? '🍬' : '';
+      DOM.invCandy.className = 'inventory-item' + (GAME_STATE.has_candy ? ' has-item' : '');
+
+      DOM.invRat.innerHTML = GAME_STATE.has_dead_rat ? '🐀' : '';
+      DOM.invRat.className = 'inventory-item' + (GAME_STATE.has_dead_rat ? ' has-item' : '');
+    }
+
     const ROUTES = {
       gary: {
         start: {
           img: ASSETS.gary.neutral,
-          text: "A low-res man appears. He smells like ozone and disappointment.",
+          text: "A low-res man in a wrinkled tie appears. He smells like ozone, disappointment, and expired energy drinks.",
           choices: [
-            { txt: "Hi Gary.", next: "gary_mad1" },
-            { txt: "Steal his lunch.", next: "gary_lunch", req: "!has_candy" },
-            { txt: "Are you single?", next: "gary_mad1" }
+            { txt: "Hi Gary, nice to meet you!", next: "gary_polite" },
+            { txt: "Steal his lunch from his desk.", next: "gary_lunch", req: "!has_candy" },
+            { txt: "You look... stressed. Bad day?", next: "gary_sympathetic" }
           ]
+        },
+        gary_polite: {
+          img: ASSETS.gary.mad1,
+          text: "He twitches. 'It's CHERRY. With a G. How many times do I have to tell people?'",
+          onEnter: () => { GAME_STATE.knows_gary_is_cherry = true; },
+          choices: [
+            { txt: "Oh sorry, Cherry!", next: "gary_apologize" },
+            { txt: "That's... an unusual pronunciation.", next: "gary_mad2" },
+            { txt: "Offer the dead rat as a peace offering.", next: "gary_rat", req: "has_dead_rat" }
+          ]
+        },
+        gary_sympathetic: {
+          img: ASSETS.gary.neutral,
+          text: "He pauses. 'Yeah... corporate mandated another team-building exercise. I just want to be left alone.'",
+          choices: [
+            { txt: "I understand. Want some candy?", next: "gary_candy", req: "has_candy" },
+            { txt: "So... are you single?", next: "gary_mad1" },
+            { txt: "That sounds rough. Take care of yourself.", next: "gary_ending_good" }
+          ]
+        },
+        gary_candy: {
+          img: ASSETS.gary.neutral,
+          text: "He takes the candy. 'Thanks... I guess. You're not as annoying as the others.' You achieved: Gary's Respect!",
+          onEnter: () => {
+            GAME_STATE.has_candy = false;
+            updateInventoryUI();
+            showAchievement('Gary\'s Friend', 'You broke through Cherry\'s grumpy exterior!');
+          },
+          choices: [{ txt: "Leave him in peace.", next: "reset" }]
         },
         gary_lunch: {
           img: ASSETS.gary.mad1,
-          text: "You snatch a bag of stale candy from his desk. He vibrates with rage.",
-          onEnter: () => { GAME_STATE.has_candy = true; },
-          choices: [{ txt: "Run away.", next: "reset" }]
+          text: "You swipe a bag of stale candy from his desk. His eye twitches violently. 'THAT WAS MY LUNCH!'",
+          onEnter: () => { GAME_STATE.has_candy = true; updateInventoryUI(); },
+          choices: [{ txt: "Run away before he explodes!", next: "reset" }]
+        },
+        gary_apologize: {
+          img: ASSETS.gary.neutral,
+          text: "He calms slightly. 'Fine. At least you corrected yourself. Everyone calls me Gary.'",
+          choices: [
+            { txt: "Why Cherry with a G?", next: "gary_story" },
+            { txt: "Leave before he gets mad again.", next: "reset" }
+          ]
+        },
+        gary_story: {
+          img: ASSETS.gary.neutral,
+          text: "He sighs. 'Childhood nickname. Long story. My parents had a sense of humor.' He almost smiles.",
+          choices: [{ txt: "Thanks for sharing, Cherry.", next: "gary_ending_good" }]
+        },
+        gary_ending_good: {
+          img: ASSETS.gary.neutral,
+          text: "Cherry nods. 'You're alright. See you around.' GOOD ENDING: A Grumpy Friend",
+          onEnter: () => showAchievement('Cherry\'s Approval', 'You completed Gary\'s route peacefully!'),
+          choices: [{ txt: "[End]", next: "reset" }]
         },
         gary_mad1: {
           img: ASSETS.gary.mad1,
-          text: "His eyes twitch. 'It is pronounced CHERRY. With a G.'",
-          onEnter: () => { GAME_STATE.knows_gary_is_cherry = true; },
+          text: "'Are you SERIOUS right now?' His fists clench. This isn't going well.",
           choices: [
-            { txt: "Sorry, Cherry.", next: "gary_mad2" },
-            { txt: "Offer Dead Rat.", next: "gary_rat", req: "has_dead_rat" },
-            { txt: "Okay Gary.", next: "gary_mad2" }
+            { txt: "Quick, offer the dead rat!", next: "gary_rat", req: "has_dead_rat" },
+            { txt: "Sorry, I'll leave you alone.", next: "gary_mad2" }
           ]
         },
         gary_rat: {
           img: ASSETS.gary.neutral,
-          text: "He stares at the dead rat. 'This is... adequate compensation.' He calms down.",
-          onEnter: () => { GAME_STATE.has_dead_rat = false; },
-          choices: [{ txt: "Leave while he eats.", next: "reset" }]
+          text: "He stares at the dead rat. '...This is cursed. But also kind of metal. I accept.' He calms down.",
+          onEnter: () => {
+            GAME_STATE.has_dead_rat = false;
+            updateInventoryUI();
+            showAchievement('Rat Diplomat', 'The dead rat solved everything!');
+          },
+          choices: [{ txt: "Leave while he examines the rat.", next: "reset" }]
         },
         gary_mad2: {
           img: ASSETS.gary.mad2,
-          text: "The JPEG artifacts intensify. 'I SAID CHERRY. WITH. A. G.'",
+          text: "The JPEG artifacts intensify around him. 'I. SAID. CHERRY. WITH. A. G!'",
           choices: [
-            { txt: "Calm down Gary.", next: "gary_glitch" },
-            { txt: "Nice tie, Cherry.", next: "gary_glitch" }
+            { txt: "Okay okay, chill Gary—I mean Cherry!", next: "gary_glitch" },
+            { txt: "Nice tie though.", next: "gary_glitch" }
           ]
         },
         gary_glitch: {
           img: ASSETS.gary.glitch,
-          text: "CRITICAL ERROR. ENTITY 'GARY' HAS STOPPED RESPONDING.",
-          choices: [{ txt: "[REBOOT]", next: "reset" }]
+          text: "CRITICAL ERROR. ENTITY 'CHERRY_G.EXE' HAS STOPPED RESPONDING. Please restart your date.",
+          onEnter: () => showAchievement('System Error', 'You broke Gary!'),
+          choices: [{ txt: "[CTRL+ALT+DEL]", next: "reset" }]
         }
       },
 
       harpy: {
         start: {
           img: ASSETS.harpy.neutral,
-          text: "SCREEEEEEEEECH! (She adjusts her name tag)",
+          text: "SCREEEEEEEEECH! (She adjusts her name tag which reads 'Hi I'm HARPY')",
           choices: [
-            { txt: "You have a lovely voice.", next: "harpy_blush" },
-            { txt: "Cover ears.", next: "harpy_mad" }
+            { txt: "Wow, you have a lovely voice!", next: "harpy_blush" },
+            { txt: "Cover your ears.", next: "harpy_mad" },
+            { txt: "Are you... a bird person?", next: "harpy_explain" }
           ]
+        },
+        harpy_explain: {
+          img: ASSETS.harpy.neutral,
+          text: "She tilts her head. 'Scree? SCREE!' (Translation: 'Yes, and I'm proud of it!')",
+          choices: [
+            { txt: "That's really cool actually.", next: "harpy_blush" },
+            { txt: "Do you... eat rats?", next: "harpy_rats" }
+          ]
+        },
+        harpy_rats: {
+          img: ASSETS.harpy.neutral,
+          text: "'SCREE!' (She nods enthusiastically) She pulls out a dead rat. 'Scree?'",
+          choices: [
+            { txt: "Uh, thanks but no thanks.", next: "harpy_sad" },
+            { txt: "Actually, I'll take it!", next: "get_rat" }
+          ]
+        },
+        harpy_sad: {
+          img: ASSETS.harpy.neutral,
+          text: "She looks disappointed but understanding. 'Scree...' (Not everyone appreciates fine rodent cuisine)",
+          choices: [{ txt: "Sorry, maybe next time.", next: "reset" }]
         },
         harpy_blush: {
           img: ASSETS.harpy.blush,
-          text: "She blushes and offers you a dead rat. It is warm.",
+          text: "She blushes (somehow) and chirps softly. She offers you a warm, dead rat as a gift.",
           choices: [
-            { txt: "Accept gift.", next: "get_rat" },
-            { txt: "Politely decline.", next: "reset" }
+            { txt: "Accept the romantic rat gift.", next: "get_rat" },
+            { txt: "Politely decline the rat.", next: "harpy_declined" }
           ]
         },
         get_rat: {
-          img: ASSETS.harpy.neutral,
-          text: "You obtained: 1x DEAD RAT. It is heavy with implications.",
+          img: ASSETS.harpy.blush,
+          text: "You obtained: 1x DEAD RAT! It is warm, heavy, and carries deep emotional significance. She's so happy!",
           onEnter: () => {
             GAME_STATE.has_dead_rat = true;
+            updateInventoryUI();
             document.body.classList.add('rat-mode');
+            showAchievement('Rat Collector', 'You accepted Harpy\'s precious gift!');
           },
-          choices: [{ txt: "Thanks.", next: "reset" }]
+          choices: [
+            { txt: "Thank you, this means a lot.", next: "harpy_love" },
+            { txt: "This is weird but... thanks?", next: "reset" }
+          ]
+        },
+        harpy_love: {
+          img: ASSETS.harpy.blush,
+          text: "'SCREEEE!' She's overjoyed! TRUE ENDING: Bird Love! You and Harpy fly off into the sunset (metaphorically).",
+          onEnter: () => showAchievement('Harpy\'s Soulmate', 'You completed Harpy\'s route with true love!'),
+          choices: [{ txt: "[End]", next: "reset" }]
+        },
+        harpy_declined: {
+          img: ASSETS.harpy.neutral,
+          text: "She looks sad but respects your choice. 'Scree...' You part ways amicably.",
+          choices: [{ txt: "Take care, Harpy.", next: "reset" }]
         },
         harpy_mad: {
           img: ASSETS.harpy.glitch,
-          text: "SHE DOES NOT LIKE BEING IGNORED.",
-          choices: [{ txt: "RUN", next: "reset" }]
+          text: "SCRREEEEEEEE!!! SHE DOES NOT APPRECIATE BEING IGNORED! The screen glitches!",
+          onEnter: () => showAchievement('Harpy\'s Wrath', 'You angered the bird!'),
+          choices: [{ txt: "ESCAPE!", next: "reset" }]
         }
       },
 
       ants: {
         start: {
           img: ASSETS.ants.neutral,
-          text: "The Hive mind vibrates. 'DO YOU HAVE SUGAR?'",
+          text: "Thousands of ants swirl into a vaguely humanoid shape. They vibrate in unison: 'WE ARE THE HIVE. DO YOU HAVE SUGAR?'",
           choices: [
-            { txt: "Give Candy.", next: "ants_love", req: "has_candy" },
-            { txt: "Give Dead Rat.", next: "ants_rat", req: "has_dead_rat" },
-            { txt: "No.", next: "ants_buff" }
+            { txt: "Yes! Here's some candy!", next: "ants_love", req: "has_candy" },
+            { txt: "I have a dead rat instead?", next: "ants_rat", req: "has_dead_rat" },
+            { txt: "No, I don't have sugar.", next: "ants_no_sugar" },
+            { txt: "What exactly ARE you?", next: "ants_explain" }
+          ]
+        },
+        ants_explain: {
+          img: ASSETS.ants.neutral,
+          text: "'WE ARE MANY. WE ARE ONE. WE ARE... DATING?' The ants seem confused about their own purpose here.",
+          choices: [
+            { txt: "That's kind of beautiful actually.", next: "ants_philosophical" },
+            { txt: "So... about that sugar?", next: "ants_no_sugar" }
+          ]
+        },
+        ants_philosophical: {
+          img: ASSETS.ants.happy,
+          text: "'YOU UNDERSTAND. RARE HUMAN. WE APPRECIATE YOUR PERSPECTIVE.' The ants form a smiley face.",
+          choices: [
+            { txt: "Give them candy as thanks.", next: "ants_love", req: "has_candy" },
+            { txt: "I should probably go now.", next: "reset" }
+          ]
+        },
+        ants_no_sugar: {
+          img: ASSETS.ants.neutral,
+          text: "'NO SUGAR? THEN... WHAT IS YOUR PURPOSE?' The ants seem genuinely disappointed.",
+          choices: [
+            { txt: "Wait, I found some candy!", next: "ants_love", req: "has_candy" },
+            { txt: "Would a dead rat help?", next: "ants_rat", req: "has_dead_rat" },
+            { txt: "My purpose? I don't know either.", next: "ants_buff" }
           ]
         },
         ants_love: {
           img: ASSETS.ants.heart,
-          text: "The ants form a heart shape. YOU HAVE FOUND TRUE LOVE. The swarm consumes you with affection.",
-          choices: [{ txt: "I accept my fate.", next: "reset" }]
+          text: "The ants SWARM the candy, then form a perfect heart shape! 'SUGAR! LOVE! WE ARE COMPLETE!' TRUE ENDING: Sweet Unity!",
+          onEnter: () => {
+            GAME_STATE.has_candy = false;
+            updateInventoryUI();
+            showAchievement('Hive Beloved', 'The ants have chosen YOU! All hail the sugar provider!');
+          },
+          choices: [{ txt: "I accept my role as Sugar Monarch.", next: "reset" }]
         },
         ants_rat: {
           img: ASSETS.ants.happy,
-          text: "The ants swarm the rat. 'PROTEIN ACCEPTABLE. BUT WE CRAVE SUGAR.'",
-          onEnter: () => { GAME_STATE.has_dead_rat = false; },
-          choices: [{ txt: "Back away.", next: "reset" }]
+          text: "The ants investigate the rat. 'PROTEIN DETECTED. ACCEPTABLE. BUT... WE STILL CRAVE SUGAR.'",
+          onEnter: () => {
+            GAME_STATE.has_dead_rat = false;
+            updateInventoryUI();
+          },
+          choices: [
+            { txt: "Sorry, that's all I have.", next: "ants_ending_ok" },
+            { txt: "Actually I have candy too!", next: "ants_love", req: "has_candy" }
+          ]
+        },
+        ants_ending_ok: {
+          img: ASSETS.ants.neutral,
+          text: "'UNDERSTANDABLE. WE WILL REMEMBER YOUR OFFERING.' The ants disperse peacefully. NEUTRAL ENDING.",
+          choices: [{ txt: "[End]", next: "reset" }]
         },
         ants_buff: {
           img: ASSETS.ants.buff,
-          text: "The ants combine into a SWOL SOLDIER. 'THEN YOU ARE THE SUGAR.'",
+          text: "'THEN YOU ARE THE SUGAR.' The ants combine into a SWOLE SOLDIER. This was a mistake. BAD ENDING!",
+          onEnter: () => showAchievement('Ant Protein', 'You became the sugar!'),
           choices: [{ txt: "Oh no.", next: "reset" }]
         }
       }
@@ -1128,30 +1756,36 @@
     let selectedCharacter = null;
 
     function initDatingSim() {
-      DOM.constructionSign.style.display = 'none';
-      DOM.datingContainer.style.display = 'flex';
+      document.getElementById('construction-sign').style.display = 'none';
+      document.getElementById('dating-container').style.display = 'flex';
+      DOM.inventoryUI.style.display = 'flex';
+      updateInventoryUI();
       showSelectionScreen();
+      showAchievement('Dating Sim Started', 'Welcome to LOVE_CONNEXION.EXE!');
     }
 
     function closeDatingSim() {
-      DOM.datingContainer.style.display = 'none';
-      DOM.constructionSign.style.display = 'flex';
+      document.getElementById('dating-container').style.display = 'none';
+      document.getElementById('construction-sign').style.display = 'flex';
+      DOM.inventoryUI.style.display = 'none';
     }
 
     function showSelectionScreen() {
-      DOM.selectionScreen.style.display = 'flex';
-      DOM.dateScreen.style.display = 'none';
+      document.getElementById('selection-screen').style.display = 'flex';
+      document.getElementById('date-screen').style.display = 'none';
       selectedCharacter = null;
       hideTooltip();
     }
 
     function showTooltip(imgSrc) {
-      DOM.tooltipImg.src = imgSrc;
-      DOM.globalTooltip.style.display = 'block';
+      const tooltip = document.getElementById('global-tooltip');
+      const toolImg = document.getElementById('tooltip-img');
+      toolImg.src = imgSrc;
+      tooltip.style.display = 'block';
     }
 
     function hideTooltip() {
-      DOM.globalTooltip.style.display = 'none';
+      document.getElementById('global-tooltip').style.display = 'none';
     }
 
     function handleCardClick(charKey) {
@@ -1176,7 +1810,7 @@
       }
     }
 
-    DOM.selectionScreen.addEventListener('click', function(e) {
+    document.getElementById('selection-screen').addEventListener('click', function(e) {
       if (e.target.id === 'selection-screen') {
         selectedCharacter = null;
         hideTooltip();
@@ -1186,8 +1820,8 @@
     function startRoute(charKey) {
       hideTooltip();
       currentRoute = ROUTES[charKey];
-      DOM.selectionScreen.style.display = 'none';
-      DOM.dateScreen.style.display = 'flex';
+      document.getElementById('selection-screen').style.display = 'none';
+      document.getElementById('date-screen').style.display = 'flex';
       renderNode(currentRoute.start);
     }
 
@@ -1196,9 +1830,12 @@
 
       if (node.onEnter) node.onEnter();
 
-      DOM.activePortrait.src = node.img;
-      DOM.dialogueText.innerText = node.text;
-      DOM.choiceContainer.innerHTML = '';
+      const port = document.getElementById('active-portrait');
+      port.src = node.img;
+      document.getElementById('dialogue-text').innerText = node.text;
+
+      const cContainer = document.getElementById('choice-container');
+      cContainer.innerHTML = '';
 
       let validChoices = 0;
 
@@ -1217,7 +1854,7 @@
         btn.onclick = c.next === 'reset'
           ? () => showSelectionScreen()
           : () => renderNode(currentRoute[c.next]);
-        DOM.choiceContainer.appendChild(btn);
+        cContainer.appendChild(btn);
       });
 
       if (validChoices === 0) {
@@ -1225,15 +1862,16 @@
         btn.className = 'choice-btn';
         btn.innerText = "> [Leave awkwardly]";
         btn.onclick = () => showSelectionScreen();
-        DOM.choiceContainer.appendChild(btn);
+        cContainer.appendChild(btn);
       }
     }
 
     /* =========================================
-       TRUMPO VIDEO LOGIC
+       TRUMPO & OTHER FUNCTIONS
        ========================================= */
     function fakePrizePopup() {
-      if (DOM.bannerText.innerText.startsWith("VIDEO ENDS IN")) {
+      const bannerText = document.getElementById("banner-text").innerText;
+      if(bannerText.startsWith("VIDEO ENDS IN")) {
         window.location.href = "videos/redblue/redbluerealm.html";
       } else {
         alert("ERROR: Prize server is DOWN. Please mail 3 dollars cash to: 404 Not Found Blvd.");
@@ -1241,10 +1879,12 @@
     }
 
     function playTrumpoVideo() {
-      const existingVideo = DOM.trumpoBox.querySelector('video');
-      if (existingVideo) {
+      const container = document.querySelector('.trumpo-box');
+      const existingVideo = container.querySelector('video');
+
+      if(existingVideo) {
         const timeLeft = existingVideo.duration - existingVideo.currentTime;
-        if (timeLeft <= 10 && timeLeft > 0) {
+        if(timeLeft <= 10 && timeLeft > 0) {
           window.location.href = "videos/redblue/redbluerealm.html";
           return;
         }
@@ -1260,44 +1900,56 @@
 
       vid.ontimeupdate = function() {
         const timeLeft = vid.duration - vid.currentTime;
-        if (timeLeft <= 10 && timeLeft > 0) {
-          DOM.bannerText.innerText = "VIDEO ENDS IN " + Math.ceil(timeLeft) + "... " + (Math.ceil(timeLeft)-1) + "...";
-          DOM.bannerText.style.background = "black";
-          DOM.bannerText.style.color = "red";
-        } else if (DOM.bannerText.innerText.startsWith("VIDEO ENDS")) {
-          DOM.bannerText.innerText = "CONGRATS YOU ARE THE 999,999th VISITOR!!! CLICK TO CLAIM PRIZE";
-          DOM.bannerText.style.background = "red";
-          DOM.bannerText.style.color = "yellow";
+        const banner = document.getElementById("banner-text");
+        if(timeLeft <= 10 && timeLeft > 0) {
+          banner.innerText = "VIDEO ENDS IN " + Math.ceil(timeLeft) + "... " + (Math.ceil(timeLeft)-1) + "...";
+          banner.style.background = "black";
+          banner.style.color = "red";
+        } else if(banner.innerText.startsWith("VIDEO ENDS")) {
+          banner.innerText = "CONGRATS YOU ARE THE 999,999th VISITOR!!! CLICK TO CLAIM PRIZE";
+          banner.style.background = "red";
+          banner.style.color = "yellow";
         }
       };
 
-      DOM.trumpoBox.innerHTML = "";
-      DOM.trumpoBox.appendChild(vid);
+      container.innerHTML = "";
+      container.appendChild(vid);
     }
 
     function restoreTrumpo() {
-      DOM.trumpoBox.innerHTML = `<img id="trumpo-img" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/trumpo.gif" alt="prophecy" onclick="playTrumpoVideo()">`;
-      DOM.bannerText.innerText = "CONGRATS YOU ARE THE 999,999th VISITOR!!! CLICK TO CLAIM PRIZE";
-      DOM.bannerText.style.background = "red";
-      DOM.bannerText.style.color = "yellow";
+      const container = document.querySelector('.trumpo-box');
+      container.innerHTML = `<img id="trumpo-img" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/trumpo.gif" alt="prophecy" onclick="playTrumpoVideo()">`;
+      const banner = document.getElementById("banner-text");
+      banner.innerText = "CONGRATS YOU ARE THE 999,999th VISITOR!!! CLICK TO CLAIM PRIZE";
+      banner.style.background = "red";
+      banner.style.color = "yellow";
     }
 
-    /* =========================================
-       GUESTBOOK & PAGE LOADING
-       ========================================= */
     function loadGuestbook() {
-      DOM.mainContainer.style.width = '1000px';
-      DOM.mainDisplay.innerHTML = `<iframe id="guestbook-iframe" src="guestbook.html" style="width: 1000px; height: 1200px; border: none; overflow: hidden;" scrolling="no"></iframe>`;
+      const display = DOM.mainDisplay;
+      const container = DOM.mainContainer;
+      if (container) container.style.width = '1000px';
+      if (display) {
+        display.innerHTML = `<iframe id="guestbook-iframe" src="guestbook.html" style="width: 1000px; height: 1200px; border: none; overflow: hidden;" scrolling="no"></iframe>`;
+      }
+
+      try {
+        stashResumeStateForGuestbook();
+        stopNumb();
+        guestbookMode = true;
+        playerMode = 'guestbook';
+        setAudioSource(GUESTBOOK_TRACK_SRC, 0.25);
+        setWinampDisplay('26batsrunaway.MP3', 'Playing...', false);
+        siteAudio.play().catch(() => {
+          setWinampDisplay('26batsrunaway.MP3', 'Click Play', false);
+        });
+      } catch (e) {}
     }
 
-    /* =========================================
-       TONY COLLAGE & BOSS OVERLAY
-       ========================================= */
     function openTonyPopup(isSecret) {
-      DOM.tonyCollage.style.display = 'block';
-      if (DOM.tonyIframe.src === "about:blank") {
-        DOM.tonyIframe.src = DOM.tonyIframe.dataset.src;
-      }
+      if (DOM.tonyCollage) DOM.tonyCollage.style.display = 'block';
+      const tIframe = DOM.tonyIframe;
+      if(tIframe && tIframe.src === "about:blank") tIframe.src = tIframe.dataset.src;
       startBossOverlay();
 
       const audioUrl = "https://f005.backblazeb2.com/file/webcomiconline-gallery/VideoLibrary/elevator+out+of+hell/Tony+Danza+(Plaque+Brain)+Brian+loop+Voice+798_sd.m4a";
@@ -1305,32 +1957,37 @@
       stopNumb();
       setAudioSource(audioUrl, 0.3);
       setWinampDisplay("Tony_Danza_Brain.exe", "Streaming...", false);
-      DOM.siteAudio.play().catch(() => {
+      siteAudio.play().catch(() => {
         setWinampDisplay("Tony_Danza_Brain.exe", "Click Play", false);
       });
 
-      if (isSecret) {
-        DOM.secretAudio.volume = 1.0;
-        DOM.secretAudio.currentTime = 0;
-        DOM.secretAudio.play().catch(() => {});
+      if(isSecret) {
+        const secret = DOM.secretAudio;
+        secret.volume = 1.0;
+        secret.currentTime = 0;
+        secret.play().catch(() => {});
+        showAchievement('Secret Audio', 'You found the hidden emergency broadcast!');
       }
     }
 
     function closeTonyPopup() {
-      DOM.tonyCollage.style.display = 'none';
-      DOM.tonyIframe.src = "about:blank";
+      if (DOM.tonyCollage) DOM.tonyCollage.style.display = 'none';
+      if (DOM.tonyIframe) DOM.tonyIframe.src = "about:blank";
       stopBossOverlay();
       winampEject();
-      DOM.secretAudio.pause();
-      DOM.secretAudio.currentTime = 0;
+      const secret = DOM.secretAudio;
+      secret.pause();
+      secret.currentTime = 0;
     }
 
     function startBossOverlay() {
-      DOM.bossOverlay.style.display = 'block';
-      DOM.bossOverlay.innerHTML = '';
+      const overlay = DOM.bossOverlay;
+      if (!overlay) return;
+      overlay.style.display = 'block';
+      overlay.innerHTML = '';
       const frag = document.createDocumentFragment();
 
-      for (let i = 0; i < 50; i++) {
+      for(let i=0; i<50; i++) {
         const span = document.createElement('span');
         span.className = 'boss-text';
         span.textContent = "WHO'S THE BOSS?";
@@ -1343,40 +2000,40 @@
         `;
         frag.appendChild(span);
       }
-      DOM.bossOverlay.appendChild(frag);
+      overlay.appendChild(frag);
     }
 
     function stopBossOverlay() {
-      DOM.bossOverlay.style.display = 'none';
-      DOM.bossOverlay.innerHTML = '';
+      if (DOM.bossOverlay) {
+        DOM.bossOverlay.style.display = 'none';
+        DOM.bossOverlay.innerHTML = '';
+      }
     }
 
-    /* =========================================
-       VICTORY POPUP & GOOGLE SHEETS
-       ========================================= */
     let audioPreVictoryState = { winamp: false, secret: false };
 
     function openVictoryPopup() {
-      audioPreVictoryState.winamp = !DOM.siteAudio.paused;
+      audioPreVictoryState.winamp = !siteAudio.paused;
       audioPreVictoryState.secret = !DOM.secretAudio.paused;
 
-      if (numbInterval) stopNumb();
-      DOM.siteAudio.pause();
+      if(numbInterval) stopNumb();
+      siteAudio.pause();
       DOM.secretAudio.pause();
 
       DOM.victoryPopup.style.display = 'block';
       DOM.victoryVid.currentTime = 0;
       DOM.victoryVid.play();
       fetchVictoryNames();
+      showAchievement('Secret Hunter', 'You found all the ants!');
     }
 
     function closeVictoryPopup() {
       DOM.victoryPopup.style.display = 'none';
       DOM.victoryVid.pause();
 
-      if (audioPreVictoryState.winamp && guestbookMode) DOM.siteAudio.play();
-      if (audioPreVictoryState.secret) DOM.secretAudio.play();
-      if (hasAutoPlayed && !guestbookMode && !currentSrc) playNumbMelody();
+      if(audioPreVictoryState.winamp && guestbookMode) siteAudio.play();
+      if(audioPreVictoryState.secret) DOM.secretAudio.play();
+      if(hasAutoPlayed && !guestbookMode && !currentSrc) playNumbMelody();
     }
 
     function getRandomColor() {
@@ -1394,22 +2051,22 @@
         const rows = parseCSV(txt);
         const winners = [];
 
-        for (let i = 1; i < rows.length; i++) {
+        for(let i=1; i<rows.length; i++) {
           const row = rows[i];
-          if (row.length < 2) continue;
+          if(row.length < 2) continue;
 
           let candidate = "";
-          for (let c = 1; c < row.length; c++) {
+          for(let c=1; c<row.length; c++) {
             const cell = row[c].trim();
-            if (cell && !cell.includes('@') && cell.length < 30 && isNaN(cell)) {
+            if(cell && !cell.includes('@') && cell.length < 30 && isNaN(cell)) {
               candidate = cell;
               break;
             }
           }
-          if (candidate) winners.push(candidate);
+          if(candidate) winners.push(candidate);
         }
 
-        if (winners.length > 0) {
+        if(winners.length > 0) {
           const coloredWinners = winners.map(name => {
             const color = getRandomColor();
             return `<span style="color:${color}">${name}</span>`;
@@ -1457,26 +2114,204 @@
     }
 
     /* =========================================
-       WINAMP AUDIO PLAYER
+       WINAMP PLAYER SYSTEM
        ========================================= */
     let guestbookMode = false;
     let currentSrc = "";
     let audioCtx = null;
     let numbInterval = null;
     let hasAutoPlayed = false;
-    let ejectCount = 0;
+
+    let playerMode = 'synth';
+    const playlist = (window.WCO_SONGS || []).slice();
+    let playlistIndex = -1;
+    let shuffleEnabled = true;
+    let shuffleQueue = [];
+    let shufflePos = 0;
+    let resumeState = null;
+
+    function sanitizeTitleFromUrl(url) {
+      try {
+        const name = decodeURIComponent(String(url).split('/').pop() || 'Track');
+        return name.replace(/\.[a-z0-9]+$/i, '').replace(/\+/g, ' ').trim();
+      } catch (e) {
+        return 'Track';
+      }
+    }
+
+    function getTrackLabel(t) {
+      return (t && (t.label || t.title)) || sanitizeTitleFromUrl((t && (t.url || t.src)) || '');
+    }
+
+    function setShuffleUI() {
+      const led = DOM.shuffleLed;
+      const btn = document.getElementById('winamp-shuffle-btn');
+      if (led) {
+        led.classList.toggle('on', !!shuffleEnabled);
+        led.classList.toggle('off', !shuffleEnabled);
+      }
+      if (btn) {
+        btn.textContent = shuffleEnabled ? '[SHUFFLE*]' : '[SHUFFLE]';
+      }
+    }
+
+    function buildWeightedPermutation() {
+      const remaining = [];
+      for (let i = 0; i < playlist.length; i++) remaining.push(i);
+
+      const out = [];
+      while (remaining.length) {
+        let total = 0;
+        for (let k = 0; k < remaining.length; k++) {
+          const t = playlist[remaining[k]] || {};
+          let w = (typeof t.weight === 'number' && t.weight > 0) ? t.weight : 1;
+          total += w;
+        }
+
+        let r = Math.random() * total;
+        let pickedPos = 0;
+
+        for (let k = 0; k < remaining.length; k++) {
+          const idx = remaining[k];
+          const t = playlist[idx] || {};
+          let w = (typeof t.weight === 'number' && t.weight > 0) ? t.weight : 1;
+          r -= w;
+          if (r <= 0) {
+            pickedPos = k;
+            break;
+          }
+        }
+
+        out.push(remaining[pickedPos]);
+        remaining.splice(pickedPos, 1);
+      }
+
+      if (out.length > 1 && out[0] === playlistIndex) {
+        out.push(out.shift());
+      }
+
+      return out;
+    }
+
+    function resetShuffleCycle() {
+      shuffleQueue = buildWeightedPermutation();
+      shufflePos = 0;
+    }
+
+    function nextPlaylistIndex() {
+      if (!playlist.length) return -1;
+
+      if (shuffleEnabled) {
+        if (!shuffleQueue.length || shufflePos >= shuffleQueue.length) resetShuffleCycle();
+        const idx = shuffleQueue[shufflePos];
+        shufflePos++;
+        return idx;
+      }
+
+      if (playlistIndex < 0) return 0;
+      return (playlistIndex + 1) % playlist.length;
+    }
+
+    async function loadPlaylistTrack(i, autoplay = true) {
+      if (i < 0 || i >= playlist.length) return;
+
+      playlistIndex = i;
+      const t = playlist[i] || {};
+      const src = t.url || t.src || '';
+      const label = getTrackLabel(t);
+
+      playerMode = 'playlist';
+      guestbookMode = true;
+
+      stopNumb();
+      setAudioSource(src, (typeof t.volume === 'number') ? t.volume : 0.75);
+      setWinampDisplay(label, autoplay ? 'Playing...' : 'Ready.', false);
+
+      if (autoplay) {
+        try {
+          await siteAudio.play();
+          setWinampDisplay(label, 'Playing...', false);
+        } catch (e) {
+          setWinampDisplay(label, 'Click Play', false);
+        }
+      }
+    }
+
+    function winampShuffle() {
+      shuffleEnabled = !shuffleEnabled;
+      setShuffleUI();
+      if (shuffleEnabled) {
+        resetShuffleCycle();
+      }
+      const status = shuffleEnabled ? 'Shuffle: ON' : 'Shuffle: OFF';
+      setWinampDisplay(winampTrack.textContent, status, false);
+    }
+
+    async function winampNext() {
+      if (!playlist.length) {
+        alert('No playlist tracks loaded.');
+        return;
+      }
+      const idx = nextPlaylistIndex();
+      await loadPlaylistTrack(idx, true);
+    }
+
+    function stashResumeStateForGuestbook() {
+      if (playerMode !== 'playlist') {
+        resumeState = null;
+        return;
+      }
+      resumeState = {
+        mode: 'playlist',
+        playlistIndex,
+        shuffleEnabled,
+        shuffleQueue: shuffleQueue.slice(),
+        shufflePos,
+        wasPlaying: !siteAudio.paused
+      };
+    }
+
+    async function resumeAfterGuestbook() {
+      if (!resumeState || resumeState.mode !== 'playlist') {
+        resumeState = null;
+        winampEject();
+        return;
+      }
+
+      shuffleEnabled = !!resumeState.shuffleEnabled;
+      shuffleQueue = (resumeState.shuffleQueue || []).slice();
+      shufflePos = (typeof resumeState.shufflePos === 'number') ? resumeState.shufflePos : 0;
+      setShuffleUI();
+
+      const idx = (typeof resumeState.playlistIndex === 'number') ? resumeState.playlistIndex : -1;
+      const wasPlaying = !!resumeState.wasPlaying;
+      resumeState = null;
+
+      if (idx >= 0 && idx < playlist.length) {
+        await loadPlaylistTrack(idx, wasPlaying);
+        if (!wasPlaying) {
+          try { siteAudio.pause(); } catch (e) {}
+          setWinampDisplay(winampTrack.textContent, 'Paused.', false);
+        }
+      } else {
+        winampEject();
+      }
+    }
+
+    setShuffleUI();
+    if (shuffleEnabled) resetShuffleCycle();
 
     function initAudioCtx() {
-      if (!audioCtx) {
+      if(!audioCtx) {
         const AC = window.AudioContext || window.webkitAudioContext;
         audioCtx = new AC();
       }
-      if (audioCtx.state === 'suspended') audioCtx.resume();
+      if(audioCtx.state === 'suspended') audioCtx.resume();
     }
 
     function playNumbMelody() {
       initAudioCtx();
-      if (numbInterval) clearInterval(numbInterval);
+      if(numbInterval) clearInterval(numbInterval);
 
       const beat = 0.55;
       const sequence = [
@@ -1491,7 +2326,6 @@
         const note = sequence[step % sequence.length];
         const t = audioCtx.currentTime;
 
-        // Lead oscillator
         const o1 = audioCtx.createOscillator();
         const g1 = audioCtx.createGain();
         o1.type = 'sawtooth';
@@ -1505,7 +2339,6 @@
         o1.start(t);
         o1.stop(t + note.dur);
 
-        // Bass oscillator
         const o2 = audioCtx.createOscillator();
         const g2 = audioCtx.createGain();
         o2.type = 'square';
@@ -1526,76 +2359,80 @@
     }
 
     function stopNumb() {
-      if (numbInterval) {
+      if(numbInterval) {
         clearTimeout(numbInterval);
         numbInterval = null;
       }
     }
 
     function setWinampDisplay(label, statusText, showError) {
-      DOM.winampTrack.textContent = label || DEFAULT_TRACK_LABEL;
-      DOM.winampStatus.textContent = statusText || "Buffering...";
+      winampTrack.textContent = label || DEFAULT_TRACK_LABEL;
+      winampStatus.textContent = statusText || "Buffering...";
 
-      if (showError) {
-        DOM.winampError.style.display = "block";
-        DOM.winampError.innerText = statusText || "ERROR: CODEC MISSING";
+      if(showError) {
+        winampError.style.display = "block";
+        winampError.innerText = statusText || "ERROR: CODEC MISSING";
       } else {
-        DOM.winampError.style.display = "none";
+        winampError.style.display = "none";
       }
     }
 
     function setAudioSource(src, volume) {
       currentSrc = src || "";
       if (!currentSrc) {
-        try { DOM.siteAudio.pause(); } catch (e) {}
-        DOM.siteAudio.removeAttribute("src");
-        DOM.siteAudio.load();
+        try { siteAudio.pause(); } catch (e) {}
+        siteAudio.removeAttribute("src");
+        siteAudio.load();
         return;
       }
-      DOM.siteAudio.src = currentSrc;
-      DOM.siteAudio.volume = (typeof volume === "number") ? Math.max(0, Math.min(1, volume)) : 0.15;
+      siteAudio.src = currentSrc;
+      siteAudio.volume = (typeof volume === "number") ? Math.max(0, Math.min(1, volume)) : 0.15;
     }
 
     async function winampPlay() {
-      if (!guestbookMode && !currentSrc) {
+      if (playerMode === 'synth' && !currentSrc) {
         playNumbMelody();
         setWinampDisplay(DEFAULT_TRACK_LABEL, "Synthesizing...", false);
         return;
       }
-      if (!guestbookMode || !currentSrc) {
+
+      if (!currentSrc) {
         alert("ERROR: CODEC MISSING");
         return;
       }
+
       stopNumb();
       try {
-        await DOM.siteAudio.play();
-        setWinampDisplay(DOM.winampTrack.textContent, "Playing...", false);
+        await siteAudio.play();
+        setWinampDisplay(winampTrack.textContent, "Playing...", false);
       } catch (e) {
-        setWinampDisplay(DOM.winampTrack.textContent, "Buffering...", false);
+        setWinampDisplay(winampTrack.textContent, "Click Play", false);
       }
     }
 
     function winampStop() {
       stopNumb();
       try {
-        DOM.siteAudio.pause();
-        DOM.siteAudio.currentTime = 0;
+        siteAudio.pause();
+        siteAudio.currentTime = 0;
       } catch (e) {}
 
-      if (guestbookMode) {
-        setWinampDisplay(DOM.winampTrack.textContent, "Stopped.", false);
+      if (playerMode !== 'synth') {
+        setWinampDisplay(winampTrack.textContent, "Stopped.", false);
       } else {
         setWinampDisplay(DEFAULT_TRACK_LABEL, "Ready.", true);
       }
     }
 
+    let ejectCount = 0;
     function winampEject() {
       stopNumb();
       guestbookMode = false;
+      playerMode = 'synth';
       setAudioSource("");
       ejectCount++;
 
-      if (ejectCount > 1) {
+      if(ejectCount > 1) {
         setWinampDisplay(DEFAULT_TRACK_LABEL, "ERROR: CODEC MISSING", true);
         ejectCount = 0;
       } else {
@@ -1603,60 +2440,65 @@
       }
     }
 
-    /* =========================================
-       AUTO-PLAY INITIALIZATION
-       ========================================= */
     document.addEventListener('click', () => {
-      if (!hasAutoPlayed && !guestbookMode && !currentSrc) {
+      if(!hasAutoPlayed && playerMode === 'synth' && !currentSrc) {
         hasAutoPlayed = true;
         playNumbMelody();
         setWinampDisplay(DEFAULT_TRACK_LABEL, "Synthesizing...", false);
       }
     }, { once: true });
 
-    /* =========================================
-       POSTMESSAGE HANDLER FOR GUESTBOOK
-       ========================================= */
+    siteAudio.addEventListener('ended', () => {
+      if (playerMode === 'guestbook') {
+        resumeAfterGuestbook();
+        return;
+      }
+      if (playerMode !== 'playlist') return;
+      winampNext();
+    });
+
     window.addEventListener("message", async (event) => {
       const msg = event.data;
       if (!msg || msg.type !== "WCO_WINAMP") return;
 
       switch (msg.action) {
         case "guestbook_open":
+          stashResumeStateForGuestbook();
           stopNumb();
           guestbookMode = true;
+          playerMode = 'guestbook';
           setAudioSource(msg.src, msg.volume);
           setWinampDisplay(msg.label || "26batsrunaway.MP3", "Playing...", false);
           try {
-            await DOM.siteAudio.play();
+            await siteAudio.play();
           } catch (e) {
             setWinampDisplay(msg.label || "26batsrunaway.MP3", "Buffering...", false);
           }
           break;
 
         case "guestbook_close":
-          winampEject();
+          await resumeAfterGuestbook();
           break;
 
         case "pause":
-          try { DOM.siteAudio.pause(); } catch (e) {}
+          try { siteAudio.pause(); } catch (e) {}
           if (guestbookMode) {
-            setWinampDisplay(DOM.winampTrack.textContent, "Paused.", false);
+            setWinampDisplay(winampTrack.textContent, "Paused.", false);
           }
           break;
 
         case "resume":
           if (!guestbookMode || !currentSrc) return;
           try {
-            await DOM.siteAudio.play();
-            setWinampDisplay(DOM.winampTrack.textContent, "Playing...", false);
+            await siteAudio.play();
+            setWinampDisplay(winampTrack.textContent, "Playing...", false);
           } catch (e) {
-            setWinampDisplay(DOM.winampTrack.textContent, "Buffering...", false);
+            setWinampDisplay(winampTrack.textContent, "Buffering...", false);
           }
           break;
       }
     });
   </script>
 
-  </body>
+</body>
 </html>
