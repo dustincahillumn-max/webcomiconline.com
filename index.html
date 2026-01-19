@@ -102,7 +102,7 @@
     .header button:active, .header .menu-link-btn:active { border-style: inset; }
 
     .container {
-      width: 900px;
+      width: 1100px;
       margin: 0 auto;
       border: 2px solid black;
       padding: 10px;
@@ -114,19 +114,30 @@
 
     #main-display { width: 100%; height: 100%; }
 
-    .columns { display: flex; gap: 20px; }
+    .columns { display: flex; gap: 15px; }
 
-    /* Left Col: Comics */
-    .col-left {
-      flex: 1;
+    /* Left Sidebar: Widgets */
+    .col-sidebar-left {
+      width: 200px;
+      flex-shrink: 0;
       border: 1px dashed gray;
       padding: 10px;
       background: #f0f0f0;
     }
 
+    /* Middle Col: Comics Grid */
+    .col-middle {
+      flex: 1;
+      min-width: 500px;
+      border: 1px solid #999;
+      padding: 15px;
+      background: white;
+    }
+
     /* Right Col: Construction / Dating Sim */
     .col-right {
-      flex: 1;
+      width: 300px;
+      flex-shrink: 0;
       border: 4px ridge #ff00ff;
       padding: 0;
       background: var(--color-bg-black);
@@ -167,6 +178,161 @@
       text-decoration: none;
       color: blue;
       font-weight: bold;
+    }
+
+    /* Comic Grid for Pagination */
+    .comics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .comic-entry-grid {
+      border: 1px solid #999;
+      padding: 10px;
+      background: #fafafa;
+      min-height: 200px;
+    }
+    .comic-entry-grid .comic-date-link {
+      font-size: 1em;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .comic-entry-grid img {
+      width: 100%;
+      max-height: 150px;
+      object-fit: cover;
+      border: 2px solid #ccc;
+    }
+    .comic-entry-grid .comic-desc {
+      font-size: 0.85em;
+      line-height: 1.3;
+    }
+
+    /* Pagination Controls */
+    .pagination-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: #e0e0e0;
+      border: 2px outset #fff;
+      margin-bottom: 15px;
+    }
+    .pagination-btn {
+      background: var(--color-bg-gray);
+      border: 2px outset white;
+      padding: 8px 15px;
+      font-family: var(--font-mono);
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .pagination-btn:active {
+      border-style: inset;
+    }
+    .pagination-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .page-indicator {
+      font-family: var(--font-mono);
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    /* Archive Row */
+    .archive-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      padding: 10px;
+      background: #f5f5f5;
+      border: 1px solid #999;
+    }
+    .archive-box {
+      flex: 1;
+      border: 2px inset #ccc;
+      padding: 8px;
+      background: #e0e0e0;
+      text-align: center;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .archive-box:hover {
+      background: #ffff00;
+    }
+
+    /* Traffic Light CAPTCHA */
+    .captcha-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      background: var(--color-bg-gray);
+      border: 3px outset #fff;
+      box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+      z-index: 10000;
+      display: none;
+      font-family: Arial, sans-serif;
+    }
+    .captcha-header {
+      background: navy;
+      color: white;
+      padding: 3px 8px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+    }
+    .captcha-body {
+      padding: 20px;
+      text-align: center;
+    }
+    .traffic-lights {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .traffic-light {
+      width: 60px;
+      height: 180px;
+      background: #333;
+      border: 3px solid #000;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      gap: 15px;
+    }
+    .light-bulb {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .light-red { background: #300; }
+    .light-red.lit { background: #ff0000; box-shadow: 0 0 20px #ff0000; }
+    .light-yellow { background: #330; }
+    .light-yellow.lit { background: #ffff00; box-shadow: 0 0 20px #ffff00; }
+    .light-green { background: #030; }
+    .light-green.lit { background: #00ff00; box-shadow: 0 0 20px #00ff00; }
+    .captcha-submit {
+      background: var(--color-bg-gray);
+      border: 2px outset white;
+      padding: 8px 25px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .captcha-submit:active {
+      border-style: inset;
     }
 
     /* TRUMPO BOX STYLES */
@@ -961,7 +1127,8 @@
     <div id="main-display">
       <div class="columns">
 
-        <div class="col-left">
+        <!-- Left Sidebar: Widgets & Navigation -->
+        <div class="col-sidebar-left">
           <!-- Hit counter -->
           <div class="hit-counter">
             <div>YOU ARE VISITOR:</div>
@@ -997,48 +1164,38 @@
             <a href="#" onclick="randomComic(); return false;">RANDOM</a> |
             <a href="#" onclick="alert('ERROR 404: Next comic not found'); return false;">NEXT &gt;&gt;&gt;</a>
           </div>
+        </div>
 
-          <div class="comic-entry">
-             <a href="videos/hospice/thomnicholsadams.html" class="comic-date-link" style="color:red; text-decoration:none;">
-               web comic 01/14/2026: at wit's hospice
-             </a>
-             <div style="margin-top:10px; border:4px outset #ccc;">
-               <img src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/scottcoverphoto.png" style="width:100%; display:block;" alt="Scott Adams Tribute">
-             </div>
-             <p class="comic-desc" style="font-weight:bold; font-family:Courier New, monospace;">
-               in hindsight Scott Adams was cutting edge
-             </p>
+        <!-- Middle Column: Comics Grid -->
+        <div class="col-middle">
+          <!-- Pagination Controls -->
+          <div class="pagination-controls">
+            <button class="pagination-btn" id="btn-older" onclick="loadOlderComics()">
+              &lt;&lt; OLDER
+            </button>
+            <span class="page-indicator">
+              Page <span id="current-page">1</span> of <span id="total-pages">1</span>
+            </span>
+            <button class="pagination-btn" id="btn-newer" onclick="loadNewerComics()">
+              NEWER &gt;&gt;
+            </button>
           </div>
 
-          <div class="comic-entry" style="background: #fff0f5; border: 2px inset #ff00ff; padding: 10px;">
-             <a href="videos/elevator/elevator out of hell.html" class="comic-date-link" style="color:#cc00cc;">
-               web comic 01/07/2026: Elevator Out of Hell
-             </a>
-             <p class="comic-desc">
-               and my gums begin to bleed and the plaque gets in the blood and the blood goes to my brain i swear
-
-               <span style="white-space: nowrap; display: inline-block; vertical-align: middle;">
-                 <span class="emoji-link" onclick="openTonyPopup(false)">❓</span><span class="emoji-link" onclick="openTonyPopup(true)">❓</span><span class="emoji-link" onclick="openTonyPopup(false)">❓</span>
-               </span>
-             </p>
+          <!-- Comics Grid (dynamically populated) -->
+          <div class="comics-grid" id="comics-grid">
+            <!-- Comics will be loaded here by JavaScript -->
           </div>
 
-          <div class="comic-entry">
-            <a href="videos/pixel/pixelsickness010322026.html" class="comic-date-link">
-              web comic 01/03/2026: pixel sickness
-            </a>
-            <p class="comic-desc">
-              you awake in outside a confused room. the walls are like curtains, you clip right thru.
-              an ominous pillar in one corner of the room slows your vision as your gaze passes over it.
-              you press to the left and move rightward. there are aunties everywhere. r u drunk?
-              <span class="emoji-link" onclick="openVictoryPopup()">🐜😵‍💫</span>
-              <a href="videos/pixel/pixelsickness010322026-thinclient.html" class="hidden-kiss" title="Thin Client Access">💋</a>
-            </p>
-          </div>
-
-          <div class="comic-entry">
-            <div class="trumpo-box">
-                <img id="trumpo-img" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/trumpo.gif" alt="prophecy" onclick="playTrumpoVideo()">
+          <!-- Archive Row -->
+          <div class="archive-row">
+            <div class="archive-box" onclick="loadArchive('2026-01')">
+              JAN 2026<br>📚 4 comics
+            </div>
+            <div class="archive-box" onclick="loadArchive('2025-12')">
+              DEC 2025<br>📚 0 comics
+            </div>
+            <div class="archive-box" onclick="loadArchive('2025-11')">
+              NOV 2025<br>📚 0 comics
             </div>
           </div>
         </div>
@@ -1249,6 +1406,39 @@
     </div>
   </div>
 
+  <!-- Traffic Light CAPTCHA -->
+  <div id="captcha-modal" class="captcha-container">
+    <div class="captcha-header">
+      <span>Security Verification Required</span>
+      <span class="win-close" onclick="closeCaptcha()">X</span>
+    </div>
+    <div class="captcha-body">
+      <p style="margin-bottom: 20px;">
+        <b>⚠️ PROVE YOU ARE HUMAN ⚠️</b><br>
+        Click the traffic lights to match the pattern: 🔴 🟡 🟢
+      </p>
+      <div class="traffic-lights">
+        <div class="traffic-light">
+          <div class="light-bulb light-red" data-color="red" data-index="0" onclick="toggleLight(this)"></div>
+          <div class="light-bulb light-yellow" data-color="yellow" data-index="0" onclick="toggleLight(this)"></div>
+          <div class="light-bulb light-green" data-color="green" data-index="0" onclick="toggleLight(this)"></div>
+        </div>
+        <div class="traffic-light">
+          <div class="light-bulb light-red" data-color="red" data-index="1" onclick="toggleLight(this)"></div>
+          <div class="light-bulb light-yellow" data-color="yellow" data-index="1" onclick="toggleLight(this)"></div>
+          <div class="light-bulb light-green" data-color="green" data-index="1" onclick="toggleLight(this)"></div>
+        </div>
+        <div class="traffic-light">
+          <div class="light-bulb light-red" data-color="red" data-index="2" onclick="toggleLight(this)"></div>
+          <div class="light-bulb light-yellow" data-color="yellow" data-index="2" onclick="toggleLight(this)"></div>
+          <div class="light-bulb light-green" data-color="green" data-index="2" onclick="toggleLight(this)"></div>
+        </div>
+      </div>
+      <button class="captcha-submit" onclick="verifyCaptcha()">VERIFY HUMANITY</button>
+      <p id="captcha-error" style="color: red; font-size: 11px; margin-top: 10px; min-height: 15px;"></p>
+    </div>
+  </div>
+
   <script src="liminaltools/songlist.js"></script>
 
   <script>
@@ -1327,6 +1517,233 @@
         heart: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/ants_heart.png"
       }
     };
+
+    /* =========================================
+       COMIC PAGINATION SYSTEM
+       ========================================= */
+    const COMICS_DATA = [
+      {
+        date: '01/14/2026',
+        title: "at wit's hospice",
+        link: 'videos/hospice/thomnicholsadams.html',
+        image: 'https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/scottcoverphoto.png',
+        description: 'in hindsight Scott Adams was cutting edge',
+        linkStyle: 'color:red; text-decoration:none;',
+        descStyle: 'font-weight:bold; font-family:Courier New, monospace;'
+      },
+      {
+        date: '01/07/2026',
+        title: 'Elevator Out of Hell',
+        link: 'videos/elevator/elevator out of hell.html',
+        image: null,
+        description: 'and my gums begin to bleed and the plaque gets in the blood and the blood goes to my brain i swear',
+        linkStyle: 'color:#cc00cc;',
+        extraHTML: '<span style="white-space: nowrap; display: inline-block; vertical-align: middle;"><span class="emoji-link" onclick="openTonyPopup(false)">❓</span><span class="emoji-link" onclick="openTonyPopup(true)">❓</span><span class="emoji-link" onclick="openTonyPopup(false)">❓</span></span>',
+        boxStyle: 'background: #fff0f5; border: 2px inset #ff00ff; padding: 10px;'
+      },
+      {
+        date: '01/03/2026',
+        title: 'pixel sickness',
+        link: 'videos/pixel/pixelsickness010322026.html',
+        image: null,
+        description: 'you awake in outside a confused room. the walls are like curtains, you clip right thru. an ominous pillar in one corner of the room slows your vision as your gaze passes over it. you press to the left and move rightward. there are aunties everywhere. r u drunk?',
+        linkStyle: '',
+        extraHTML: '<span class="emoji-link" onclick="openVictoryPopup()">🐜😵‍💫</span> <a href="videos/pixel/pixelsickness010322026-thinclient.html" class="hidden-kiss" title="Thin Client Access">💋</a>'
+      },
+      {
+        isTrumpo: true
+      }
+    ];
+
+    let currentPage = 1;
+    const COMICS_PER_PAGE = 4;
+    let captchaVerified = false;
+
+    function getTotalPages() {
+      return Math.ceil(COMICS_DATA.length / COMICS_PER_PAGE);
+    }
+
+    function renderComicsPage(page) {
+      const startIdx = (page - 1) * COMICS_PER_PAGE;
+      const endIdx = startIdx + COMICS_PER_PAGE;
+      const comicsToShow = COMICS_DATA.slice(startIdx, endIdx);
+
+      const grid = document.getElementById('comics-grid');
+      if (!grid) return;
+
+      grid.innerHTML = '';
+
+      comicsToShow.forEach(comic => {
+        const entry = document.createElement('div');
+        entry.className = 'comic-entry-grid';
+
+        if (comic.boxStyle) {
+          entry.setAttribute('style', comic.boxStyle);
+        }
+
+        if (comic.isTrumpo) {
+          entry.innerHTML = `
+            <div class="trumpo-box" style="height: 200px;">
+              <img id="trumpo-img" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/trumpo.gif"
+                   alt="prophecy" onclick="playTrumpoVideo()">
+            </div>
+          `;
+        } else {
+          let html = `<a href="${comic.link}" class="comic-date-link" style="${comic.linkStyle}">web comic ${comic.date}: ${comic.title}</a>`;
+
+          if (comic.image) {
+            html += `<div style="margin-top:10px; border:4px outset #ccc;"><img src="${comic.image}" style="width:100%; display:block;" alt="${comic.title}"></div>`;
+          }
+
+          if (comic.description) {
+            html += `<p class="comic-desc" ${comic.descStyle ? 'style="'+comic.descStyle+'"' : ''}>${comic.description}`;
+            if (comic.extraHTML) {
+              html += ' ' + comic.extraHTML;
+            }
+            html += '</p>';
+          }
+
+          entry.innerHTML = html;
+        }
+
+        grid.appendChild(entry);
+      });
+
+      // Update pagination UI
+      const currentPageEl = document.getElementById('current-page');
+      const totalPagesEl = document.getElementById('total-pages');
+      if (currentPageEl) currentPageEl.textContent = page;
+      if (totalPagesEl) totalPagesEl.textContent = getTotalPages();
+
+      // Update button states
+      const btnOlder = document.getElementById('btn-older');
+      const btnNewer = document.getElementById('btn-newer');
+
+      if (btnOlder) btnOlder.disabled = (page >= getTotalPages());
+      if (btnNewer) btnNewer.disabled = (page <= 1);
+    }
+
+    function loadNewerComics() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderComicsPage(currentPage);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function loadOlderComics() {
+      if (currentPage < getTotalPages()) {
+        // Show CAPTCHA before going past page 1
+        if (currentPage === 1 && !captchaVerified) {
+          showCaptcha();
+          return;
+        }
+
+        currentPage++;
+        renderComicsPage(currentPage);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function loadArchive(month) {
+      alert(`📚 Archive for ${month}\n\nComing soon! This would load all comics from ${month}.`);
+    }
+
+    /* =========================================
+       TRAFFIC LIGHT CAPTCHA
+       ========================================= */
+    const CAPTCHA_STATE = {
+      lights: [
+        { red: false, yellow: false, green: false },
+        { red: false, yellow: false, green: false },
+        { red: false, yellow: false, green: false }
+      ],
+      correctPattern: [
+        { red: true, yellow: false, green: false },
+        { red: false, yellow: true, green: false },
+        { red: false, yellow: false, green: true }
+      ]
+    };
+
+    function showCaptcha() {
+      const modal = document.getElementById('captcha-modal');
+      if (modal) {
+        modal.style.display = 'block';
+        resetCaptcha();
+        showAchievement('CAPTCHA Challenge', 'Prove you are not a bot!');
+      }
+    }
+
+    function closeCaptcha() {
+      const modal = document.getElementById('captcha-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function resetCaptcha() {
+      CAPTCHA_STATE.lights = [
+        { red: false, yellow: false, green: false },
+        { red: false, yellow: false, green: false },
+        { red: false, yellow: false, green: false }
+      ];
+
+      document.querySelectorAll('.light-bulb').forEach(bulb => {
+        bulb.classList.remove('lit');
+      });
+
+      const errorEl = document.getElementById('captcha-error');
+      if (errorEl) errorEl.textContent = '';
+    }
+
+    function toggleLight(element) {
+      const color = element.getAttribute('data-color');
+      const lightIndex = parseInt(element.getAttribute('data-index'));
+      const isLit = element.classList.contains('lit');
+
+      // Turn off all lights in this column
+      const parent = element.parentElement;
+      parent.querySelectorAll('.light-bulb').forEach(bulb => {
+        bulb.classList.remove('lit');
+      });
+
+      // Reset this light column state
+      CAPTCHA_STATE.lights[lightIndex] = { red: false, yellow: false, green: false };
+
+      // Toggle the clicked light
+      if (!isLit) {
+        element.classList.add('lit');
+        CAPTCHA_STATE.lights[lightIndex][color] = true;
+      }
+    }
+
+    function verifyCaptcha() {
+      const errorEl = document.getElementById('captcha-error');
+
+      // Check if pattern matches
+      const isCorrect = CAPTCHA_STATE.correctPattern.every((pattern, idx) => {
+        const state = CAPTCHA_STATE.lights[idx];
+        return pattern.red === state.red &&
+               pattern.yellow === state.yellow &&
+               pattern.green === state.green;
+      });
+
+      if (isCorrect) {
+        captchaVerified = true;
+        showAchievement('Human Verified!', 'CAPTCHA passed! You may proceed.');
+        closeCaptcha();
+        currentPage++;
+        renderComicsPage(currentPage);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        if (errorEl) {
+          errorEl.textContent = '❌ INCORRECT! Pattern should be: 🔴 🟡 🟢';
+        }
+
+        // Y2K authenticity: random error popup
+        if (Math.random() < 0.3) {
+          setTimeout(showRandomError, 500);
+        }
+      }
+    }
 
     /* =========================================
        HIT COUNTER & ANIMATIONS
@@ -2496,6 +2913,17 @@
             setWinampDisplay(winampTrack.textContent, "Buffering...", false);
           }
           break;
+      }
+    });
+
+    /* =========================================
+       PAGE INITIALIZATION
+       ========================================= */
+    window.addEventListener('DOMContentLoaded', () => {
+      // Initialize comic pagination if grid exists
+      const grid = document.getElementById('comics-grid');
+      if (grid) {
+        renderComicsPage(currentPage);
       }
     });
   </script>
