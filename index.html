@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WEBCOMICONLINE.COM - WELCOME!!!</title>
+<link rel="preconnect" href="https://f005.backblazeb2.com" crossorigin>
+<link rel="dns-prefetch" href="//f005.backblazeb2.com">
+<style>
+/* ========================================= CSS VARIABLES & GLOBAL ========================================= */
+:root {
+  --color-bg-black: #000000;
+  --color-bg-gray: #c0c0c0;
+  --color-text-red: #ff0000;
+  --color-text-yellow: #ffff00;
+  --color-text-lime: #00ff00;
+  --font-serif: 'Times New Roman', serif;
+  --font-mono: 'Courier New', monospace;
+  --font-comic: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+}
+
+body {
+  background-color: var(--color-bg-black);
+  font-family: var(--font-serif);
+  background-image: url('https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/em+bash.bmp');
+  background-repeat: repeat;
+  margin: 0;
+  padding: 0;
+  color: black;
+  overflow-x: hidden;
+  transition: filter 2s;
+}
+
+a { color: #0000FF; text-decoration: underline; cursor: pointer; }
+a:visited { color: #551A8B; }
+a:hover { background-color: yellow; }
+
+/* =========================================
+   SPECIAL MODES & CURSORS
+   ========================================= */
+body.rat-mode, body.rat-mode * {
+  cursor: url('https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/deadrat.gif'), auto !important;
+}
+
+body.blue-balls-active {
+    filter: hue-rotate(180deg) brightness(0.7) sepia(1) saturate(5) hue-rotate(180deg);
+}
+body.blue-balls-active::after {
+    content: ""; position: fixed; inset: 0; background: rgba(0, 0, 255, 0.3); pointer-events: none; z-index: 10000;
+}
+body.blue-balls-active, body.blue-balls-active * {
+    cursor: url('https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/dolphincurse.gif'), auto !important;
+}
+
+body.ritual-active {
+    background: #000 !important;
+    overflow: hidden !important;
+    cursor: none !important;
+}
+#cursor-follower {
+    position: fixed; pointer-events: none; z-index: 20000; width: 50px; height: 50px;
+    transform: translate(-50%, -50%); display: none; border-radius: 50%; mix-blend-mode: difference;
+}
+body.ritual-active #cursor-follower { display: block; }
+body.ritual-active .header, body.ritual-active .ad-banner, body.ritual-active .sidebar-junk,
+body.ritual-active .col-right, body.ritual-active .ghost-alley, body.ritual-active #right-column,
+body.ritual-active .footer, body.ritual-active .browser-warning, body.ritual-active .col-sidebar { display: none !important; }
+body.ritual-active .container {
+    border: none; background: transparent; width: 100vw; height: 100vh; margin: 0; padding: 0;
+    display: flex; align-items: center; justify-content: center; position: relative; z-index: 100;
+}
+body.ritual-active .col-left { background: rgba(0, 0, 0, 0.5); border: none; z-index: 200; transform: scale(1.2); }
+#candle-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 50; display: none; }
+body.ritual-active #candle-overlay { display: block; }
+.ritual-candle-img { position: absolute; mix-blend-mode: screen; opacity: 0.8; }
+#ritual-close-btn {
+    display: none; position: fixed; top: 20px; right: 20px; z-index: 20001;
+    background: black; color: red; border: 2px solid red; font-family: var(--font-mono); font-weight: bold; padding: 10px 20px; cursor: pointer;
+}
+body.ritual-active #ritual-close-btn { display: block; cursor: none; }
+
+.cursor-trail {
+  position: fixed; pointer-events: none; font-size: 20px; z-index: 99999; animation: trail-fade 1s forwards;
+}
+@keyframes trail-fade { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.3); } }
+
+/* =========================================
+   LAYOUT COMPONENTS
+   ========================================= */
+.browser-warning {
+  background: #ffff00; border: 2px solid #000; padding: 5px; text-align: center; font-size: 11px; font-family: Arial, sans-serif;
+}
+
+.header {
+  text-align: center; background: var(--color-bg-gray); border-bottom: 3px solid black; padding: 10px; margin-bottom: 20px;
+}
+h1 { margin: 5px; font-size: 2em; color: var(--color-text-red); text-shadow: 2px 2px var(--color-text-yellow); }
+.marquee { width: 100%; overflow: hidden; white-space: nowrap; background: black; color: var(--color-text-lime); font-family: monospace; }
+
+.header button, .header .menu-link-btn {
+  background: var(--color-bg-gray); border: 2px outset white; font-family: var(--font-mono); font-weight: bold;
+  padding: 5px 10px; margin: 0 10px; cursor: pointer; text-decoration: none; color: black; font-size: 13px; display: inline-block;
+}
+.header button:active { border-style: inset; }
+
+.container {
+  width: 1000px; margin: 0 auto; border: 2px solid black; padding: 10px; background: white;
+  position: relative; min-height: 600px; transition: width 0.5s;
+}
+#main-display { width: 100%; height: 100%; }
+.columns { display: flex; gap: 20px; }
+
+/* Three column layout */
+.col-sidebar {
+  flex: 0 0 200px;
+  border: 1px dashed gray;
+  padding: 10px;
+  background: #f0f0f0;
+  font-size: 11px;
+}
+.col-left {
+  flex: 1.2;
+  border: 1px dashed gray;
+  padding: 10px;
+  background: #f0f0f0;
+  transition: all 0.5s ease;
+}
+.col-right {
+  flex: 1;
+  border: 4px ridge #ff00ff;
+  padding: 0;
+  background: var(--color-bg-black);
+  overflow: hidden;
+  position: relative;
+  min-height: 500px;
+}
+
+/* Comic pagination */
+.comic-page { display: none; }
+.comic-page.active { display: block; }
+
+/* Comic grid (2x2) */
+.comic-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+.comic-grid .comic-entry {
+  margin-bottom: 0;
+}
+
+/* Archive row */
+.archive-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 15px;
+}
+.archive-mini {
+  opacity: 0.7;
+  border: 1px solid #999;
+  background: #fff;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 1.3;
+  transition: all 0.2s;
+}
+.archive-mini:hover {
+  background: #ffffe0;
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+/* Ritual Grid Layout */
+.col-left.ritual-mode {
+    display: grid; grid-template-columns: 1fr 1.5fr 1fr; grid-template-rows: auto auto auto; gap: 5px;
+    background: #220000; border: 4px double red; padding: 20px;
+}
+.col-left.ritual-mode .comic-entry {
+    background: white; border: 1px solid black; font-size: 0.7em; overflow: hidden; height: 100px; margin: 0;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; transition: transform 0.2s;
+}
+.col-left.ritual-mode .comic-entry:nth-child(2) { grid-column: 2; grid-row: 2; transform: scale(1.2); z-index: 10; border: 3px solid gold; box-shadow: 0 0 15px red; height: 150px; }
+.col-left.ritual-mode .comic-entry:nth-child(1) { grid-column: 1; grid-row: 1; }
+.col-left.ritual-mode .comic-entry:nth-child(3) { grid-column: 3; grid-row: 1; }
+.col-left.ritual-mode .comic-entry:nth-child(4) { grid-column: 1; grid-row: 2; }
+.col-left.ritual-mode .comic-entry:nth-child(5) { grid-column: 3; grid-row: 2; }
+
+/* Comic Entries & Widgets */
+.comic-entry { margin-bottom: 25px; border-bottom: 1px solid #999; padding-bottom: 10px; }
+.comic-date-link { font-size: 1.2em; font-weight: bold; color: blue; }
+.comic-desc { font-size: 0.9em; margin-top: 5px; color: black; line-height: 1.4; }
+
+.comic-nav {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  margin: 10px 0;
+  padding: 5px;
+  background: #e0e0e0;
+  border: 1px solid #999;
+}
+.comic-nav a {
+  margin: 0 5px;
+  text-decoration: none;
+  color: blue;
+  font-weight: bold;
+}
+.comic-nav a.disabled {
+  color: #999;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.hit-counter { background: #000; color: #0f0; padding: 5px; border: 2px inset #666; font-family: 'Courier New', monospace; font-size: 11px; margin: 10px auto; text-align: center; }
+.hit-digits { background: #000; color: #0f0; padding: 2px 5px; border: 1px solid #0f0; font-size: 18px; letter-spacing: 3px; font-weight: bold; }
+
+.poll-widget { background: #f0f0f0; border: 2px solid #000; padding: 10px; margin: 10px 0; font-size: 11px; }
+.poll-widget h4 { margin: 0 0 8px 0; font-size: 12px; }
+.construction-progress { margin: 10px 0; background: #ddd; border: 1px solid #000; height: 20px; position: relative; }
+.progress-fill { background: linear-gradient(90deg, #00f, #0ff); height: 100%; transition: width 0.3s; }
+.progress-text { position: absolute; top: 0; left: 0; right: 0; text-align: center; line-height: 20px; font-size: 11px; font-weight: bold; }
+
+/* Scents */
+.scent-barista:hover { color: #4a3b2a; text-shadow: 2px 2px 4px #000; filter: blur(1px); cursor: help; }
+.scent-barista:hover::after { content: " (smells like saliva)"; font-size: 0.8em; color: red; }
+.scent-fire:hover { color: orange; text-shadow: 0 0 5px red; animation: char 0.1s infinite; cursor: help; }
+@keyframes char { 50% { opacity: 0.8; transform: skewX(2deg); } }
+.scent-miasma:hover { color: purple; letter-spacing: 2px; animation: vibrate 0.2s infinite; cursor: help; }
+@keyframes vibrate { 20% { transform: translate(-1px, 1px); } 80% { transform: translate(1px, -1px); } }
+
+/* Sidebar & Ads */
+.trumpo-box { width: 100%; height: 150px; border: 2px solid black; margin-top: 10px; background: var(--color-bg-black); overflow: hidden; cursor: pointer; }
+.trumpo-box img, .trumpo-box video { width: 100%; height: 100%; object-fit: fill; }
+.ad-banner { width: 100%; height: 60px; background: red; color: yellow; font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 20px; border: 3px double white; margin-bottom: 10px; animation: blink 1s infinite; cursor: pointer; z-index: 10; position: relative; }
+@keyframes blink { 50% { opacity: 0.5; background: blue; } }
+.sidebar-junk { position: absolute; right: -140px; top: 50px; width: 120px; text-align: center; }
+
+.ghost-alley { padding: 10px; background: #111; color: #555; font-family: Impact, sans-serif; text-align: center; border: 1px dotted #333; margin-top: 10px; }
+.ghost-sign { opacity: 0.3; font-size: 1.5em; margin-bottom: 20px; transform: rotate(-2deg); transition: opacity 1s; }
+.ghost-sign:hover { opacity: 0.8; color: #888; text-shadow: 0 0 10px white; }
+
+/* =========================================
+   PATCH: RESTORE ABOUT_ME.EXE + BRAIN_PLAQUE POPUPS
+   ========================================= */
+#about-window {
+  position: fixed; top: 20%; left: 20%; width: 600px; height: 400px;
+  background: #c0c0c0; border: 3px outset #ffffff;
+  box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+  display: none; z-index: 9999;
+  font-family: Arial, sans-serif;
+}
+#about-window .win-header {
+  background: navy; color: white; padding: 2px 5px;
+  font-weight: bold; display: flex; justify-content: space-between;
+}
+#about-window .win-close {
+  background: #c0c0c0; color: black;
+  border: 1px outset #fff; cursor: pointer; padding: 0 5px;
+}
+#about-window .win-body { display: flex; padding: 10px; gap: 10px; height: 340px; }
+#about-window .about-text { flex: 1; text-align: left; font-size: 0.9rem; overflow-y: auto; }
+#about-window .about-video-crop {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  border: 2px inset black;
+  background: black;
+  min-width: 0;
+}
+#about-window .about-video-crop video {
+  position: absolute;
+  top: 10px;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  object-fit: cover;
+}
+#about-window .crawler-wrap{
+  position: relative;
+  float: left;
+  width: 110px;
+  margin-right: 5px;
+  border: 1px solid red;
+  overflow: hidden;
+  background: #000;
+}
+#about-window .crawler-wrap video{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+#about-window .ants-overlay{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: 0.95;
+  mix-blend-mode: multiply;
+}
+
+#tony-collage {
+  display: none;
+  position: fixed;
+  top: 5%; left: 5%;
+  width: 900px; height: 750px;
+  background-color: #110011;
+  border: 6px ridge #800080;
+  z-index: 10001;
+  overflow: hidden;
+  box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.8);
+  font-family: "Impact", sans-serif;
+}
+#tony-collage .win-header {
+  background: #800080; color: #00ff00;
+  border-bottom: 2px solid white;
+  font-family: monospace; letter-spacing: 2px;
+}
+#tony-collage .collage-body {
+  position: relative;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(45deg, #222, #222 10px, #333 10px, #333 20px);
+}
+#tony-collage .collage-layer {
+  position: absolute;
+  transition: transform 0.2s, z-index 0s;
+  cursor: grab;
+}
+#tony-collage .collage-layer:hover {
+  transform: scale(1.1) rotate(0deg) !important;
+  z-index: 100;
+  border: 2px dashed #00ff00;
+}
+#tony-collage .c-overlay-gif {
+  position: absolute;
+  top: 0; right: 0;
+  width: 60%; height: 100%;
+  border: none;
+  z-index: 55;
+  opacity: 0.8;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+#tony-collage .c-gif-frame {
+  top: 20px; left: 50px;
+  width: 500px; height: 400px;
+  border: 4px solid white;
+  z-index: 5;
+  background: white;
+  transform: rotate(5deg);
+}
+#tony-collage .c-jpg-plaque {
+  top: 180px; left: 80px;
+  width: 450px; height: auto;
+  z-index: 10;
+  border: 3px dashed magenta;
+  transform: rotate(-5deg);
+}
+#tony-collage .c-jpg-shower {
+  top: 30px; right: 80px;
+  width: 350px; height: auto;
+  z-index: 15;
+  border: 4px dotted lime;
+  transform: rotate(8deg);
+  box-shadow: 0 0 15px lime;
+}
+#tony-collage .c-video-mov {
+  top: 100px; left: 300px;
+  width: 400px; height: auto;
+  border: 5px solid cyan;
+  z-index: 30;
+  transform: rotate(-10deg);
+  box-shadow: 0 0 20px cyan;
+  mix-blend-mode: normal;
+}
+#tony-collage .c-text-overlay {
+  position: absolute;
+  bottom: 10px; left: 10px;
+  color: white;
+  font-size: 60px;
+  text-shadow: 4px 4px #ff00ff;
+  z-index: 60;
+  pointer-events: none;
+  animation: flash 0.1s infinite alternate;
+}
+@keyframes flash { from { opacity:1; } to { opacity:0.2; } }
+
+/* Winamp */
+.media-player { width: 200px; height: 100px; background: var(--color-bg-black); border: 2px inset #eee; margin: 20px auto; color: var(--color-text-lime); font-family: monospace; padding: 5px; text-align: left; font-size: 10px; user-select: none; }
+.winamp-btn { cursor: pointer; display: inline-block; padding: 0 2px; }
+.winamp-btn:hover { background: #222; }
+.shuffle-led { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:4px; border:1px solid #0f0; vertical-align:middle; }
+.shuffle-led.off { background:#020; }
+.shuffle-led.on { background:#0f0; box-shadow:0 0 6px rgba(0,255,0,0.9); }
+.loading-bar { width: 10%; height: 5px; background: var(--color-text-lime); animation: load 5s infinite; }
+@keyframes load { 100% { width: 100%; } }
+
+/* =========================================
+   DATING SIM & SILENT CAROUSEL
+   ========================================= */
+#dating-container { width: 100%; height: 100%; display: none; flex-direction: column; background: url('https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/dating_bg.jpg') no-repeat; background-size: 100% 100%; font-family: var(--font-comic); position: relative; }
+#dating-header { background: #ff1493; color: yellow; padding: 5px; font-weight: bold; border-bottom: 3px solid #000; text-align: center; }
+#dating-scene { flex: 1; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
+#inventory-ui { position: absolute; top: 50px; left: 10px; background: rgba(0,0,0,0.8); border: 2px solid #ffff00; padding: 5px; display: none; flex-direction: column; gap: 5px; z-index: 100; }
+.inventory-item { width: 40px; height: 40px; border: 2px solid #666; background: #222; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.inventory-item.has-item { border-color: #ffff00; background: #444; }
+
+#radar-overlay { position: absolute; bottom: 25px; right: 18px; width: 180px; height: 150px; z-index: 5; mix-blend-mode: screen; opacity: 0.9; }
+#selection-screen { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; }
+.contestant-row { display: flex; justify-content: center; gap: 15px; width: 100%; }
+.contestant-card { width: 100px; cursor: pointer; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.5); border: 2px solid #000; transition: transform 0.2s; }
+.contestant-card:hover { transform: scale(1.1); background: #fff; z-index: 50; }
+#global-tooltip { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; border: 4px ridge gold; background: #000; z-index: 99999; pointer-events: none; }
+#global-tooltip img { width: 100%; display: block; }
+.contestant-img { width: 90px; height: 90px; object-fit: contain; margin: 5px; }
+.contestant-name { font-size: 10px; font-weight: bold; background: black; color: white; width: 100%; text-align: center; }
+#date-screen { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; }
+.portrait-frame { width: 200px; height: 200px; border: 4px ridge gold; background: #fff; margin-bottom: 10px; }
+#active-portrait { width: 100%; height: 100%; object-fit: cover; }
+.dialogue-box { width: 90%; background: white; border: 3px solid black; padding: 8px; margin-bottom: 8px; font-size: 14px; color: blue; min-height: 50px; }
+.choice-btn { width: 95%; background: #00ff00; border: 2px outset #00cc00; padding: 5px; margin-bottom: 4px; cursor: pointer; font-weight: bold; font-size: 12px; }
+.choice-btn:hover { background: #adff2f; color: red; }
+
+.silent-carousel { position:absolute; inset:0; display:flex; flex-direction:column; background:#000; }
+.silent-viewport { position:relative; flex:1; overflow:hidden; cursor:grab; }
+#silent-media { width:100%; height:100%; object-fit:cover; }
+.silent-controls { display:flex; justify-content:center; gap:10px; padding:6px 0; border-top:1px solid #333; }
+.silent-arrow { background:#000; color:lime; border:1px solid #0f0; cursor:pointer; }
+.silent-fs-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:20000; }
+body.silent-fs-open .silent-fs-backdrop { display:block; }
+body.silent-fs-open #silent-carousel { position:fixed; inset:0; z-index:20001; }
+.silent-fs-close { display:none; position:fixed; top:12px; right:12px; z-index:20020; cursor:pointer; }
+body.silent-fs-open .silent-fs-close { display:block; }
+
+/* =========================================
+   POPUPS & OVERLAYS
+   ========================================= */
+#about-window, #dolphin-window, #tony-collage { display: none; position: fixed; background: var(--color-bg-gray); border: 3px outset #fff; box-shadow: 10px 10px 0px rgba(0,0,0,0.5); z-index: 9999; }
+#about-window { top: 20%; left: 20%; width: 600px; height: 400px; }
+.win-header { background: navy; color: white; padding: 2px 5px; font-weight: bold; display: flex; justify-content: space-between; }
+.win-close { cursor: pointer; background: var(--color-bg-gray); color: black; border: 1px outset #fff; padding: 0 5px; }
+
+#dolphin-window { top: 10%; left: 10%; width: 500px; height: 600px; background: #e0e0e0; border: 4px solid black; font-family: "Courier New", monospace; }
+.dolphin-header { background: black; color: white; padding: 10px; font-weight: bold; border-bottom: 4px solid grey; }
+.dolphin-body { padding: 20px; display: flex; flex-direction: column; height: 480px; }
+.dolphin-avatar { width: 100px; height: 100px; border: 1px solid black; margin: 0 auto; background: white; display: flex; align-items: center; justify-content: center; font-size: 50px; }
+.dolphin-log { flex: 1; border: 2px inset white; background: white; margin: 10px 0; padding: 10px; overflow-y: auto; font-size: 12px; }
+.dolphin-btn-grp { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.dolphin-btn-full { grid-column: span 2; }
+.dolphin-btn { padding: 10px; background: #ccc; border: 2px outset white; cursor: pointer; font-weight: bold; font-size: 11px; }
+.dolphin-btn:active { border-style: inset; }
+
+#blue-ball-overlay { display: none; position: fixed; inset: 0; z-index: 30000; pointer-events: none; }
+.blue-bar { position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: blue; opacity: 0.5; transition: height 2s ease-in-out; }
+.blue-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: yellow; font-size: 50px; font-weight: bold; display: none; text-shadow: 2px 2px black; }
+#blue-balls-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: cyan; font-size: 80px; font-weight: bold; text-shadow: 4px 4px 0 blue; z-index: 30001; display: none; cursor: pointer; text-align: center; background: rgba(0,0,0,0.8); padding: 20px; border: 5px solid blue; }
+
+#denied-overlay { display: none; position: fixed; inset: 0; background: black; z-index: 30002; align-items: center; justify-content: center; flex-direction: column; }
+.denied-word { font-family: Impact, sans-serif; font-size: 10vw; color: red; animation: flash-denied 0.1s infinite alternate; }
+@keyframes flash-denied { from { opacity: 1; color: red; } to { opacity: 0; color: white; } }
+
+#victory-popup { display: none; position: fixed; inset: 0; background: black; z-index: 10000; }
+#victory-vid { width: 100%; height: 100%; object-fit: cover; }
+#victory-marquee-text { position: absolute; width: 100%; text-align: center; font-family: monospace; font-size: 32px; font-weight: bold; text-shadow: 2px 2px 0 #000; animation: victory-scroll-up 25s linear infinite; }
+@keyframes victory-scroll-up { from { transform: translateY(100vh); } to { transform: translateY(-150%); } }
+
+/* Traffic Light Captcha */
+#captcha-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 50000;
+  justify-content: center;
+  align-items: center;
+}
+#captcha-overlay.active { display: flex; }
+.captcha-box {
+  background: #fff;
+  border: 3px solid #333;
+  padding: 20px;
+  max-width: 400px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+.captcha-title {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #333;
+}
+.captcha-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  margin: 15px 0;
+}
+.captcha-cell {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  background: #f9f9f9;
+  transition: all 0.2s;
+}
+.captcha-cell:hover { border-color: #4285f4; }
+.captcha-cell.selected {
+  border-color: #4285f4;
+  background: #e8f0fe;
+}
+.captcha-btn {
+  background: #4285f4;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.captcha-btn:hover { background: #3367d6; }
+.captcha-skip {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 11px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: block;
+}
+
+/* Achievements & Errors */
+.achievement-popup { position: fixed; top: 20px; right: -400px; width: 300px; background: linear-gradient(180deg, #fff, #e0e0e0); border: 2px solid #000; box-shadow: 5px 5px 15px rgba(0,0,0,0.5); padding: 10px; font-family: Arial, sans-serif; z-index: 100000; transition: right 0.5s; }
+.achievement-popup.show { right: 20px; }
+.error-dialog { position: fixed; top: 30%; left: 50%; transform: translateX(-50%); width: 400px; background: var(--color-bg-gray); border: 3px outset #fff; box-shadow: 10px 10px 0px rgba(0,0,0,0.5); z-index: 100001; display: none; font-family: Arial, sans-serif; }
+.error-body { padding: 20px; display: flex; gap: 15px; align-items: center; }
+.error-btn { background: var(--color-bg-gray); border: 2px outset white; padding: 5px 20px; cursor: pointer; }
+
+/* Footer & Webring */
+.webring { margin: 20px 0; padding: 10px; border: 2px solid #000; background: #e0e0e0; text-align: center; font-size: 11px; }
+.footer { text-align: center; padding: 20px; background: #ccc; border-top: 2px solid #000; font-size: 11px; }
+.button-wall { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin: 10px 0; }
+.button-88x31 { width: 88px; height: 31px; border: 1px solid #000; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="browser-warning">⚠️ Best viewed in Netscape Navigator 4.0 at 800x600 resolution ⚠️</div>
+
+<div class="header">
+  <div class="marquee">WELCOME TO THE DARK SOULS OF THE INTERNET *** UPDATED DAILY *** SIGN GUESTBOOK *** YOU ARE VISITOR #999,999</div>
+  <br>
+  <h1><a href="index.html">Congratulations! YOuve found webcomiconline.com!!!</a></h1>
+  <p>You are now on the old internet, which is sort of the dark souls of the internet</p>
+  <button onclick="document.getElementById('about-window').style.display='block'">OPEN "ABOUT_ME.EXE"</button>
+  <button onclick="loadGuestbook()">OPEN "GUESTBOOK.EXE"</button>
+  <button onclick="openDolphin()">OPEN "LEGAL_DOLPHIN.EXE"</button>
+  <a href="videos/hospice/thomnicholsadams.html" class="menu-link-btn" style="color:red;">[ PATIENT INTAKE ]</a>
+</div>
+
+<div class="container" id="main-container">
+  <div class="ad-banner" id="banner-text" onclick="fakePrizePopup()">
+    CONGRATS YOU ARE THE 999,999th VISITOR!!! CLICK TO CLAIM PRIZE
+  </div>
+
+  <div id="main-display">
+    <div class="columns">
+
+      <!-- LEFT SIDEBAR -->
+      <div class="col-sidebar">
+        <div class="hit-counter">
+          <div>YOU ARE VISITOR:</div>
+          <div class="hit-digits" id="hit-counter">999999</div>
+        </div>
+
+        <div class="poll-widget">
+          <h4>🗳️ POLL OF THE DAY</h4>
+          <p><b>What's your favorite browser?</b></p>
+          <label><input type="radio" name="browser" value="netscape"> Netscape Navigator</label><br>
+          <label><input type="radio" name="browser" value="ie"> Internet Explorer</label><br>
+          <label><input type="radio" name="browser" value="opera"> Opera</label><br>
+          <button onclick="votePoll()" style="margin-top:5px;">VOTE</button>
+        </div>
+
+        <div class="construction-progress">
+          <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+          <div class="progress-text" id="progress-text">Loading... 0%</div>
+        </div>
+
+        <div style="text-align:center; margin: 10px 0;">
+          <a href="#" onclick="alert('Subscribe via MySpace or LiveJournal!'); return false;" style="text-decoration:none;">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='15'%3E%3Crect fill='%23ff6600' width='80' height='15'/%3E%3Ctext x='5' y='11' font-family='Arial' font-size='10' fill='white' font-weight='bold'%3ERSS FEED%3C/text%3E%3C/svg%3E" alt="RSS">
+          </a>
+        </div>
+      </div>
+
+      <!-- MIDDLE - COMICS COLUMN -->
+      <div class="col-left" id="comic-column">
+        <div class="comic-nav">
+          <a href="#" id="nav-newer" class="disabled" onclick="comicPageNav('newer'); return false;">NEWER</a> |
+          <a href="#" onclick="randomComic(); return false;">RANDOM</a> |
+          <a href="#" id="nav-older" onclick="comicPageNav('older'); return false;">OLDER</a>
+        </div>
+
+        <div style="text-align:right; margin-bottom:5px;">
+          <button style="font-size:10px; background:black; color:white; border:1px solid red; cursor:pointer;" onclick="toggleRitualMode()">[ RITUAL VIEW ]</button>
+        </div>
+
+        <!-- PAGE 1: Newest (2x2 grid) -->
+        <div class="comic-page active" id="comic-page-1">
+          <div class="comic-grid">
+
+            <div class="comic-entry">
+              <a href="#" class="comic-date-link" style="color:green; text-decoration:none;" onclick="openCaptcha(); return false;">web comic 01/16/2026: aTHOMs for FLEAce</a>
+              <div style="margin-top:10px; border:4px outset #ccc;">
+                <iframe width="100%" height="250" src="https://www.youtube.com/embed/iDdl-cwIXJU?si=SLqcrdskqlVP79Mc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+              <p class="comic-desc">"6/10 would listen again" - me, an idiot
+                <span style="white-space: nowrap; display: inline-block; vertical-align: middle; cursor:pointer;" onclick="openCaptcha()">
+                  <span class="emoji-link">🚦</span><span class="emoji-link">🚦</span><span class="emoji-link">🚦</span>
+                </span>
+              </p>
+            </div>
+
+            <div class="comic-entry">
+              <a href="videos/hospice/thomnicholsadams.html" class="comic-date-link" style="color:red; text-decoration:none;">web comic 01/14/2026: hospice at wit's end</a>
+              <div style="margin-top:10px; border:4px outset #ccc;">
+                <img src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/scottcoverphoto.png" style="width:100%; display:block;" alt="Scott Adams Tribute">
+              </div>
+              <p class="comic-desc" style="font-weight:bold; font-family:Courier New, monospace;">in hindsight Scott Adams was cutting edge</p>
+            </div>
+
+            <div class="comic-entry" style="background: #fff0f5; border: 2px inset #ff00ff; padding: 10px;">
+              <a href="videos/elevator/elevator out of hell.html" class="comic-date-link" style="color:#cc00cc;">web comic 01/07/2026: Elevator Out of Hell</a>
+              <p class="comic-desc">and my gums begin to bleed and the plaque gets in the blood and the blood goes to my brain i swear
+                <span style="white-space: nowrap; display: inline-block; vertical-align: middle;">
+                  <span class="emoji-link" onclick="openTonyPopup(false)">❓</span><span class="emoji-link" onclick="openTonyPopup(true)">❓</span><span class="emoji-link" onclick="openTonyPopup(false)">❓</span>
+                </span>
+              </p>
+            </div>
+
+            <div class="comic-entry">
+              <a href="#" class="comic-date-link" onclick="playTrumpoVideo(); return false;">web comic 01/06/2026: the trumpo incident</a>
+              <div class="trumpo-box">
+                <img id="trumpo-img" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/trumpo.gif" alt="prophecy" onclick="playTrumpoVideo()">
+              </div>
+              <p class="comic-desc">this was recorded moments before the timeline snapped</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PAGE 2: Older -->
+        <div class="comic-page" id="comic-page-2">
+          <div class="comic-grid">
+
+            <div class="comic-entry">
+              <a href="videos/pixel/pixelsickness010322026.html" class="comic-date-link">web comic 01/03/2026: pixel sickness</a>
+              <p class="comic-desc">you awake in outside a confused room. the walls are like curtains, you clip right thru. an ominous pillar in one corner of the room slows your vision as your gaze passes over it. you press to the left and move rightward. there are aunties everywhere. r u drunk?
+                <span class="emoji-link" onclick="openVictoryPopup()">🐜😵‍💫</span>
+                <a href="videos/pixel/pixelsickness010322026-thinclient.html" class="hidden-kiss" title="Thin Client Access">💋</a>
+              </p>
+            </div>
+
+            <div class="comic-entry" style="opacity:0.5;">
+              <small>ARCHIVE 01</small><br>THE DESERVING<br>ARE SERVING
+            </div>
+
+            <div class="comic-entry" style="opacity:0.5;">
+              <small>ARCHIVE 02</small><br>BRIDE AT<br>THE WEDDING
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Archive Row -->
+        <div class="archive-row">
+          <div class="archive-mini" onclick="alert('ARCHIVE CORRUPTED: Bribe the webmaster to restore')">
+            <small>ARCHIVE 01</small><br>THE DESERVING<br>ARE SERVING
+          </div>
+          <div class="archive-mini" onclick="alert('ARCHIVE SEALED: Requires blood oath')">
+            <small>ARCHIVE 02</small><br>BRIDE AT<br>THE WEDDING
+          </div>
+          <div class="archive-mini" onclick="alert('ARCHIVE HAUNTED: Try again at 3AM')">
+            <small>ARCHIVE 03</small><br>GHOST IN<br>THE MACHINE
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-right" id="right-column">
+
+        <div id="silent-carousel" class="silent-carousel" aria-label="Silent Carousel">
+          <div id="silent-viewport" class="silent-viewport" title="Click to fullscreen. Drag to pan.">
+            <video id="silent-media" playsinline preload="metadata"></video>
+            <div id="silent-hint" class="silent-hint">DRAG TO PAN • CLICK = FULLSCREEN</div>
+          </div>
+          <div class="silent-controls" aria-label="Carousel controls">
+            <button id="silent-prev" class="silent-arrow" type="button" title="Previous">◀</button>
+            <span id="silent-counter" class="silent-counter">1/1</span>
+            <button id="silent-next" class="silent-arrow" type="button" title="Next">▶</button>
+          </div>
+          <button id="silent-fs-close" class="silent-fs-close" type="button" title="Exit fullscreen">X</button>
+        </div>
+        <div id="silent-fs-backdrop" class="silent-fs-backdrop" aria-hidden="true"></div>
+
+        <div id="dating-container">
+          <div id="dating-header">❤️ LOVE_CONNEXION.EXE ❤️ <span style="float:right; cursor:pointer" onclick="closeDatingSim()">[X]</span></div>
+          <div id="inventory-ui">
+            <div class="inventory-item" id="inv-candy" title="Stolen Candy"></div>
+            <div class="inventory-item" id="inv-rat" title="Dead Rat"></div>
+          </div>
+          <div id="dating-scene">
+              <div id="global-tooltip"><img id="tooltip-img" src=""></div>
+              <video id="radar-overlay" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/radar.mp4" autoplay loop muted playsinline></video>
+              <div id="selection-screen">
+                  <div style="background:white; padding:5px; border:2px solid black; margin-bottom:15px; text-align:center;">SCANNING MINNEAPOLIS...<br>3 MATCHES FOUND. CHOOSE FATE:</div>
+                  <div class="contestant-row">
+                      <div class="contestant-card" onclick="handleCardClick('gary')" onmouseover="handleCardHover('gary')" onmouseout="hideTooltip()"><img src="data:image/svg+xml;utf8,<svg width='250' height='250' viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'><rect width='250' height='250' fill='white'/><rect x='10' y='10' width='230' height='230' fill='yellow' stroke='black' stroke-width='5'/><text x='125' y='180' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='180' fill='black'>?</text></svg>" class="contestant-img"><div class="contestant-name">BACHELOR #1</div></div>
+                      <div class="contestant-card" onclick="handleCardClick('harpy')" onmouseover="handleCardHover('harpy')" onmouseout="hideTooltip()"><img src="data:image/svg+xml;utf8,<svg width='250' height='250' viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'><rect width='250' height='250' fill='white'/><rect x='10' y='10' width='230' height='230' fill='yellow' stroke='black' stroke-width='5'/><text x='125' y='180' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='180' fill='black'>?</text></svg>" class="contestant-img"><div class="contestant-name">BACHELORETTE #2</div></div>
+                      <div class="contestant-card" onclick="handleCardClick('ants')" onmouseover="handleCardHover('ants')" onmouseout="hideTooltip()"><img src="data:image/svg+xml;utf8,<svg width='250' height='250' viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'><rect width='250' height='250' fill='white'/><rect x='10' y='10' width='230' height='230' fill='yellow' stroke='black' stroke-width='5'/><text x='125' y='180' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='180' fill='black'>?</text></svg>" class="contestant-img"><div class="contestant-name">THE HIVE</div></div>
+                  </div>
+              </div>
+              <div id="date-screen">
+                  <div class="portrait-frame"><img id="active-portrait" src=""></div>
+                  <div id="dialogue-text" class="dialogue-box">...</div>
+                  <div id="choice-container" style="width:100%"></div>
+              </div>
+          </div>
+        </div>
+
+        <div class="webring">
+          <b>[ WEBRING NAVIGATOR ]</b><br>
+          <a href="#" onclick="alert('ERROR: Site no longer exists'); return false;">&lt;&lt; Prev</a> |
+          <a href="#" onclick="alert('ERROR: Ring disbanded in 2003'); return false;">Random</a> |
+          <a href="#" onclick="alert('ERROR: Site no longer exists'); return false;">Next &gt;&gt;</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sidebar-junk">
+    <div style="background:yellow; border:1px solid black; padding:5px; margin-bottom:10px; cursor:pointer;" onclick="initDatingSim()">
+      <img src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/hot_single.png" style="width:100%; display:block; margin-bottom:5px; border:1px solid black;" alt="Hot Single">
+      <p style="font-size:10px; margin:0; font-weight:bold;">HOT SINGLES IN MINNEAPOLIS</p>
+    </div>
+
+    <div style="background:#eee; border:2px dashed black; padding:5px; margin-bottom:10px; font-size:10px; text-align:left;">
+        <b>RECENT SCENTS:</b><br><hr>
+        > <span class="scent-barista">The Barista's Saliva</span><br>
+        > <span class="scent-fire">Fire Dehydrant</span><br>
+        > <span class="scent-miasma">Melisma Miasma</span><br>
+        <hr><small><i>Hover to smell</i></small>
+    </div>
+
+    <div class="ghost-alley">
+        <div class="ghost-sign">LACUNA<br>MATADA</div>
+        <div class="ghost-sign">ES<br>PERSEVERANT</div>
+        <div class="ghost-sign">PIXEL<br>SICKNESS</div>
+    </div>
+
+    <div class="media-player" id="winamp">
+      WINAMP v2.0<br>
+      <span class="winamp-btn" onclick="winampPlay()">[PLAY]</span>
+      <span class="winamp-btn" onclick="winampStop()">[STOP]</span>
+      <span class="winamp-btn" onclick="winampEject()">[EJECT]</span>
+      <span id="winamp-shuffle-led" class="shuffle-led off"></span>
+      <span class="winamp-btn" id="winamp-shuffle-btn" onclick="winampShuffle()">[SHUFFLE]</span>
+      <span class="winamp-btn" id="winamp-next-btn" onclick="winampNext()">[NEXT]</span>
+      <br><br>
+      Track: <span id="winamp-track">Linkin_Park_Numb.exe</span><br>
+      <span id="winamp-status">Buffering...</span><br>
+      <div class="loading-bar"></div>
+      <div id="winamp-error">ERROR: CODEC MISSING</div>
+    </div>
+    <audio id="site-audio" preload="auto" playsinline></audio>
+    <audio id="secret-audio" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/VideoLibrary/elevator+out+of+hell/911_ems_citywide01.mp3" preload="none" loop></audio>
+  </div>
+
+  <img src="https://web.archive.org/web/20090829094723/http://geocities.com/Area51/Cavern/5294/images/skull_spin.gif" style="position:absolute; bottom:10px; left:10px; width:40px;" loading="lazy" alt="Skull">
+  <img src="https://web.archive.org/web/20091026214041/http://geocities.com/Area51/Corridor/6308/ufo.gif" style="position:absolute; top:-40px; right:-20px;" loading="lazy" alt="UFO" oncontextmenu="secretMenu(event)">
+
+</div>
+
+<div class="footer">
+  <div class="button-wall">
+    <div class="button-88x31" style="background: #000; color: #0f0;">NETSCAPE NOW!</div>
+    <div class="button-88x31" style="background: #00f; color: #fff;">IE 4.0</div>
+    <div class="button-88x31" style="background: #f00; color: #fff;">GET FLASH</div>
+    <div class="button-88x31" style="background: #ff0; color: #000;">JAVA PWR</div>
+    <div class="button-88x31" style="background: #0ff; color: #000;">MIDI!</div>
+    <div class="button-88x31" style="background: #f0f; color: #fff;">ANGELFIRE</div>
+  </div>
+  <p>© 1999-2003 WebComicOnline.com | Best viewed at 800x600 | <a href="mailto:webmaster@webcomiconline.com">Email Webmaster</a></p>
+</div>
+
+<!-- Achievement Notification -->
+<div id="achievement-notification" class="achievement-popup">
+  <div class="achievement-header">🏆 Achievement Unlocked!</div>
+  <div class="achievement-body" id="achievement-text"></div>
+</div>
+
+<!-- Error Dialog -->
+<div id="error-dialog" class="error-dialog">
+  <div class="error-header"><span id="error-title">Error</span><span class="win-close" onclick="closeErrorDialog()">X</span></div>
+  <div class="error-body"><div class="error-icon">❌</div><div id="error-message">An error has occurred.</div></div>
+  <div class="error-buttons"><button class="error-btn" onclick="closeErrorDialog()">OK</button><button class="error-btn" onclick="closeErrorDialog()">Cancel</button></div>
+</div>
+
+<!-- Traffic Light Captcha -->
+<div id="captcha-overlay">
+  <div class="captcha-box">
+    <div class="captcha-title">🚦 Select all squares with <b>TRAFFIC LIGHTS</b> 🚦</div>
+    <div class="captcha-grid" id="captcha-grid"></div>
+    <button class="captcha-btn" onclick="verifyCaptcha()">VERIFY</button>
+    <button class="captcha-skip" onclick="skipCaptcha()">Skip (robots only)</button>
+  </div>
+</div>
+
+<!-- About Window (content loaded by wco_ghostload.js) -->
+<div id="about-window"></div>
+
+<!-- Dolphin Window -->
+<div id="dolphin-window">
+  <div class="dolphin-header"><span>DOLPHIN_HOTLINE_2.0 (STABLE)</span><span class="win-close" onclick="closeDolphin()" style="float:right; cursor:pointer;">[X]</span></div>
+  <div class="dolphin-body">
+    <div class="dolphin-avatar">🐬</div>
+    <div class="dolphin-log" id="dolphin-log">
+      > CONNECTING TO LEGAL DOLPHIN...<br>> CONNECTION ESTABLISHED.<br>> DOLPHIN: "CLICK-CLICK. SCREEEE. (Translation: I AM LISTENING. DO YOU ADMIT GUILT?)"
+    </div>
+    <div class="dolphin-btn-grp" id="dolphin-controls">
+      <button class="dolphin-btn" onclick="advanceDolphin('guilt_start')">I AM GUILTY (TUNA)</button>
+      <button class="dolphin-btn" onclick="advanceDolphin('innocent_start')">I AM INNOCENT (DOLPHIN)</button>
+      <button class="dolphin-btn dolphin-btn-full" onclick="location.href='mailto:gricopiipuscles@gmail.com?subject=DMCA TAKEDOWN REQUEST&body=I AM A LAWYER AND I AM ANGRY'">[ I AM A LAWYER - FILE OFFICIAL COMPLAINT ]</button>
+    </div>
+  </div>
+</div>
+
+<!-- Blue Balls Overlays -->
+<div id="blue-balls-text" onclick="dismissBlueText()">MAXIMUM BLUE BALLS<br><small style="font-size:20px">(click to suffer in silence)</small></div>
+<div id="blue-ball-overlay">
+  <div class="blue-bar" id="blue-bar"></div>
+  <div class="blue-text" id="blue-text">MAXIMUM BLUE</div>
+</div>
+
+<!-- Denied Overlay -->
+<div id="denied-overlay">
+  <div class="denied-word">DENIED</div><div class="denied-word">DENIED</div><div class="denied-word">DENIED</div>
+</div>
+
+<!-- Victory Popup -->
+<div id="victory-popup">
+  <div class="win-header"><span>Found All The Secrets</span><span class="win-close" onclick="closeVictoryPopup()">X</span></div>
+  <video id="victory-vid" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/accusablurry.mp4" loop playsinline preload="none"></video>
+  <div id="victory-marquee-container"><div id="victory-marquee-text">LOADING WINNERS...</div></div>
+</div>
+
+<!-- Boss Overlay -->
+<div id="boss-overlay"></div>
+
+<!-- Tony Collage (content loaded by wco_ghostload.js) -->
+<div id="tony-collage"></div>
+
+<!-- Candle Overlay -->
+<div id="candle-overlay"></div>
+<img id="cursor-follower" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candlecursor.gif">
+<button id="ritual-close-btn" onclick="toggleRitualMode()">[ CLOSE RITUAL ]</button>
+
+<!-- External Scripts -->
+<script src="liminaltools/songlist.js"></script>
+<script src="liminaltools/silent_assets.js"></script>
+<script src="liminaltools/wco_audio.js"></script>
+<script>
+// Fallback: if /liminaltools/wco_audio.js fails to load, load ./wco_audio.js
+window.addEventListener("load", function(){
+  if (typeof window.playSfx === "function" && typeof window.winampPlay === "function") return;
+  var s = document.createElement("script");
+  s.src = "wco_audio.js";
+  document.body.appendChild(s);
+});
+</script>
+<script src="liminaltools/wco_dolphin.js"></script>
+<script src="liminaltools/wco_ghostload.js"></script>
+
+<script>
+/* =========================================
+   MAIN JAVASCRIPT - ALL FEATURES
+   ========================================= */
+
+console.log("%c👀 I SEE YOU LOOKING UNDER THE HOOD", "color: #0f0; font-size: 20px; background: #000; padding: 10px;");
+console.log("%cTip: Try the Konami Code (↑↑↓↓←→←→BA)", "color: #ff00ff; font-size: 14px;");
+console.log("%cSecret: Right-click the UFO gif...", "color: #00ffff; font-size: 12px;");
+
+/* =========================================
+   RITUAL MODE
+   ========================================= */
+const cursorFollower = document.getElementById('cursor-follower');
+function toggleRitualMode() {
+  document.body.classList.toggle('ritual-active');
+  const col = document.getElementById('comic-column');
+  col.classList.toggle('ritual-mode');
+  const isActive = document.body.classList.contains('ritual-active');
+  if (isActive) {
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    document.addEventListener('mousemove', moveCursor);
+  } else {
+    if (document.exitFullscreen) document.exitFullscreen();
+    document.removeEventListener('mousemove', moveCursor);
+  }
+  const overlay = document.getElementById('candle-overlay');
+  overlay.innerHTML = '';
+  const candles = [
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle1.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle12.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle10.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle13.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle14.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle15.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle16.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle17.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle18.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle19.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle2.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle20.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle21.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle3.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle4.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle5.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle6.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle7.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle8.gif",
+    "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/candles/candle9.gif"
+  ];
+  if (isActive) {
+    for(let i=0; i<60; i++) {
+      const img = document.createElement('img');
+      img.src = candles[Math.floor(Math.random() * candles.length)];
+      img.className = 'ritual-candle-img';
+      img.style.left = (Math.random() * 120 - 10) + "vw";
+      img.style.top = (Math.random() * 120 - 10) + "vh";
+      const scale = 0.5 + Math.random() * 1.0;
+      img.style.transform = `scale(${scale})`;
+      overlay.appendChild(img);
+    }
+  }
+}
+function moveCursor(e) {
+  cursorFollower.style.left = e.clientX + 'px';
+  cursorFollower.style.top = e.clientY + 'px';
+}
+
+/* =========================================
+   INTERACTIVE FEATURES
+   ========================================= */
+let hitCount = 999999;
+function updateHitCounter() {
+  if (Math.random() < 0.1) {
+    const glitches = [4, 83000000000000, 69420, 0, 1337, 666];
+    hitCount = glitches[Math.floor(Math.random() * glitches.length)];
+  } else {
+    hitCount++;
+  }
+  document.getElementById('hit-counter').textContent = hitCount.toLocaleString();
+}
+setInterval(updateHitCounter, 3000);
+
+let progress = 0;
+function animateProgress() {
+  progress += Math.random() * 2;
+  if (progress >= 99) progress = 0;
+  document.getElementById('progress-fill').style.width = progress + '%';
+  document.getElementById('progress-text').textContent = `Loading... ${Math.floor(progress)}%`;
+}
+setInterval(animateProgress, 500);
+
+// Konami Code
+const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let konamiIndex = 0;
+let cursorTrailEnabled = false;
+document.addEventListener('keydown', (e) => {
+  if (e.key === konamiCode[konamiIndex]) {
+    konamiIndex++;
+    if (konamiIndex === konamiCode.length) {
+      activateKonamiMode();
+      konamiIndex = 0;
+    }
+  } else {
+    konamiIndex = 0;
+  }
+});
+
+function activateKonamiMode() {
+  cursorTrailEnabled = true;
+  showAchievement('Konami Code Master', 'You unlocked cursor trails!');
+  document.body.style.animation = 'rainbow 2s infinite';
+  const style = document.createElement('style');
+  style.textContent = '@keyframes rainbow { 0% {filter: hue-rotate(0deg);} 100% {filter: hue-rotate(360deg);}}';
+  document.head.appendChild(style);
+  setTimeout(() => {
+    document.body.style.animation = '';
+  }, 10000);
+}
+
+const trailEmojis = ['⭐', '✨', '💫', '🌟'];
+document.addEventListener('mousemove', (e) => {
+  if (!cursorTrailEnabled) return;
+  const trail = document.createElement('div');
+  trail.className = 'cursor-trail';
+  trail.textContent = trailEmojis[Math.floor(Math.random() * trailEmojis.length)];
+  trail.style.left = e.pageX + 'px';
+  trail.style.top = e.pageY + 'px';
+  document.body.appendChild(trail);
+  setTimeout(() => trail.remove(), 1000);
+});
+
+// Achievement System
+const achievements = new Set();
+function showAchievement(title, description) {
+  if (achievements.has(title)) return;
+  achievements.add(title);
+  document.getElementById('achievement-text').innerHTML = `<b>${title}</b><br>${description}`;
+  document.getElementById('achievement-notification').classList.add('show');
+  setTimeout(() => {
+    document.getElementById('achievement-notification').classList.remove('show');
+  }, 5000);
+}
+
+// Random Errors
+const errorMessages = [
+  { title: 'Internet Explorer', msg: 'This program has performed an illegal operation and will be shut down.' },
+  { title: 'Macromedia Flash Player', msg: 'Flash Player 4.0 is required to view this content.' },
+  { title: 'RealPlayer', msg: 'Buffering... Buffering... Connection lost.' }
+];
+function showRandomError() {
+  if (Math.random() < 0.15) {
+    const error = errorMessages[Math.floor(Math.random() * errorMessages.length)];
+    document.getElementById('error-title').textContent = error.title;
+    document.getElementById('error-message').textContent = error.msg;
+    document.getElementById('error-dialog').style.display = 'block';
+  }
+}
+setInterval(showRandomError, 30000);
+
+function closeErrorDialog() {
+  document.getElementById('error-dialog').style.display = 'none';
+}
+
+// Poll
+function votePoll() {
+  const selected = document.querySelector('input[name="browser"]:checked');
+  if (!selected) {
+    alert('Please select an option!');
+    return;
+  }
+  showAchievement('Poll Participant', 'Thanks for voting!');
+  alert('Vote recorded!');
+}
+
+// Random Comic
+function randomComic() {
+  const comics = ['Dilbert #42069', 'The Far Side: Cow Tools', 'Garfield hates Mondays', 'ERROR 404: Comic not found'];
+  alert(comics[Math.floor(Math.random() * comics.length)]);
+}
+
+// Secret Menu
+function secretMenu(e) {
+  e.preventDefault();
+  showAchievement('Context Menu Hacker', 'You found the secret menu!');
+  alert('🛸 SECRET MENU 🛸\n1. Konami Code: ↑↑↓↓←→←→BA\n2. Dating Sim has achievements!');
+}
+
+/* =========================================
+   COMIC PAGE NAVIGATION
+   ========================================= */
+function comicPageNav(direction) {
+  const pages = Array.from(document.querySelectorAll('.comic-page'));
+  const activeIndex = pages.findIndex(p => p.classList.contains('active'));
+  if(activeIndex === -1) return;
+
+  let nextIndex = activeIndex;
+  if(direction === 'older') nextIndex = activeIndex + 1;
+  if(direction === 'newer') nextIndex = activeIndex - 1;
+
+  if(nextIndex < 0 || nextIndex >= pages.length) {
+    const title = 'ERROR 404';
+    const msg = (direction === 'newer') ? 'No newer page exists.' : 'No older page exists.';
+    document.getElementById('error-title').textContent = title;
+    document.getElementById('error-message').textContent = msg;
+    document.getElementById('error-dialog').style.display = 'block';
+    return;
+  }
+
+  pages[activeIndex].classList.remove('active');
+  pages[nextIndex].classList.add('active');
+
+  const newer = document.getElementById('nav-newer');
+  const older = document.getElementById('nav-older');
+  if(newer) newer.classList.toggle('disabled', nextIndex === 0);
+  if(older) older.classList.toggle('disabled', nextIndex === pages.length - 1);
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Initialize nav states on load
+document.addEventListener('DOMContentLoaded', () => {
+  const pages = Array.from(document.querySelectorAll('.comic-page'));
+  const activeIndex = pages.findIndex(p => p.classList.contains('active'));
+  const newer = document.getElementById('nav-newer');
+  const older = document.getElementById('nav-older');
+  if (activeIndex >= 0) {
+    if(newer) newer.classList.toggle('disabled', activeIndex === 0);
+    if(older) older.classList.toggle('disabled', activeIndex === pages.length - 1);
+  }
+});
+
+/* =========================================
+   TRAFFIC LIGHT CAPTCHA
+   ========================================= */
+const captchaItems = ['🚦', '🚗', '🌳', '🏠', '🚶', '🚦', '🚌', '🚦', '🐕'];
+let captchaSelected = new Set();
+
+function openCaptcha() {
+  const grid = document.getElementById('captcha-grid');
+  grid.innerHTML = '';
+  captchaSelected.clear();
+
+  const shuffled = [...captchaItems].sort(() => Math.random() - 0.5);
+  shuffled.forEach((item, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'captcha-cell';
+    cell.textContent = item;
+    cell.dataset.index = i;
+    cell.dataset.isLight = item === '🚦' ? 'true' : 'false';
+    cell.onclick = () => toggleCaptchaCell(cell, i);
+    grid.appendChild(cell);
+  });
+
+  document.getElementById('captcha-overlay').classList.add('active');
+}
+
+function toggleCaptchaCell(cell, index) {
+  if (captchaSelected.has(index)) {
+    captchaSelected.delete(index);
+    cell.classList.remove('selected');
+  } else {
+    captchaSelected.add(index);
+    cell.classList.add('selected');
+  }
+}
+
+function verifyCaptcha() {
+  const grid = document.getElementById('captcha-grid');
+  const cells = grid.querySelectorAll('.captcha-cell');
+  let correct = true;
+
+  cells.forEach((cell, i) => {
+    const isLight = cell.dataset.isLight === 'true';
+    const isSelected = captchaSelected.has(i);
+    if (isLight !== isSelected) correct = false;
+  });
+
+  if (correct) {
+    document.getElementById('captcha-overlay').classList.remove('active');
+    showAchievement('Human Verified', 'You are definitely not a robot!');
+    window.open('https://www.youtube.com/watch?v=pAwR6w2TgxY', '_blank');
+  } else {
+    alert('VERIFICATION FAILED. Try again, robot!');
+    openCaptcha();
+  }
+}
+
+function skipCaptcha() {
+  document.getElementById('captcha-overlay').classList.remove('active');
+  alert('🤖 ROBOT DETECTED 🤖\nYou have been reported to SkyNet.');
+}
+
+/* =========================================
+   DATING SIM
+   ========================================= */
+const ASSETS = {
+  gary: {
+    who: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/gary_who.png",
+    neutral: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/gary_neutral.jpg",
+    mad1: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/gary_mad1.jpg",
+    mad2: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/gary_mad2.jpg",
+    glitch: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/gary_glitch.png"
+  },
+  harpy: {
+    who: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/harpy_who.png",
+    neutral: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/harpy_neutral.png",
+    blush: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/harpy_blush.png",
+    glitch: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/harpy_neutral_glitch.png"
+  },
+  ants: {
+    who: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/ant_who.png",
+    neutral: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/ant_circle.gif",
+    happy: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/ant_semicircle.gif",
+    buff: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/ant_buff.gif",
+    heart: "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/ants_heart.png"
+  }
+};
+
+let GAME_STATE = {
+  has_candy: false,
+  has_dead_rat: false,
+  knows_gary_is_cherry: false
+};
+window.GAME_STATE = GAME_STATE;
+
+function updateInventoryUI() {
+  const candy = document.getElementById('inv-candy');
+  const rat = document.getElementById('inv-rat');
+  candy.innerHTML = GAME_STATE.has_candy ? '🍬' : '';
+  candy.className = 'inventory-item' + (GAME_STATE.has_candy ? ' has-item' : '');
+  rat.innerHTML = GAME_STATE.has_dead_rat ? '🐀' : '';
+  rat.className = 'inventory-item' + (GAME_STATE.has_dead_rat ? ' has-item' : '');
+}
+
+const ROUTES = {
+  gary: {
+    start: {
+      img: ASSETS.gary.neutral,
+      text: "A low-res man appears. He smells like ozone and disappointment.",
+      choices: [
+        { txt: "Hi Gary.", next: "gary_mad1" },
+        { txt: "Steal his lunch.", next: "gary_lunch", req: "!has_candy" },
+        { txt: "You look stressed.", next: "gary_sympathetic" }
+      ]
+    },
+    gary_sympathetic: {
+      img: ASSETS.gary.neutral,
+      text: "'Corporate mandated fun. I hate it.'",
+      choices: [
+        { txt: "Want some candy?", next: "gary_candy", req: "has_candy" },
+        { txt: "I understand.", next: "gary_ending_good" }
+      ]
+    },
+    gary_candy: {
+      img: ASSETS.gary.neutral,
+      text: "He takes the candy. 'Thanks. You're okay.'",
+      onEnter: () => {
+        GAME_STATE.has_candy = false;
+        updateInventoryUI();
+        showAchievement("Gary's Friend", "You befriended the grump!");
+      },
+      choices: [{ txt: "Leave him be.", next: "reset" }]
+    },
+    gary_lunch: {
+      img: ASSETS.gary.mad1,
+      text: "You snatch a bag of stale candy! He vibrates with rage.",
+      onEnter: () => {
+        GAME_STATE.has_candy = true;
+        updateInventoryUI();
+      },
+      choices: [{ txt: "Run away.", next: "reset" }]
+    },
+    gary_mad1: {
+      img: ASSETS.gary.mad1,
+      text: "His eyes twitch. 'It is pronounced CHERRY. With a G.'",
+      onEnter: () => {
+        GAME_STATE.knows_gary_is_cherry = true;
+      },
+      choices: [
+        { txt: "Sorry, Cherry.", next: "gary_mad2" },
+        { txt: "Offer Dead Rat.", next: "gary_rat", req: "has_dead_rat" },
+        { txt: "Okay Gary.", next: "gary_mad2" }
+      ]
+    },
+    gary_rat: {
+      img: ASSETS.gary.neutral,
+      text: "He stares at the dead rat. 'This is... adequate compensation.'",
+      onEnter: () => {
+        GAME_STATE.has_dead_rat = false;
+        updateInventoryUI();
+        showAchievement("Rat Diplomat", "Solved with a rat!");
+      },
+      choices: [{ txt: "Leave while he eats.", next: "reset" }]
+    },
+    gary_mad2: {
+      img: ASSETS.gary.mad2,
+      text: "The JPEG artifacts intensify. 'I SAID CHERRY. WITH. A. G.'",
+      choices: [
+        { txt: "Calm down Gary.", next: "gary_glitch" },
+        { txt: "Nice tie, Cherry.", next: "gary_glitch" }
+      ]
+    },
+    gary_glitch: {
+      img: ASSETS.gary.glitch,
+      text: "CRITICAL ERROR. ENTITY 'GARY' HAS STOPPED RESPONDING.",
+      onEnter: () => showAchievement("System Error", "You broke Gary!"),
+      choices: [{ txt: "[REBOOT]", next: "reset" }]
+    },
+    gary_ending_good: {
+      img: ASSETS.gary.neutral,
+      text: "He nods respectfully. Good Ending.",
+      choices: [{ txt: "Bye.", next: "reset" }]
+    }
+  },
+  harpy: {
+    start: {
+      img: ASSETS.harpy.neutral,
+      text: "SCREEEEEEEEECH! (She adjusts her name tag)",
+      choices: [
+        { txt: "You have a lovely voice.", next: "harpy_blush" },
+        { txt: "Cover ears.", next: "harpy_mad" }
+      ]
+    },
+    harpy_blush: {
+      img: ASSETS.harpy.blush,
+      text: "She blushes and offers you a dead rat. It is warm.",
+      choices: [
+        { txt: "Accept gift.", next: "get_rat" },
+        { txt: "Politely decline.", next: "reset" }
+      ]
+    },
+    get_rat: {
+      img: ASSETS.harpy.neutral,
+      text: "You obtained: 1x DEAD RAT. It is heavy with implications.",
+      onEnter: () => {
+        GAME_STATE.has_dead_rat = true;
+        updateInventoryUI();
+        document.body.classList.add('rat-mode');
+        showAchievement("Rat Collector", "Accepted Harpy's gift!");
+      },
+      choices: [{ txt: "Thanks.", next: "reset" }]
+    },
+    harpy_mad: {
+      img: ASSETS.harpy.glitch,
+      text: "SHE DOES NOT LIKE BEING IGNORED.",
+      choices: [{ txt: "RUN", next: "reset" }]
+    }
+  },
+  ants: {
+    start: {
+      img: ASSETS.ants.neutral,
+      text: "The Hive mind vibrates. 'DO YOU HAVE SUGAR?'",
+      choices: [
+        { txt: "Give Candy.", next: "ants_love", req: "has_candy" },
+        { txt: "Give Dead Rat.", next: "ants_rat", req: "has_dead_rat" },
+        { txt: "No.", next: "ants_buff" }
+      ]
+    },
+    ants_love: {
+      img: ASSETS.ants.heart,
+      text: "The ants form a heart shape. YOU HAVE FOUND TRUE LOVE. TRUE ENDING.",
+      onEnter: () => {
+        GAME_STATE.has_candy = false;
+        updateInventoryUI();
+        showAchievement("Hive Beloved", "Sugar Monarch!");
+      },
+      choices: [{ txt: "I accept my fate.", next: "reset" }]
+    },
+    ants_rat: {
+      img: ASSETS.ants.happy,
+      text: "The ants swarm the rat. 'PROTEIN ACCEPTABLE. BUT WE CRAVE SUGAR.'",
+      onEnter: () => {
+        GAME_STATE.has_dead_rat = false;
+        updateInventoryUI();
+      },
+      choices: [{ txt: "Back away.", next: "reset" }]
+    },
+    ants_buff: {
+      img: ASSETS.ants.buff,
+      text: "The ants combine into a SWOL SOLDIER. 'THEN YOU ARE THE SUGAR.'",
+      onEnter: () => showAchievement("Ant Protein", "Bad Ending"),
+      choices: [{ txt: "Oh no.", next: "reset" }]
+    }
+  }
+};
+
+let currentRoute = null;
+let selectedCharacter = null;
+
+function initDatingSim() {
+  try {
+    if (document.body.classList.contains('silent-fs-open')) silentCloseFullscreen();
+  } catch (e) {}
+  const carousel = document.getElementById('silent-carousel');
+  const dating = document.getElementById('dating-container');
+  if (carousel) carousel.style.display = 'none';
+  if (dating) dating.style.display = 'flex';
+  document.getElementById('inventory-ui').style.display = 'flex';
+  updateInventoryUI();
+  showSelectionScreen();
+  showAchievement('Dating Sim Started', 'Welcome to LOVE_CONNEXION.EXE');
+}
+
+function closeDatingSim() {
+  const carousel = document.getElementById('silent-carousel');
+  const dating = document.getElementById('dating-container');
+  if (dating) dating.style.display = 'none';
+  if (carousel) carousel.style.display = 'flex';
+  document.getElementById('inventory-ui').style.display = 'none';
+}
+
+function showSelectionScreen() {
+  document.getElementById('selection-screen').style.display = 'flex';
+  document.getElementById('date-screen').style.display = 'none';
+  selectedCharacter = null;
+  hideTooltip();
+}
+
+function showTooltip(imgSrc) {
+  const tooltip = document.getElementById('global-tooltip');
+  const toolImg = document.getElementById('tooltip-img');
+  toolImg.src = imgSrc;
+  tooltip.style.display = 'block';
+}
+
+function hideTooltip() {
+  document.getElementById('global-tooltip').style.display = 'none';
+}
+
+function handleCardClick(charKey) {
+  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  if (isTouch) {
+    if (selectedCharacter === charKey) {
+      startRoute(charKey);
+    } else {
+      selectedCharacter = charKey;
+      showTooltip(ASSETS[charKey].who);
+    }
+  } else {
+    startRoute(charKey);
+  }
+}
+
+function handleCardHover(charKey) {
+  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  if (!isTouch) {
+    showTooltip(ASSETS[charKey].who);
+  }
+}
+
+document.getElementById('selection-screen').addEventListener('click', function(e) {
+  if (e.target.id === 'selection-screen') {
+    selectedCharacter = null;
+    hideTooltip();
+  }
+});
+
+function startRoute(charKey) {
+  hideTooltip();
+  currentRoute = ROUTES[charKey];
+  document.getElementById('selection-screen').style.display = 'none';
+  document.getElementById('date-screen').style.display = 'flex';
+  renderNode(currentRoute.start);
+}
+
+function renderNode(node) {
+  if (!node) return showSelectionScreen();
+  if (node.onEnter) node.onEnter();
+  const port = document.getElementById('active-portrait');
+  port.src = node.img;
+  document.getElementById('dialogue-text').innerText = node.text;
+  const cContainer = document.getElementById('choice-container');
+  cContainer.innerHTML = '';
+  let validChoices = 0;
+  node.choices.forEach(c => {
+    if (c.req) {
+      const isNot = c.req.startsWith('!');
+      const key = isNot ? c.req.substring(1) : c.req;
+      const val = GAME_STATE[key];
+      if ((isNot && val) || (!isNot && !val)) return;
+    }
+    validChoices++;
+    const btn = document.createElement('div');
+    btn.className = 'choice-btn';
+    btn.innerText = `> ${c.txt}`;
+    if (c.next === 'reset') {
+      btn.onclick = () => showSelectionScreen();
+    } else {
+      btn.onclick = () => renderNode(currentRoute[c.next]);
+    }
+    cContainer.appendChild(btn);
+  });
+  if (validChoices === 0) {
+    const btn = document.createElement('div');
+    btn.className = 'choice-btn';
+    btn.innerText = "> [Leave awkwardly]";
+    btn.onclick = () => showSelectionScreen();
+    cContainer.appendChild(btn);
+  }
+}
+
+/* =========================================
+   TRUMPO VIDEO
+   ========================================= */
+function fakePrizePopup() {
+  const bannerText = document.getElementById("banner-text").innerText;
+  if(bannerText.startsWith("VIDEO ENDS IN")) {
+    window.location.href = "videos/redblue/redbluerealm.html";
+  } else {
+    alert("ERROR: Prize server is DOWN. Please mail 3 dollars cash to: 404 Not Found Blvd.");
+  }
+}
+
+function playTrumpoVideo() {
+  const container = document.querySelector('.trumpo-box');
+  const existingVideo = container.querySelector('video');
+  if(existingVideo) {
+    const timeLeft = existingVideo.duration - existingVideo.currentTime;
+    if(timeLeft <= 10 && timeLeft > 0) {
+      window.location.href = "videos/redblue/redbluerealm.html";
+      return;
+    }
+  }
+  const videoUrl = "https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/peoplesvigil.mp4";
+  const vid = document.createElement("video");
+  vid.src = videoUrl;
+  vid.autoplay = true;
+  vid.style.width = "100%";
+  vid.style.height = "100%";
+  vid.style.objectFit = "fill";
+  vid.onended = restoreTrumpo;
+  vid.onclick = playTrumpoVideo;
+  vid.ontimeupdate = function() {
+    const timeLeft = vid.duration - vid.currentTime;
+    const banner = document.getElementById("banner-text");
+    if(timeLeft <= 10 && timeLeft > 0) {
+      banner.innerText = "VIDEO ENDS IN " + Math.ceil(timeLeft) + "... " + (Math.ceil(timeLeft)-1) + "...";
+      banner.style.background = "black";
+      banner.style.color = "red";
+    } else {
+      if(banner.innerText.startsWith("VIDEO ENDS")) {
+        banner.innerText = "CONGRATS YOU ARE THE 999,999th VISITOR!!! CLICK TO CLAIM PRIZE";
+        banner.style.background = "red";
+        banner.style.color = "yellow";
+      }
+    }
+  };
+  container.innerHTML = "";
+  container.appendChild(vid);
+}
+
+function restoreTrumpo() {
+  const container = document.querySelector('.trumpo-box');
+  container.innerHTML = `<img id="trumpo-img" src="https://f005.backblazeb2.com/file/webcomiconline-gallery/Index/trumpo.gif" alt="prophecy" onclick="playTrumpoVideo()">`;
+  const banner = document.getElementById("banner-text");
+  banner.innerText = "CONGRATS YOU ARE THE 999,999th VISITOR!!! CLICK TO CLAIM PRIZE";
+  banner.style.background = "red";
+  banner.style.color = "yellow";
+}
+
+/* =========================================
+   POPUPS (Tony, Victory, etc.)
+   ========================================= */
+function openTonyPopup(isSecret) {
+  document.getElementById('tony-collage').style.display = 'block';
+  const tIframe = document.getElementById('tony-iframe');
+  if(tIframe && tIframe.src === "about:blank") tIframe.src = tIframe.dataset.src;
+  startBossOverlay();
+  // Audio handling is in wco_audio.js
+  if(isSecret) {
+    const secret = document.getElementById('secret-audio');
+    secret.volume = 1.0;
+    secret.currentTime = 0;
+    secret.play().catch(e => console.log("Secret audio blocked"));
+    showAchievement('Secret Audio', 'You found the hidden emergency broadcast!');
+  }
+}
+
+function closeTonyPopup() {
+  document.getElementById('tony-collage').style.display = 'none';
+  const tIframe = document.getElementById('tony-iframe');
+  if(tIframe) tIframe.src = "about:blank";
+  stopBossOverlay();
+  const secret = document.getElementById('secret-audio');
+  secret.pause();
+  secret.currentTime = 0;
+}
+
+function startBossOverlay() {
+  const overlay = document.getElementById('boss-overlay');
+  overlay.style.display = 'block';
+  overlay.innerHTML = '';
+  const frag = document.createDocumentFragment();
+  for(let i=0; i<50; i++) {
+    const span = document.createElement('span');
+    span.className = 'boss-text';
+    span.textContent = "WHO'S THE BOSS?";
+    span.style.top = Math.random() * 100 + "%";
+    span.style.left = Math.random() * 100 + "%";
+    span.style.fontSize = (20 + Math.random() * 60) + "px";
+    span.style.transform = `rotate(${Math.random()*60 - 30}deg)`;
+    span.style.animationDelay = (Math.random() * 0.5) + "s";
+    frag.appendChild(span);
+  }
+  overlay.appendChild(frag);
+}
+
+function stopBossOverlay() {
+  document.getElementById('boss-overlay').style.display = 'none';
+  document.getElementById('boss-overlay').innerHTML = '';
+}
+
+const VICTORY_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTdyDdQ0AaC-XcP8s0wcm5HRr3BKCwHmvYOsHC_dJBhmkaGqoL8iRXxf49YeRDg3Y-SPv6mg1EQk-So/pub?gid=428160570&single=true&output=csv";
+const PROXY_URL = "https://corsproxy.io/?";
+let audioPreVictoryState = { winamp: false, secret: false };
+
+function openVictoryPopup() {
+  const siteAudio = document.getElementById('site-audio');
+  audioPreVictoryState.winamp = !siteAudio.paused;
+  audioPreVictoryState.secret = !document.getElementById('secret-audio').paused;
+  siteAudio.pause();
+  document.getElementById('secret-audio').pause();
+  document.getElementById('victory-popup').style.display = 'block';
+  const v = document.getElementById('victory-vid');
+  v.currentTime = 0;
+  v.play();
+  fetchVictoryNames();
+  showAchievement('Secret Hunter', 'You found all the ants!');
+}
+
+function closeVictoryPopup() {
+  document.getElementById('victory-popup').style.display = 'none';
+  document.getElementById('victory-vid').pause();
+  if(audioPreVictoryState.winamp) document.getElementById('site-audio').play();
+  if(audioPreVictoryState.secret) document.getElementById('secret-audio').play();
+}
+
+function getRandomColor() {
+  const colors = ['#00ff00', '#ff00ff', '#00ffff', '#ffff00', '#ff0000', '#ffffff'];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+async function fetchVictoryNames() {
+  const marquee = document.getElementById('victory-marquee-text');
+  marquee.innerHTML = "FETCHING WINNERS...";
+  try {
+    const cacheBuster = Date.now();
+    const sheetUrl = VICTORY_SHEET_URL + "&t=" + cacheBuster;
+    const res = await fetch(PROXY_URL + encodeURIComponent(sheetUrl));
+    const txt = await res.text();
+    const rows = parseCSV(txt);
+    const winners = [];
+    for(let i=1; i<rows.length; i++) {
+      const row = rows[i];
+      if(row.length < 2) continue;
+      let candidate = "";
+      for(let c=1; c<row.length; c++) {
+        const cell = row[c].trim();
+        if(cell && !cell.includes('@') && cell.length < 30 && isNaN(cell)) {
+          candidate = cell;
+          break;
+        }
+      }
+      if(candidate) winners.push(candidate);
+    }
+    if(winners.length > 0) {
+      const coloredWinners = winners.map(name => {
+        const color = getRandomColor();
+        return `<span style="color:${color}">${name}</span>`;
+      });
+      const list = coloredWinners.join("<br><br>") + "<br><br>***<br><br>" + coloredWinners.join("<br><br>");
+      marquee.innerHTML = "VICTORY ROLL<br>***<br>" + list;
+    } else {
+      marquee.textContent = "NO WINNERS YET. BE THE FIRST.";
+    }
+  } catch(e) {
+    console.error(e);
+    marquee.textContent = "CONNECTION ERROR: UNABLE TO LOAD WINNERS.";
+  }
+}
+
+function parseCSV(str) {
+  const arr = [];
+  let quote = false;
+  let col = 0, c = 0;
+  for (let row = 0; row < str.length; row++) {
+    let cc = str[row], nc = str[row+1];
+    arr[c] = arr[c] || [];
+    arr[c][col] = arr[c][col] || '';
+    if (cc == '"' && quote && nc == '"') {
+      arr[c][col] += cc;
+      ++row;
+    } else if (cc == '"') {
+      quote = !quote;
+    } else if (cc == ',' && !quote) {
+      ++col;
+    } else if (cc == '\r' && nc == '\n' && !quote) {
+      ++c; col = 0; ++row;
+    } else if (cc == '\n' && !quote) {
+      ++c; col = 0;
+    } else {
+      arr[c][col] += cc;
+    }
+  }
+  return arr;
+}
+
+/* =========================================
+   SILENT CAROUSEL
+   ========================================= */
+const SILENT_ASSETS = Array.isArray(window.WCO_SILENT_ASSETS) ? window.WCO_SILENT_ASSETS : [];
+const silentCarouselEl = document.getElementById('silent-carousel');
+const silentViewportEl = document.getElementById('silent-viewport');
+const silentVideoEl = document.getElementById('silent-media');
+const silentPrevEl = document.getElementById('silent-prev');
+const silentNextEl = document.getElementById('silent-next');
+const silentCounterEl = document.getElementById('silent-counter');
+const silentHintEl = document.getElementById('silent-hint');
+const silentFsBackdropEl = document.getElementById('silent-fs-backdrop');
+const silentFsCloseEl = document.getElementById('silent-fs-close');
+
+let silentIndex = 0;
+let silentEndedCount = 0;
+const silentPanById = new Map();
+let silentDrag = null;
+let silentClickSuppressUntil = 0;
+let silentDefaultHintText = '';
+
+function clamp(n, a, b) {
+  return Math.max(a, Math.min(b, n));
+}
+
+function wrapIndex(i, len) {
+  if (len <= 0) return 0;
+  return (i % len + len) % len;
+}
+
+function silentSetCounter() {
+  if (!silentCounterEl) return;
+  silentCounterEl.textContent = `${Math.min(silentIndex + 1, SILENT_ASSETS.length)}/${SILENT_ASSETS.length || 1}`;
+}
+
+function silentApplyPan(assetId) {
+  const pan = silentPanById.get(assetId) || { xPct: 50, yPct: 50 };
+  silentVideoEl.style.objectPosition = `${pan.xPct}% ${pan.yPct}%`;
+}
+
+async function silentTryPlay() {
+  if (!silentVideoEl) return;
+  try {
+    const p = silentVideoEl.play();
+    if (p && typeof p.then === 'function') await p;
+  } catch (e) {
+    try {
+      silentVideoEl.muted = true;
+      const p2 = silentVideoEl.play();
+      if (p2 && typeof p2.then === 'function') await p2;
+    } catch (_) {}
+  }
+}
+
+function silentLoad(index) {
+  if (!silentVideoEl || SILENT_ASSETS.length === 0) return;
+  silentIndex = wrapIndex(index, SILENT_ASSETS.length);
+  silentEndedCount = 0;
+  const asset = SILENT_ASSETS[silentIndex];
+  silentVideoEl.pause();
+  silentVideoEl.removeAttribute('src');
+  silentVideoEl.src = asset.src;
+  silentVideoEl.preload = 'metadata';
+  silentVideoEl.playsInline = true;
+  silentVideoEl.loop = false;
+  silentVideoEl.currentTime = 0;
+  silentApplyPan(asset.id);
+  silentSetCounter();
+  silentTryPlay();
+}
+
+function silentNext() {
+  silentLoad(silentIndex + 1);
+}
+
+function silentPrev() {
+  silentLoad(silentIndex - 1);
+}
+
+function silentOpenFullscreen() {
+  if (silentHintEl && !silentDefaultHintText) silentDefaultHintText = silentHintEl.textContent;
+  if (silentHintEl) silentHintEl.textContent = 'press esc key to exit full screen mode';
+  document.body.classList.add('silent-fs-open');
+  if (silentFsBackdropEl) silentFsBackdropEl.setAttribute('aria-hidden', 'false');
+}
+
+function silentCloseFullscreen() {
+  document.body.classList.remove('silent-fs-open');
+  if (silentHintEl) silentHintEl.textContent = silentDefaultHintText || 'DRAG TO PAN • CLICK = FULLSCREEN';
+  if (silentFsBackdropEl) silentFsBackdropEl.setAttribute('aria-hidden', 'true');
+}
+
+function initSilentCarousel() {
+  if (!silentCarouselEl || !silentVideoEl) return;
+  if (SILENT_ASSETS.length === 0) {
+    silentSetCounter();
+    return;
+  }
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape' && document.body.classList.contains('silent-fs-open')) {
+      silentCloseFullscreen();
+    }
+  });
+  if (silentPrevEl) silentPrevEl.addEventListener('click', (e) => {
+    e.preventDefault();
+    silentPrev();
+  });
+  if (silentNextEl) silentNextEl.addEventListener('click', (e) => {
+    e.preventDefault();
+    silentNext();
+  });
+  silentVideoEl.addEventListener('ended', () => {
+    silentEndedCount += 1;
+    if (silentEndedCount >= 5) {
+      silentNext();
+      return;
+    }
+    silentVideoEl.currentTime = 0;
+    silentTryPlay();
+  });
+  if (silentViewportEl) {
+    silentViewportEl.addEventListener('pointerdown', (ev) => {
+      if (document.body.classList.contains('silent-fs-open')) return;
+      silentViewportEl.setPointerCapture(ev.pointerId);
+      const startX = ev.clientX;
+      const startY = ev.clientY;
+      const asset = SILENT_ASSETS[silentIndex];
+      const pan = silentPanById.get(asset.id) || { xPct: 50, yPct: 50 };
+      silentDrag = { id: asset.id, startX, startY, x0: pan.xPct, y0: pan.yPct };
+    });
+    silentViewportEl.addEventListener('pointermove', (ev) => {
+      if (!silentDrag) return;
+      const dx = ev.clientX - silentDrag.startX;
+      const dy = ev.clientY - silentDrag.startY;
+      const xPct = clamp(silentDrag.x0 + dx / 6, 0, 100);
+      const yPct = clamp(silentDrag.y0 + dy / 6, 0, 100);
+      silentPanById.set(silentDrag.id, { xPct, yPct });
+      silentVideoEl.style.objectPosition = `${xPct}% ${yPct}%`;
+      if (Math.abs(dx) + Math.abs(dy) > 6) silentClickSuppressUntil = Date.now() + 250;
+    });
+    const endDrag = () => { silentDrag = null; };
+    silentViewportEl.addEventListener('pointerup', endDrag);
+    silentViewportEl.addEventListener('pointercancel', endDrag);
+    silentViewportEl.addEventListener('click', (ev) => {
+      if (document.body.classList.contains('silent-fs-open')) {
+        silentCloseFullscreen();
+        return;
+      }
+      if (Date.now() < silentClickSuppressUntil) return;
+      try {
+        silentVideoEl.muted = false;
+      } catch (_) {}
+      silentOpenFullscreen();
+    });
+  }
+  if (silentFsCloseEl) silentFsCloseEl.addEventListener('click', (e) => {
+    e.preventDefault();
+    silentCloseFullscreen();
+  });
+  if (silentFsBackdropEl) silentFsBackdropEl.addEventListener('click', (e) => {
+    if (e.target === silentFsCloseEl) return;
+    silentCloseFullscreen();
+  });
+  silentLoad(0);
+}
+
+document.addEventListener('DOMContentLoaded', initSilentCarousel);
+
+/* =========================================
+   DOLPHIN & GUESTBOOK
+   These are handled by wco_dolphin.js and wco_audio.js
+   ========================================= */
+
+// Guestbook function needs to be here since it modifies DOM
+function loadGuestbook() {
+  const display = document.getElementById('main-display');
+  const container = document.getElementById('main-container');
+  container.style.width = '1000px';
+  display.innerHTML = `<iframe id="guestbook-iframe" src="guestbook.html" style="width: 1000px; height: 1200px; border: none; overflow: hidden;" scrolling="no"></iframe>`;
+}
+
+// Blue balls dismiss
+function dismissBlueText() {
+  document.getElementById('blue-balls-text').style.display = 'none';
+}
+</script>
+
+<script src="liminaltools/dating_inventory_actions.js"></script>
+</body>
+</html>
