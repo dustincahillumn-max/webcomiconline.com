@@ -429,6 +429,7 @@ h1 { margin: 5px; font-size: 2em; color: var(--color-text-red); text-shadow: 2px
 
 .silent-carousel { position:absolute; inset:0; display:flex; flex-direction:column; background:#000; }
 .silent-viewport { position:relative; flex:1; overflow:hidden; cursor:grab; }
+#silent-media-container { width:100%; height:100%; position:relative; }
 #silent-media { width:100%; height:100%; object-fit:cover; }
 .silent-controls { display:flex; justify-content:center; gap:10px; padding:6px 0; border-top:1px solid #333; }
 .silent-arrow { background:#000; color:lime; border:1px solid #0f0; cursor:pointer; }
@@ -699,7 +700,7 @@ body.silent-fs-open .silent-fs-close { display:block; }
 
         <div id="silent-carousel" class="silent-carousel" aria-label="Silent Carousel">
           <div id="silent-viewport" class="silent-viewport" title="Click to fullscreen. Drag to pan.">
-            <video id="silent-media" playsinline preload="metadata"></video>
+            <div id="silent-media-container"></div>
             <div id="silent-hint" class="silent-hint">DRAG TO PAN • CLICK = FULLSCREEN</div>
           </div>
           <div class="silent-controls" aria-label="Carousel controls">
@@ -1703,7 +1704,7 @@ function parseCSV(str) {
 const SILENT_ASSETS = Array.isArray(window.WCO_SILENT_ASSETS) ? window.WCO_SILENT_ASSETS : [];
 const silentCarouselEl = document.getElementById('silent-carousel');
 const silentViewportEl = document.getElementById('silent-viewport');
-const silentVideoEl = document.getElementById('silent-media');
+const silentMediaContainer = document.getElementById('silent-media-container');
 const silentPrevEl = document.getElementById('silent-prev');
 const silentNextEl = document.getElementById('silent-next');
 const silentCounterEl = document.getElementById('silent-counter');
@@ -1717,6 +1718,8 @@ const silentPanById = new Map();
 let silentDrag = null;
 let silentClickSuppressUntil = 0;
 let silentDefaultHintText = '';
+let silentCurrentMediaEl = null;
+let silentCurrentType = null;
 
 function clamp(n, a, b) {
   return Math.max(a, Math.min(b, n));
@@ -1733,39 +1736,83 @@ function silentSetCounter() {
 }
 
 function silentApplyPan(assetId) {
+  if (!silentCurrentMediaEl) return;
   const pan = silentPanById.get(assetId) || { xPct: 50, yPct: 50 };
-  silentVideoEl.style.objectPosition = `${pan.xPct}% ${pan.yPct}%`;
+  silentCurrentMediaEl.style.objectPosition = `${pan.xPct}% ${pan.yPct}%`;
 }
 
 async function silentTryPlay() {
-  if (!silentVideoEl) return;
+  if (!silentCurrentMediaEl || silentCurrentType !== 'video') return;
   try {
-    const p = silentVideoEl.play();
+    const p = silentCurrentMediaEl.play();
     if (p && typeof p.then === 'function') await p;
   } catch (e) {
     try {
-      silentVideoEl.muted = true;
-      const p2 = silentVideoEl.play();
+      silentCurrentMediaEl.muted = true;
+      const p2 = silentCurrentMediaEl.play();
       if (p2 && typeof p2.then === 'function') await p2;
     } catch (_) {}
   }
 }
 
 function silentLoad(index) {
-  if (!silentVideoEl || SILENT_ASSETS.length === 0) return;
+  if (!silentMediaContainer || SILENT_ASSETS.length === 0) return;
   silentIndex = wrapIndex(index, SILENT_ASSETS.length);
   silentEndedCount = 0;
   const asset = SILENT_ASSETS[silentIndex];
-  silentVideoEl.pause();
-  silentVideoEl.removeAttribute('src');
-  silentVideoEl.src = asset.src;
-  silentVideoEl.preload = 'metadata';
-  silentVideoEl.playsInline = true;
-  silentVideoEl.loop = false;
-  silentVideoEl.currentTime = 0;
+
+  // Clean up old media element
+  if (silentCurrentMediaEl) {
+    if (silentCurrentType === 'video') {
+      silentCurrentMediaEl.pause();
+      silentCurrentMediaEl.removeAttribute('src');
+    }
+    silentMediaContainer.innerHTML = '';
+  }
+
+  // Determine asset type
+  const assetType = asset.type || 'video';
+  silentCurrentType = assetType;
+
+  // Create appropriate media element
+  if (assetType === 'image') {
+    silentCurrentMediaEl = document.createElement('img');
+    silentCurrentMediaEl.id = 'silent-media';
+    silentCurrentMediaEl.src = asset.src;
+    silentCurrentMediaEl.style.width = '100%';
+    silentCurrentMediaEl.style.height = '100%';
+    silentCurrentMediaEl.style.objectFit = 'cover';
+  } else {
+    silentCurrentMediaEl = document.createElement('video');
+    silentCurrentMediaEl.id = 'silent-media';
+    silentCurrentMediaEl.src = asset.src;
+    silentCurrentMediaEl.preload = 'metadata';
+    silentCurrentMediaEl.playsInline = true;
+    silentCurrentMediaEl.loop = false;
+    silentCurrentMediaEl.currentTime = 0;
+    silentCurrentMediaEl.style.width = '100%';
+    silentCurrentMediaEl.style.height = '100%';
+    silentCurrentMediaEl.style.objectFit = 'cover';
+
+    // Add video-specific event listener
+    silentCurrentMediaEl.addEventListener('ended', () => {
+      silentEndedCount += 1;
+      if (silentEndedCount >= 5) {
+        silentNext();
+        return;
+      }
+      silentCurrentMediaEl.currentTime = 0;
+      silentTryPlay();
+    });
+  }
+
+  silentMediaContainer.appendChild(silentCurrentMediaEl);
   silentApplyPan(asset.id);
   silentSetCounter();
-  silentTryPlay();
+
+  if (assetType === 'video') {
+    silentTryPlay();
+  }
 }
 
 function silentNext() {
@@ -1790,7 +1837,7 @@ function silentCloseFullscreen() {
 }
 
 function initSilentCarousel() {
-  if (!silentCarouselEl || !silentVideoEl) return;
+  if (!silentCarouselEl || !silentMediaContainer) return;
   if (SILENT_ASSETS.length === 0) {
     silentSetCounter();
     return;
@@ -1808,15 +1855,6 @@ function initSilentCarousel() {
     e.preventDefault();
     silentNext();
   });
-  silentVideoEl.addEventListener('ended', () => {
-    silentEndedCount += 1;
-    if (silentEndedCount >= 5) {
-      silentNext();
-      return;
-    }
-    silentVideoEl.currentTime = 0;
-    silentTryPlay();
-  });
   if (silentViewportEl) {
     silentViewportEl.addEventListener('pointerdown', (ev) => {
       if (document.body.classList.contains('silent-fs-open')) return;
@@ -1828,13 +1866,13 @@ function initSilentCarousel() {
       silentDrag = { id: asset.id, startX, startY, x0: pan.xPct, y0: pan.yPct };
     });
     silentViewportEl.addEventListener('pointermove', (ev) => {
-      if (!silentDrag) return;
+      if (!silentDrag || !silentCurrentMediaEl) return;
       const dx = ev.clientX - silentDrag.startX;
       const dy = ev.clientY - silentDrag.startY;
       const xPct = clamp(silentDrag.x0 + dx / 6, 0, 100);
       const yPct = clamp(silentDrag.y0 + dy / 6, 0, 100);
       silentPanById.set(silentDrag.id, { xPct, yPct });
-      silentVideoEl.style.objectPosition = `${xPct}% ${yPct}%`;
+      silentCurrentMediaEl.style.objectPosition = `${xPct}% ${yPct}%`;
       if (Math.abs(dx) + Math.abs(dy) > 6) silentClickSuppressUntil = Date.now() + 250;
     });
     const endDrag = () => { silentDrag = null; };
@@ -1847,7 +1885,9 @@ function initSilentCarousel() {
       }
       if (Date.now() < silentClickSuppressUntil) return;
       try {
-        silentVideoEl.muted = false;
+        if (silentCurrentMediaEl && silentCurrentType === 'video') {
+          silentCurrentMediaEl.muted = false;
+        }
       } catch (_) {}
       silentOpenFullscreen();
     });
